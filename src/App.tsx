@@ -1,0 +1,2062 @@
+import { useState, useEffect, useRef, ReactNode } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
+import { 
+  Instagram, 
+  Twitter, 
+  Linkedin, 
+  Youtube, 
+  Layers, 
+  Play, 
+  Users, 
+  ArrowUpRight, 
+  ArrowRight,
+  TrendingUp,
+  Award,
+  BookOpen,
+  MousePointer,
+  Sparkles,
+  Quote,
+  Video,
+  UploadCloud,
+  Cpu,
+  EyeOff,
+  Mic
+} from "lucide-react";
+
+import Cursor from "./components/Cursor";
+import Loader from "./components/Loader";
+import Navbar from "./components/Navbar";
+import Marquee from "./components/Marquee";
+import ContactForm from "./components/ContactForm";
+import InteractivePhone from "./components/InteractivePhone";
+import CaseStudySection from "./components/CaseStudySection";
+import ComparisonTable from "./components/ComparisonTable";
+import FaqSection from "./components/FaqSection";
+import ProcessCard from "./components/ProcessCard";
+
+import { 
+  SERVICE_ITEMS, 
+  TEAM_MEMBERS, 
+  BLOG_ITEMS,
+  TESTIMONIALS 
+} from "./data";
+
+const StrategyIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8 text-[#1A1A1A]" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 2L2 12l10 10 10-10L12 2z" />
+    <path d="M12 6L6 12l6 6 6-6L12 6z" strokeWidth="1.2" opacity="0.6" />
+    <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+  </svg>
+);
+
+const CreateManageIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8 text-[#1A1A1A]" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="5" y="2" width="14" height="20" rx="3" />
+    <rect x="10" y="4" width="4" height="1.5" rx="0.75" fill="currentColor" stroke="none" />
+    <path d="M7 17h10" />
+    <circle cx="12" cy="19" r="1.2" fill="currentColor" />
+  </svg>
+);
+
+const ReviewRefineIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8 text-[#1A1A1A]" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="4" width="18" height="16" rx="2" />
+    <path d="M7 8h10" />
+    <path d="M7 12h8" />
+    <path d="M7 16h4" />
+    <circle cx="16" cy="15" r="1.5" fill="currentColor" />
+  </svg>
+);
+
+const StackedCard = ({ index, children }: { index: number; children: ReactNode }) => {
+  const anchorRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: anchorRef,
+    offset: ["start start", "end start"]
+  });
+
+  const isLast = index === 2;
+  const scale = useTransform(scrollYProgress, [0, 1], [1, isLast ? 1 : 0.94]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, isLast ? 1 : 0.88]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, isLast ? 0 : 25]);
+
+  return (
+    <div className="relative w-full">
+      {/* Invisible anchor playing as natural flow placeholder */}
+      <div 
+        ref={anchorRef} 
+        className="absolute top-0 left-0 w-full h-full pointer-events-none invisible" 
+      />
+      
+      {/* Actual sticky deck card in a zig-zag format */}
+      <motion.div
+        whileHover={{
+          scale: isMobile ? 1 : 1.015,
+          rotate: 0,
+          x: 0,
+          transition: { duration: 0.3, ease: "easeOut" }
+        }}
+        style={{
+          position: isMobile ? "static" : "sticky",
+          top: isMobile ? "auto" : `calc(100px + ${index * 24}px)`,
+          zIndex: 10 + index,
+          scale: isMobile ? 1 : scale,
+          opacity: isMobile ? 1 : opacity,
+          y: isMobile ? 0 : y,
+          rotate: isMobile ? 0 : (index === 0 ? -1.5 : index === 1 ? 1.5 : -0.5),
+          x: isMobile ? 0 : (index === 0 ? -24 : index === 1 ? 24 : -12),
+        }}
+        className="w-full bg-white rounded-3xl border border-[#E8E6E1] p-8 md:p-12 shadow-[0_10px_35px_-6px_rgba(26,26,26,0.08),0_10px_10px_-5px_rgba(26,26,26,0.04)] hover:shadow-[0_25px_50px_-12px_rgba(26,26,26,0.15)] transition-shadow duration-300 transform-gpu"
+      >
+        {children}
+      </motion.div>
+    </div>
+  );
+};
+
+interface ServiceDataItem {
+  title: string;
+  description: string;
+}
+
+const SERVICES_DATA: ServiceDataItem[] = [
+  {
+    title: "Short-Form Content",
+    description: "High-retention Reels, Shorts, and vertical videos with fast-paced cuts, eye-catching captions, and motion graphics that stop the scroll and keep viewers watching."
+  },
+  {
+    title: "Long-Form Repurposing",
+    description: "Turn your hour-long podcast or YouTube video into 10+ bite-sized clips. We extract the best moments so one recording fuels weeks of content across all platforms."
+  },
+  {
+    title: "Multi-Platform Formatting",
+    description: "Every platform has different rules. We resize, reformat, and optimize your content for Instagram, YouTube, LinkedIn, and beyond—so it looks native and performs better everywhere."
+  },
+  {
+    title: "Corporate & Course Videos",
+    description: "Polished webinars, training videos, marketing content, and online courses. We make your business content look professional, clear, and engaging for your audience."
+  },
+  {
+    title: "Content Workflow",
+    description: "Upload your raw footage. We handle the rest—editing, revisions, formatting, and delivery. No back-and-forth chaos. Just consistent, ready-to-post content on your schedule."
+  }
+];
+
+const FACELESS_SERVICES_DATA: ServiceDataItem[] = [
+  {
+    title: "AI-Generated Visuals",
+    description: "Custom AI imagery and animations synced with narration for unique, copyright-safe content."
+  },
+  {
+    title: "Kinetic Typography",
+    description: "Text-on-screen reels with motion graphics, perfect for quotes, lists, and educational content."
+  },
+  {
+    title: "Podcast-to-Visual Content",
+    description: "Your audio (or AI voiceover) paired with B-roll, captions, and dynamic visuals—no camera required."
+  },
+  {
+    title: "Screen Recording Edits",
+    description: "Tutorials, software demos, and walkthroughs with zoom effects, captions, and annotations."
+  },
+  {
+    title: "Reddit & Story Channels",
+    description: "Engaging narrated stories paired with gameplay, stock visuals, or kinetic text."
+  }
+];
+
+const renderFacelessPreviewMockup = (index: number) => {
+  switch (index) {
+    case 0:
+      return (
+        <motion.div
+          key="ai-generated"
+          initial={{ opacity: 0, scale: 0.95, y: 15 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: -15 }}
+          transition={{ duration: 0.4 }}
+          className="relative w-full h-full flex items-center justify-center min-h-[350px] md:min-h-[450px]"
+        >
+          {/* Subtle glow background */}
+          <div className="absolute inset-0 bg-stone-100/50 rounded-[32px] overflow-hidden">
+            <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-[#D4D0C8] rounded-full blur-3xl opacity-50" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-stone-200 rounded-full blur-2xl opacity-60" />
+          </div>
+
+          {/* Social Video Mockup */}
+          <div className="relative w-[180px] sm:w-[220px] h-[320px] sm:h-[400px] rounded-[28px] bg-[#1A1A1A] border-4 border-[#1A1A1A] shadow-2xl flex flex-col justify-between overflow-hidden">
+            {/* Visual thumbnail */}
+            <div className="absolute inset-0 w-full h-full">
+              <img 
+                src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop" 
+                alt="AI Generated Visual" 
+                className="w-full h-full object-cover opacity-80"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/45" />
+            </div>
+
+            {/* Social Header */}
+            <div className="relative z-10 p-3 flex justify-between items-center text-white">
+              <span className="text-[10px] font-mono tracking-wider opacity-90 font-bold">AI Render</span>
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            </div>
+
+            {/* Content scanning or loading visual overlays */}
+            <div className="relative z-10 flex flex-col items-center justify-center text-white/90 gap-1.5">
+              <motion.div 
+                animate={{ scale: [1, 1.08, 1] }} 
+                transition={{ repeat: Infinity, duration: 2 }}
+                className="w-10 h-10 rounded-full bg-[#1A1A1A]/70 backdrop-blur-sm border border-emerald-400/30 flex items-center justify-center text-emerald-400"
+              >
+                <Cpu className="w-5 h-5 animate-pulse" />
+              </motion.div>
+              <span className="text-[9px] font-mono tracking-widest uppercase text-emerald-300 font-bold">SYNTHESIZING...</span>
+            </div>
+
+            {/* In-video smart captions overlay */}
+            <div className="relative z-10 px-4 py-2 flex flex-col gap-1 items-center">
+              <div className="bg-emerald-400 text-black px-2 py-0.5 rounded-md font-sans text-[10px] sm:text-xs font-black uppercase text-center shadow-md">
+                100% PATENT FREE
+              </div>
+              <div className="bg-white/10 backdrop-blur-md border border-white/10 text-white rounded-[12px] p-2 text-[9px] leading-snug text-center">
+                Custom AI imagery synced with strategic story loops.
+              </div>
+            </div>
+
+            {/* Static bottom bar */}
+            <div className="relative z-10 p-3 flex flex-col gap-1.5 bg-black/40 backdrop-blur-md">
+              <div className="w-full bg-white/20 h-1 rounded-full overflow-hidden">
+                <motion.div animate={{ width: ["0%", "100%"] }} transition={{ repeat: Infinity, duration: 4, ease: "linear" }} className="bg-emerald-400 h-full" />
+              </div>
+              <div className="flex justify-between text-[10px] text-white/80 font-mono">
+                <span>@vikedit_ai</span>
+                <span className="text-emerald-400">Copyright Safe</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Floating badges matching style */}
+          <motion.div 
+            animate={{ y: [0, -10, 0] }} 
+            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }} 
+            className="absolute top-10 right-4 sm:right-6 bg-white border border-[#E8E6E1] p-3 rounded-2xl shadow-xl flex items-center gap-2.5 z-20"
+          >
+            <div className="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
+              <Cpu className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="text-[10px] text-[#999999] block font-mono font-bold">GENERATED</span>
+              <span className="text-xs font-bold text-black font-sans">AI-Powered</span>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            animate={{ y: [0, 8, 0] }} 
+            transition={{ repeat: Infinity, duration: 4.5, delay: 0.5, ease: "easeInOut" }} 
+            className="absolute bottom-12 left-4 sm:left-6 bg-[#1A1A1A] text-white p-3 rounded-2xl shadow-xl flex items-center gap-2.5 z-20"
+          >
+            <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white">
+              <Sparkles className="w-4 h-4 text-emerald-300" />
+            </div>
+            <div>
+              <span className="text-[10px] text-white/60 block font-mono font-bold">PRIVACY LOCK</span>
+              <span className="text-xs font-bold font-sans">No Camera Needed</span>
+            </div>
+          </motion.div>
+        </motion.div>
+      );
+
+    case 1:
+      return (
+        <motion.div
+          key="kinetic-typography"
+          initial={{ opacity: 0, scale: 0.95, y: 15 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: -15 }}
+          transition={{ duration: 0.4 }}
+          className="relative w-full h-full flex items-center justify-center min-h-[350px] md:min-h-[450px]"
+        >
+          {/* Subtle glow background */}
+          <div className="absolute inset-0 bg-[#E8E6E1]/40 rounded-[32px] overflow-hidden">
+            <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-stone-300 rounded-full blur-3xl opacity-50" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#E8E6E1] rounded-full blur-2xl opacity-60" />
+          </div>
+
+          {/* Social Video Mockup */}
+          <div className="relative w-[180px] sm:w-[220px] h-[320px] sm:h-[400px] rounded-[28px] bg-black border-4 border-black shadow-2xl flex flex-col justify-between overflow-hidden">
+            <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]" />
+
+            {/* Social Header */}
+            <div className="relative z-10 p-3 flex justify-between items-center text-white">
+              <span className="text-[10px] font-mono tracking-wider opacity-90 font-bold">Typography</span>
+              <div className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse" />
+            </div>
+
+            {/* Kinetic Text Center Stage */}
+            <div className="relative z-10 flex flex-col items-center justify-center text-center gap-2 px-4 h-36">
+              <motion.span 
+                animate={{ 
+                  scale: [1, 1.2, 0.9, 1],
+                  rotate: [0, -3, 3, 0] 
+                }} 
+                transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+                className="text-3xl font-sans font-black tracking-tight text-white leading-none block"
+              >
+                IDEAS
+              </motion.span>
+              <motion.span 
+                animate={{ 
+                  scale: [0.9, 1.1, 1.1, 0.9],
+                  color: ["#FFFFFF", "#FACC15", "#FFFFFF", "#FFFFFF"]
+                }} 
+                transition={{ repeat: Infinity, duration: 1.8, delay: 0.3, ease: "easeInOut" }}
+                className="text-2xl font-serif italic text-yellow-400 leading-none block"
+              >
+                RULE
+              </motion.span>
+              <motion.span 
+                animate={{ 
+                  scale: [1, 0.9, 1.2, 1],
+                }} 
+                transition={{ repeat: Infinity, duration: 1.8, delay: 0.6, ease: "easeInOut" }}
+                className="text-sm font-mono tracking-widest text-[#999999] uppercase leading-none block"
+              >
+                &amp; PERFORM
+              </motion.span>
+            </div>
+
+            {/* In-video caption overlay */}
+            <div className="relative z-10 px-4 py-2 flex flex-col gap-1 items-center">
+              <div className="bg-yellow-400 text-black px-2 py-0.5 rounded-md font-sans text-[10px] sm:text-xs font-black uppercase text-center shadow-md animate-bounce">
+                TEXT ONLY 🌟
+              </div>
+              <div className="bg-white/10 backdrop-blur-md border border-white/10 text-white rounded-[12px] p-2 text-[9px] leading-snug text-center w-full">
+                Kinetic motion graphic layouts designed to hook scrolling eyes.
+              </div>
+            </div>
+
+            {/* Static bottom bar */}
+            <div className="relative z-10 p-3 flex flex-col gap-1.5 bg-black/40 backdrop-blur-md">
+              <div className="w-full bg-white/20 h-1 rounded-full overflow-hidden">
+                <motion.div animate={{ width: ["0%", "100%"] }} transition={{ repeat: Infinity, duration: 4.5, ease: "linear" }} className="bg-yellow-400 h-full" />
+              </div>
+              <div className="flex justify-between text-[10px] text-white/80 font-mono">
+                <span>@vikedit_text</span>
+                <span className="text-yellow-400">High Retention</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Floating badges */}
+          <motion.div 
+            animate={{ y: [0, -10, 0] }} 
+            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }} 
+            className="absolute top-10 right-4 sm:right-6 bg-white border border-[#E8E6E1] p-3 rounded-2xl shadow-xl flex items-center gap-2.5 z-20"
+          >
+            <div className="w-7 h-7 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600">
+              <Sparkles className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="text-[10px] text-[#999999] block font-mono font-bold">CONVERSION</span>
+              <span className="text-xs font-bold text-black font-sans">+180% Engagement</span>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            animate={{ y: [0, 8, 0] }} 
+            transition={{ repeat: Infinity, duration: 4.5, delay: 0.5, ease: "easeInOut" }} 
+            className="absolute bottom-12 left-4 sm:left-6 bg-[#1A1A1A] text-white p-3 rounded-2xl shadow-xl flex items-center gap-2.5 z-20"
+          >
+            <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white">
+              <Layers className="w-4 h-4 text-yellow-300" />
+            </div>
+            <div>
+              <span className="text-[10px] text-white/60 block font-mono font-bold">TYPOGRAPHY</span>
+              <span className="text-xs font-bold font-sans">Kinetic Reels</span>
+            </div>
+          </motion.div>
+        </motion.div>
+      );
+
+    case 2:
+      return (
+        <motion.div
+          key="podcast-to-visual"
+          initial={{ opacity: 0, scale: 0.95, y: 15 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: -15 }}
+          transition={{ duration: 0.4 }}
+          className="relative w-full h-full flex items-center justify-center min-h-[350px] md:min-h-[450px]"
+        >
+          {/* Subtle glow background */}
+          <div className="absolute inset-0 bg-[#E8E6E1]/40 rounded-[32px] overflow-hidden">
+            <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-[#D4D0C8] rounded-full blur-3xl opacity-50" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#E8E6E1] rounded-full blur-2xl opacity-60" />
+          </div>
+
+          {/* Social Video Mockup */}
+          <div className="relative w-[180px] sm:w-[220px] h-[320px] sm:h-[400px] rounded-[28px] bg-[#1A1A1A] border-4 border-[#1A1A1A] shadow-2xl flex flex-col justify-between overflow-hidden">
+            <div className="absolute inset-0 w-full h-full">
+              <img 
+                src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?q=80&w=600&auto=format&fit=crop" 
+                alt="Microphone / Voiceover setup" 
+                className="w-full h-full object-cover opacity-60"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/30" />
+            </div>
+
+            {/* Social Header */}
+            <div className="relative z-10 p-3 flex justify-between items-center text-white">
+              <span className="text-[10px] font-mono tracking-wider opacity-90 font-bold">Podcast-to-Visual</span>
+              <div className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
+            </div>
+
+            {/* Centered waveform dynamic */}
+            <div className="relative z-10 flex flex-col items-center justify-center text-white/95 gap-2 mt-4 font-mono">
+              <div className="w-10 h-10 rounded-full bg-violet-500/20 border border-violet-400/40 flex items-center justify-center text-violet-300">
+                <Mic className="w-5 h-5 animate-bounce-slow" />
+              </div>
+              <div className="flex gap-1 items-end h-7 pt-1">
+                <motion.div animate={{ height: [8, 24, 8] }} transition={{ repeat: Infinity, duration: 1.0 }} className="w-1 bg-violet-400 rounded-sm" />
+                <motion.div animate={{ height: [12, 32, 12] }} transition={{ repeat: Infinity, duration: 0.8 }} className="w-1 bg-violet-400 rounded-sm" />
+                <motion.div animate={{ height: [20, 10, 20] }} transition={{ repeat: Infinity, duration: 1.2 }} className="w-1 bg-violet-400 rounded-sm" />
+                <motion.div animate={{ height: [15, 28, 15] }} transition={{ repeat: Infinity, duration: 0.9 }} className="w-1 bg-violet-400 rounded-sm" />
+                <motion.div animate={{ height: [6, 18, 6] }} transition={{ repeat: Infinity, duration: 1.4 }} className="w-1 bg-violet-400 rounded-sm" />
+              </div>
+              <span className="text-[8px] font-mono tracking-widest text-[#E8E6E1]">VOICEOVER SYNCING</span>
+            </div>
+
+            {/* Captions */}
+            <div className="relative z-10 px-4 py-2 flex flex-col gap-1 items-center">
+              <div className="bg-violet-500 text-white px-2 py-0.5 rounded-md font-sans text-[10px] sm:text-xs font-bold uppercase text-center shadow-md">
+                B-ROLL SYNCHRONIZED
+              </div>
+              <div className="bg-white/10 backdrop-blur-md border border-white/10 text-white rounded-[12px] p-2 text-[9px] leading-snug text-center w-full">
+                Your audio paired with strategic visual storytelling.
+              </div>
+            </div>
+
+            {/* Static bottom bar */}
+            <div className="relative z-10 p-3 flex flex-col gap-1.5 bg-black/40 backdrop-blur-md">
+              <div className="w-full bg-white/20 h-1 rounded-full overflow-hidden">
+                <motion.div animate={{ width: ["0%", "100%"] }} transition={{ repeat: Infinity, duration: 5.5, ease: "linear" }} className="bg-violet-400 h-full" />
+              </div>
+              <div className="flex justify-between text-[10px] text-white/80 font-mono">
+                <span>@vikedit_audio</span>
+                <span className="text-violet-400">No Camera Needed</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Floating badges */}
+          <motion.div 
+            animate={{ y: [0, -10, 0] }} 
+            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }} 
+            className="absolute top-10 right-4 sm:right-6 bg-white border border-[#E8E6E1] p-3 rounded-2xl shadow-xl flex items-center gap-2.5 z-20"
+          >
+            <div className="w-7 h-7 rounded-full bg-violet-100 flex items-center justify-center text-violet-600">
+              <EyeOff className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="text-[10px] text-[#999999] block font-mono font-bold">PRIVACY</span>
+              <span className="text-xs font-bold text-black font-sans">No Camera Needed</span>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            animate={{ y: [0, 8, 0] }} 
+            transition={{ repeat: Infinity, duration: 4.5, delay: 0.5, ease: "easeInOut" }} 
+            className="absolute bottom-12 left-4 sm:left-6 bg-[#1A1A1A] text-white p-3 rounded-2xl shadow-xl flex items-center gap-2.5 z-20"
+          >
+            <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white">
+              <Mic className="w-4 h-4 text-violet-300" />
+            </div>
+            <div>
+              <span className="text-[10px] text-white/60 block font-mono font-bold">AUDIO COUPLING</span>
+              <span className="text-xs font-bold font-sans">Waveform Sync</span>
+            </div>
+          </motion.div>
+        </motion.div>
+      );
+
+    case 3:
+      return (
+        <motion.div
+          key="screen-recording"
+          initial={{ opacity: 0, scale: 0.95, y: 15 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: -15 }}
+          transition={{ duration: 0.4 }}
+          className="relative w-full h-full flex items-center justify-center min-h-[350px] md:min-h-[450px]"
+        >
+          {/* Subtle glow background */}
+          <div className="absolute inset-0 bg-stone-100/50 rounded-[32px] overflow-hidden">
+            <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-[#D4D0C8] rounded-full blur-3xl opacity-50" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#E8E6E1] rounded-full blur-2xl opacity-60" />
+          </div>
+
+          {/* Social Video Mockup */}
+          <div className="relative w-[180px] sm:w-[220px] h-[320px] sm:h-[400px] rounded-[28px] bg-[#1A1A1A] border-4 border-stone-800 shadow-2xl flex flex-col justify-between overflow-hidden">
+            <div className="absolute inset-0 w-full h-full">
+              <img 
+                src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=600&auto=format&fit=crop" 
+                alt="Screencast tutorial dashboard representation" 
+                className="w-full h-full object-cover opacity-80"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/30" />
+            </div>
+
+            {/* Social Header */}
+            <div className="relative z-10 p-3 flex justify-between items-center text-white">
+              <span className="text-[10px] font-mono tracking-wider opacity-90 font-bold">Screencast / Demos</span>
+              <div className="w-1.5 h-1.5 rounded-full bg-orange-400" />
+            </div>
+
+            {/* Dynamic zoom crop box marker overlay */}
+            <div className="relative z-10 flex flex-col items-center justify-center my-auto transition-transform duration-500">
+              <motion.div 
+                animate={{ scale: [0.95, 1.05, 0.95], borderColor: ["#F97316", "#FACC15", "#F97316"] }}
+                transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+                className="w-24 h-16 border-2 border-dashed border-orange-500 rounded-lg flex items-center justify-center bg-black/45 backdrop-blur-[1px] relative"
+              >
+                <div className="absolute -top-2 -left-2 w-4 h-4 border-t-2 border-l-2 border-orange-400" />
+                <div className="absolute -bottom-2 -right-2 w-4 h-4 border-b-2 border-r-2 border-orange-400" />
+                <span className="text-[8px] font-mono text-orange-300 font-bold tracking-wider uppercase animate-pulse">ZOOM 2.5X</span>
+              </motion.div>
+            </div>
+
+            {/* In-video smart captions overlay */}
+            <div className="relative z-10 px-4 py-2 flex flex-col gap-1 items-center">
+              <div className="bg-orange-500 text-white px-2 py-0.5 rounded-md font-sans text-[10px] sm:text-xs font-extrabold uppercase text-center shadow-md">
+                DYNAMIC CROP
+              </div>
+              <div className="bg-white/10 backdrop-blur-md border border-white/10 text-white rounded-[12px] p-2 text-[9px] leading-snug text-center w-full">
+                Professional walkthroughs with zoom highlights and clear annotations.
+              </div>
+            </div>
+
+            {/* Static bottom bar */}
+            <div className="relative z-10 p-3 flex flex-col gap-1.5 bg-black/40 backdrop-blur-md">
+              <div className="w-full bg-white/20 h-1 rounded-full overflow-hidden">
+                <motion.div animate={{ width: ["0%", "100%"] }} transition={{ repeat: Infinity, duration: 5 }} className="bg-orange-500 h-full" />
+              </div>
+              <div className="flex justify-between text-[10px] text-white/80 font-mono">
+                <span>@vikedit_pro</span>
+                <span className="text-orange-400">Annotations Active</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Floating badges */}
+          <motion.div 
+            animate={{ y: [0, -10, 0] }} 
+            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }} 
+            className="absolute top-10 right-4 sm:right-6 bg-white border border-[#E8E6E1] p-3 rounded-2xl shadow-xl flex items-center gap-2.5 z-20"
+          >
+            <div className="w-7 h-7 rounded-full bg-orange-100 flex items-center justify-center text-orange-600">
+              <Video className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="text-[10px] text-[#999999] block font-mono font-bold">TUTORIALS</span>
+              <span className="text-xs font-bold text-black font-sans">Zoom Highlights</span>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            animate={{ y: [0, 8, 0] }} 
+            transition={{ repeat: Infinity, duration: 4.5, delay: 0.5, ease: "easeInOut" }} 
+            className="absolute bottom-12 left-4 sm:left-6 bg-[#1A1A1A] text-white p-3 rounded-2xl shadow-xl flex items-center gap-2.5 z-20"
+          >
+            <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white">
+              <Sparkles className="w-4 h-4 text-orange-300" />
+            </div>
+            <div>
+              <span className="text-[10px] text-white/60 block font-mono font-bold">CLARITY</span>
+              <span className="text-xs font-bold font-sans">Full annotations</span>
+            </div>
+          </motion.div>
+        </motion.div>
+      );
+
+    case 4:
+      return (
+        <motion.div
+          key="reddit-story"
+          initial={{ opacity: 0, scale: 0.95, y: 15 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: -15 }}
+          transition={{ duration: 0.4 }}
+          className="relative w-full h-full flex items-center justify-center min-h-[350px] md:min-h-[450px]"
+        >
+          {/* Subtle glow background */}
+          <div className="absolute inset-0 bg-[#E8E6E1]/40 rounded-[32px] overflow-hidden">
+            <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-[#D4D0C8] rounded-full blur-3xl opacity-50" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#E8E6E1] rounded-full blur-2xl opacity-60" />
+          </div>
+
+          {/* Social Video Mockup */}
+          <div className="relative w-[180px] sm:w-[220px] h-[320px] sm:h-[400px] rounded-[28px] bg-[#1A1A1A] border-4 border-[#1A1A1A] shadow-2xl flex flex-col justify-between overflow-hidden">
+            <div className="absolute inset-0 w-full h-full">
+              <img 
+                src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=600&auto=format&fit=crop" 
+                alt="Immersive gameplay footage simulation" 
+                className="w-full h-full object-cover opacity-75"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/35" />
+            </div>
+
+            {/* Social Header */}
+            <div className="relative z-10 p-3 flex justify-between items-center text-white">
+              <span className="text-[10px] font-mono tracking-wider opacity-90 font-bold">Story Channels</span>
+              <div className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+            </div>
+
+            {/* Simulated Reddit/Post Interface Box on top */}
+            <div className="relative z-10 mx-3 mt-4 bg-black/60 backdrop-blur-md border border-white/10 rounded-xl p-2.5 text-left text-white text-[8px] flex flex-col gap-1">
+              <div className="flex items-center gap-1">
+                <div className="w-3.5 h-3.5 bg-rose-500 rounded-full flex items-center justify-center text-[6px] font-bold">r/</div>
+                <span className="font-sans font-semibold text-stone-300">r/AskReddit</span>
+                <span className="text-[#999999] opacity-70 font-mono">&middot; 3h ago</span>
+              </div>
+              <p className="font-sans font-bold text-white line-clamp-3 text-[9px] leading-tight">
+                AITA for refusing to edit my client's video after they sent me "raw clips" filmed in a dark cave on a 2012 flip phone?
+              </p>
+            </div>
+
+            {/* Captions in video */}
+            <div className="relative z-10 px-4 py-2 flex flex-col gap-1 items-center">
+              <div className="bg-rose-500 text-white px-2 py-0.5 rounded-md font-sans text-[10px] sm:text-xs font-black uppercase text-center shadow-md animate-pulse">
+                VIRAL FORMAT 🚀
+              </div>
+              <div className="bg-white/10 backdrop-blur-md border border-white/10 text-white rounded-[12px] p-2 text-[9px] leading-snug text-center w-full">
+                Bite-sized stories voiced by customized voiceovers with gameplay loops below.
+              </div>
+            </div>
+
+            {/* Static bottom bar */}
+            <div className="relative z-10 p-3 flex flex-col gap-1.5 bg-black/40 backdrop-blur-md">
+              <div className="w-full bg-white/20 h-1 rounded-full overflow-hidden">
+                <motion.div animate={{ width: ["0%", "100%"] }} transition={{ repeat: Infinity, duration: 6, ease: "linear" }} className="bg-rose-500 h-full" />
+              </div>
+              <div className="flex justify-between text-[10px] text-white/80 font-mono">
+                <span>@vikedit_stories</span>
+                <span className="text-rose-500">99.2% Hook</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Floating badges */}
+          <motion.div 
+            animate={{ y: [0, -10, 0] }} 
+            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }} 
+            className="absolute top-10 right-4 sm:right-6 bg-white border border-[#E8E6E1] p-3 rounded-2xl shadow-xl flex items-center gap-2.5 z-20"
+          >
+            <div className="w-7 h-7 rounded-full bg-rose-100 flex items-center justify-center text-rose-600">
+              <TrendingUp className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="text-[10px] text-[#999999] block font-mono font-bold">ENGAGEMENT</span>
+              <span className="text-xs font-bold text-black font-sans">+180% Engagement</span>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            animate={{ y: [0, 8, 0] }} 
+            transition={{ repeat: Infinity, duration: 4.5, delay: 0.5, ease: "easeInOut" }} 
+            className="absolute bottom-12 left-4 sm:left-6 bg-[#1A1A1A] text-white p-3 rounded-2xl shadow-xl flex items-center gap-2.5 z-20"
+          >
+            <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white">
+              <Users className="w-4 h-4 text-rose-400" />
+            </div>
+            <div>
+              <span className="text-[10px] text-white/60 block font-mono font-bold">CHANNELS</span>
+              <span className="text-xs font-bold font-sans">Story Narrative</span>
+            </div>
+          </motion.div>
+        </motion.div>
+      );
+
+    default:
+      return null;
+  }
+};
+
+const renderPreviewMockup = (index: number) => {
+  switch (index) {
+    case 0:
+      return (
+        <motion.div
+          key="short-form"
+          initial={{ opacity: 0, scale: 0.95, y: 15 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: -15 }}
+          transition={{ duration: 0.4 }}
+          className="relative w-full h-full flex items-center justify-center min-h-[350px] md:min-h-[450px]"
+        >
+          {/* Subtle glow background */}
+          <div className="absolute inset-0 bg-[#E8E6E1]/40 rounded-[32px] overflow-hidden">
+            <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-[#D4D0C8] rounded-full blur-3xl opacity-50" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#E8E6E1] rounded-full blur-2xl opacity-60" />
+          </div>
+
+          {/* Social Video Mockup */}
+          <div className="relative w-[180px] sm:w-[220px] h-[320px] sm:h-[400px] rounded-[28px] bg-[#1A1A1A] border-4 border-[#1A1A1A] shadow-2xl flex flex-col justify-between overflow-hidden">
+            {/* Visual thumbnail */}
+            <div className="absolute inset-0 w-full h-full">
+              <img 
+                src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=600&auto=format&fit=crop" 
+                alt="Short-form" 
+                className="w-full h-full object-cover opacity-80"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
+            </div>
+
+            {/* Social Header */}
+            <div className="relative z-10 p-3 flex justify-between items-center text-white">
+              <span className="text-[10px] font-mono tracking-wider opacity-90">0:15 / Reels</span>
+              <div className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+            </div>
+
+            {/* Sound wave graphic container in center */}
+            <div className="relative z-10 flex flex-col items-center justify-center text-white/90 gap-1 mt-6">
+              <div className="flex gap-0.5 items-end h-8">
+                <motion.div animate={{ height: [12, 28, 12] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0.1 }} className="w-1 bg-[#F5F3EF] rounded-sm" />
+                <motion.div animate={{ height: [18, 38, 18] }} transition={{ repeat: Infinity, duration: 0.9, delay: 0.3 }} className="w-1 bg-[#F5F3EF] rounded-sm" />
+                <motion.div animate={{ height: [8, 22, 8] }} transition={{ repeat: Infinity, duration: 1.5, delay: 0 }} className="w-1 bg-[#F5F3EF] rounded-sm" />
+                <motion.div animate={{ height: [14, 30, 14] }} transition={{ repeat: Infinity, duration: 1.1, delay: 0.7 }} className="w-1 bg-[#F5F3EF] rounded-sm" />
+                <motion.div animate={{ height: [22, 10, 22] }} transition={{ repeat: Infinity, duration: 1.4, delay: 0.2 }} className="w-1 bg-[#F5F3EF] rounded-sm" />
+              </div>
+              <span className="text-[9px] font-mono tracking-widest uppercase text-white/50">AUDIO ENGAGEMENT</span>
+            </div>
+
+            {/* In-video smart captions overlay */}
+            <div className="relative z-10 px-4 py-2 flex flex-col gap-1 items-center">
+              <div className="bg-yellow-400 text-black px-2 py-0.5 rounded-md font-sans text-[11px] sm:text-xs font-black uppercase text-center shadow-md animate-bounce">
+                STOP SCROLLING 💥
+              </div>
+              <div className="bg-white/10 backdrop-blur-md border border-white/10 text-white rounded-[12px] p-2 text-[9px] leading-snug text-center">
+                High-retention editing that hooks them first.
+              </div>
+            </div>
+
+            {/* Static bottom bar */}
+            <div className="relative z-10 p-3 flex flex-col gap-1.5 bg-black/40 backdrop-blur-md">
+              <div className="w-full bg-white/20 h-1 rounded-full overflow-hidden">
+                <motion.div animate={{ width: ["0%", "100%"] }} transition={{ repeat: Infinity, duration: 5, ease: "linear" }} className="bg-white h-full" />
+              </div>
+              <div className="flex justify-between text-[10px] text-white/80 font-mono">
+                <span>@vikedit</span>
+                <span className="text-yellow-400">98.7% Retention</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Floating badge right */}
+          <motion.div 
+            animate={{ y: [0, -10, 0] }} 
+            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }} 
+            className="absolute top-10 right-4 sm:right-6 bg-white border border-[#E8E6E1] p-3 rounded-2xl shadow-xl flex items-center gap-2.5 z-20"
+          >
+            <div className="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
+              <TrendingUp className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="text-[10px] text-[#999999] block font-mono">RETENTION</span>
+              <span className="text-xs font-bold text-black font-sans">+245% Average</span>
+            </div>
+          </motion.div>
+
+          {/* Floating badge left */}
+          <motion.div 
+            animate={{ y: [0, 8, 0] }} 
+            transition={{ repeat: Infinity, duration: 4.5, delay: 0.5, ease: "easeInOut" }} 
+            className="absolute bottom-12 left-4 sm:left-6 bg-[#1A1A1A] text-white p-3 rounded-2xl shadow-xl flex items-center gap-2.5 z-20"
+          >
+            <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white">
+              <Sparkles className="w-4 h-4 text-yellow-300" />
+            </div>
+            <div>
+              <span className="text-[10px] text-white/60 block font-mono">AUTO HOOKS</span>
+              <span className="text-xs font-bold font-sans">Active Editing</span>
+            </div>
+          </motion.div>
+        </motion.div>
+      );
+
+    case 1:
+      return (
+        <motion.div
+          key="long-form"
+          initial={{ opacity: 0, scale: 0.95, y: 15 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: -15 }}
+          transition={{ duration: 0.4 }}
+          className="relative w-full h-full flex flex-col justify-center items-center min-h-[350px] md:min-h-[450px] p-4"
+        >
+          {/* Background overlay */}
+          <div className="absolute inset-0 bg-[#E8E6E1]/40 rounded-[32px]" />
+
+          {/* Repurposing Splitter Graphics */}
+          <div className="relative w-full max-w-[340px] space-y-6 z-10 flex flex-col items-center">
+            
+            {/* Long Form Source Card */}
+            <div className="w-full bg-white border border-[#E8E6E1] p-4 rounded-2xl shadow-md flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-black flex items-center justify-center text-white flex-shrink-0 animate-pulse">
+                <Video className="w-5 h-5 animate-bounce-slow" />
+              </div>
+              <div className="flex-grow min-w-0 text-left">
+                <span className="text-[9px] font-mono text-stone-400 uppercase tracking-widest block">LONG-FORM RAW INPUT</span>
+                <span className="text-xs font-bold text-black font-sans block truncate">YouTube / Podcast ep_83.mp4</span>
+                <span className="text-[10px] text-[#6B6B6B] block">Duration: 1h 12m 30s</span>
+              </div>
+              <span className="bg-[#F5F3EF] text-black px-2 py-0.5 rounded text-[10px] font-mono flex-shrink-0">16:9</span>
+            </div>
+
+            {/* Split Arrow Connectors - SVG Animation */}
+            <div className="w-20 h-12 relative flex justify-center py-2">
+              <svg className="w-full h-full overflow-visible" viewBox="0 0 100 50">
+                <path d="M 50 0 L 50 20 Q 50 35 15 35 M 50 20 L 50 45 M 50 20 Q 50 35 85 35" stroke="#1A1A1A" strokeWidth="2" fill="none" strokeDasharray="3 3" />
+                <circle cx="50" cy="0" r="3" fill="#1A1A1A" />
+                <polygon points="15,35 18,31 18,39" fill="#1A1A1A" />
+                <polygon points="50,45 46,41 54,41" fill="#1A1A1A" />
+                <polygon points="85,35 82,31 82,39" fill="#1A1A1A" />
+              </svg>
+            </div>
+
+            {/* Bite Sized Target Cards Grid */}
+            <div className="grid grid-cols-3 gap-2 w-full">
+              {[
+                { title: "Hook Intro", time: "0:45", icon: "💎", badge: "Shorts" },
+                { title: "Key Insight", time: "1:10", icon: "💡", badge: "Reels" },
+                { title: "Epic Ending", time: "0:30", icon: "🚀", badge: "LinkedIn" }
+              ].map((clip, idx) => (
+                <motion.div
+                  key={idx}
+                  whileHover={{ scale: 1.05 }}
+                  className="bg-white border border-[#E8E6E1] p-2.5 rounded-xl text-center shadow-sm flex flex-col justify-between"
+                >
+                  <span className="text-lg block mb-1">{clip.icon}</span>
+                  <div>
+                    <h4 className="text-[10px] font-bold text-black leading-tight truncate">{clip.title}</h4>
+                    <span className="text-[9px] text-[#6B6B6B] block font-mono mt-0.5">{clip.time}</span>
+                  </div>
+                  <span className="mt-2 bg-[#F5F3EF] text-stone-600 rounded-md py-0.5 text-[8px] font-mono tracking-tighter block uppercase">
+                    {clip.badge}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Floating Stats Indicator */}
+            <div className="bg-black text-white text-[11px] font-mono py-1.5 px-4 rounded-full shadow-lg">
+              🎯 1 Recording = 10+ Optimized Clips
+            </div>
+
+          </div>
+        </motion.div>
+      );
+
+    case 2:
+      return (
+        <motion.div
+          key="multi-platform"
+          initial={{ opacity: 0, scale: 0.95, y: 15 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: -15 }}
+          transition={{ duration: 0.4 }}
+          className="relative w-full h-full flex items-center justify-center min-h-[350px] md:min-h-[450px] p-4"
+        >
+          {/* Background Overlay */}
+          <div className="absolute inset-0 bg-[#E8E6E1]/40 rounded-[32px] overflow-hidden" />
+
+          {/* Canvas stacking mockup representing resizing */}
+          <div className="relative w-full max-w-[340px] h-[300px] flex items-center justify-center">
+            
+            {/* 16:9 Landscape Frame */}
+            <motion.div 
+              style={{ rotateZ: -3 }}
+              className="absolute w-[240px] h-[135px] bg-[#FFFFFF] border border-[#E8E6E1] rounded-xl shadow-lg p-3 z-10 flex flex-col justify-between text-left"
+            >
+              <div className="flex justify-between items-center pb-1 border-b border-stone-200/50">
+                <span className="text-[8px] font-mono text-rose-500 font-bold uppercase tracking-wider">▲ Landscape 16:9</span>
+                <span className="text-[8px] font-mono text-stone-400">YouTube Native</span>
+              </div>
+              <div className="flex-grow flex items-center justify-center text-center">
+                <span className="text-[10px] font-sans font-bold text-black/60 truncate">Full Horizontal Showcase</span>
+              </div>
+              <div className="bg-[#F5F3EF] p-1 rounded text-[8px] text-[#6B6B6B] block font-mono text-center">1920 x 1080px</div>
+            </motion.div>
+
+            {/* 1:1 Square Frame */}
+            <motion.div 
+              style={{ rotateZ: 3, x: 20, y: -10 }}
+              className="absolute w-[180px] h-[180px] bg-[#FFFFFF] border-2 border-stone-200 rounded-xl shadow-xl p-3 z-20 flex flex-col justify-between text-left"
+            >
+              <div className="flex justify-between items-center pb-1 border-b border-stone-200/50">
+                <span className="text-[8px] font-mono text-[#1877F2] font-bold uppercase tracking-wider">■ Square 1:1</span>
+                <span className="text-[8px] font-mono text-stone-400">LinkedIn Feed</span>
+              </div>
+              <div className="flex-grow flex flex-col justify-center items-center gap-1.5">
+                <div className="w-full h-8 bg-stone-100 rounded flex items-center justify-center">
+                  <span className="text-[9px] text-[#6B6B6B]">Visual Crop Zone</span>
+                </div>
+                <p className="text-[8px] font-serif leading-none italic text-center">Optimized safe spacing block</p>
+              </div>
+              <div className="bg-[#F5F3EF] p-0.5 rounded text-[8px] text-[#6B6B6B] block font-mono text-center">1080 x 1080px</div>
+            </motion.div>
+
+            {/* 9:16 Portrait Frame */}
+            <motion.div 
+              style={{ rotateZ: -1 }}
+              whileHover={{ scale: 1.03 }}
+              className="absolute w-[140px] h-[240px] bg-black text-white rounded-2xl shadow-2xl p-2.5 z-30 flex flex-col justify-between border border-neutral-800 text-left"
+            >
+              <div className="flex justify-between items-center">
+                <span className="text-[8px] font-mono text-yellow-400 font-bold uppercase">✦ Portrait 9:16</span>
+                <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
+              </div>
+
+              {/* Crop Box visualization overlays */}
+              <div className="flex-grow my-2 border border-dashed border-white/20 rounded-md relative flex items-center justify-center flex-col gap-1 overflow-hidden">
+                <div className="absolute inset-x-0 top-0 h-4 bg-white/5 backdrop-blur-xs text-[7px] text-white/60 text-center uppercase tracking-widest flex items-center justify-center font-mono">SAFE AREA</div>
+                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+                  <Sparkles className="w-4 h-4 text-yellow-300" />
+                </div>
+                <span className="text-[8px] font-bold tracking-tight text-white/90">Smart Anchor</span>
+                <div className="absolute inset-x-0 bottom-0 h-4 bg-white/5 backdrop-blur-xs text-[7px] text-white/60 text-center uppercase tracking-widest flex items-center justify-center font-mono">SAFE AREA</div>
+              </div>
+
+              <div className="bg-white/10 p-0.5 rounded text-[7px] text-white/80 block font-mono text-center">1080 x 1920px</div>
+            </motion.div>
+
+          </div>
+
+          {/* Small Floating tags */}
+          <div className="absolute bottom-5 right-6 bg-white border border-[#E8E6E1]/80 px-2.5 py-1 rounded-full text-[9px] font-mono text-black font-semibold shadow-md z-40">
+            ✓ Automated Crop Safe Zones
+          </div>
+        </motion.div>
+      );
+
+    case 3:
+      return (
+        <motion.div
+          key="corporate-courses"
+          initial={{ opacity: 0, scale: 0.95, y: 15 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: -15 }}
+          transition={{ duration: 0.4 }}
+          className="relative w-full h-full flex items-center justify-center min-h-[350px] md:min-h-[450px] p-4"
+        >
+          {/* Background Overlay */}
+          <div className="absolute inset-0 bg-[#E8E6E1]/40 rounded-[32px]" />
+
+          {/* Premium Video Player UI/UX Mockup */}
+          <div className="relative w-full max-w-[340px] bg-white border border-[#E8E6E1] rounded-2xl shadow-xl overflow-hidden z-10 flex flex-col text-left">
+            {/* Header */}
+            <div className="bg-[#F5F3EF] px-4 py-3 border-b border-[#E8E6E1] flex justify-between items-center">
+              <div className="flex gap-1.55">
+                <div className="w-2 h-2 rounded-full bg-stone-300" />
+                <div className="w-2 h-2 rounded-full bg-stone-300" />
+                <div className="w-2 h-2 rounded-full bg-stone-300" />
+              </div>
+              <span className="text-[9px] font-mono text-[#6B6B6B] tracking-wider font-semibold">COURSE_RENDERER_P3.MP4</span>
+              <div className="w-3" />
+            </div>
+
+            {/* Video Canvas view */}
+            <div className="relative aspect-[16/10] bg-[#1A1A1A] text-white p-4 flex flex-col justify-between overflow-hidden">
+              <div className="absolute inset-0">
+                <img 
+                  src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop" 
+                  alt="Webinar/Course representation" 
+                  className="w-full h-full object-cover opacity-60"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-black/20" />
+              </div>
+
+              {/* Watermark in corner */}
+              <div className="relative z-10 flex justify-end">
+                <span className="bg-black/40 backdrop-blur-md text-white/50 border border-white/10 rounded px-1.5 py-0.5 text-[7px] font-mono">VIKEDIT WEBINAR ENGINE</span>
+              </div>
+
+              {/* Split layout in slide overlay */}
+              <div className="relative z-10 flex gap-2 items-end">
+                {/* Visual slide card */}
+                <div className="bg-black/60 border border-white/10 p-2 rounded-lg w-[60%] flex flex-col gap-1">
+                  <span className="text-[7px] font-mono text-yellow-400 font-bold uppercase block">LECTURE PRESENTATION</span>
+                  <h5 className="text-[9px] font-bold leading-tight line-clamp-1">03. Content Infrastructure Strategies</h5>
+                  <div className="w-full bg-white/20 h-0.5 rounded-full mt-1" />
+                </div>
+                {/* Speaker avatar video overlay */}
+                <div className="w-12 h-12 rounded-lg border-2 border-white overflow-hidden relative shadow-md">
+                  <img 
+                    src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=200&auto=format&fit=crop" 
+                    alt="Speaker mockup" 
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute bottom-0 inset-x-0 h-2 bg-gradient-to-t from-red-600 to-transparent" />
+                </div>
+              </div>
+
+              {/* Media Player Controls */}
+              <div className="relative z-10 space-y-1 mt-2.5">
+                <div className="flex justify-between text-[7px] font-mono text-white/60">
+                  <span>04:12</span>
+                  <span>10:00</span>
+                </div>
+                <div className="w-full bg-white/25 h-1 rounded-full overflow-hidden relative">
+                  <div className="bg-emerald-400 w-[42%] h-full rounded-full" />
+                </div>
+                <div className="flex justify-between items-center pt-1.5">
+                  <div className="flex gap-2 text-white/80">
+                    <Play className="w-3 h-3 fill-current" />
+                    <span className="text-[8px] font-mono">POLISHED WEBINAR</span>
+                  </div>
+                  <span className="text-[8px] text-emerald-400 font-mono font-semibold">Clear & Corporate</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom info section */}
+            <div className="p-3 bg-white space-y-1.5">
+              <span className="text-[9px] font-mono text-stone-400 uppercase tracking-wider block font-bold">CHAPTER ENHANCEMENTS</span>
+              <div className="grid grid-cols-2 gap-1.5 text-[9.5px] text-[#6B6B6B]">
+                <div className="bg-[#F5F3EF] p-1.5 rounded-lg border border-[#E8E6E1]/55 text-black font-semibold">
+                  🚀 Lesson Intros Added
+                </div>
+                <div className="bg-[#F5F3EF] p-1.5 rounded-lg border border-[#E8E6E1]/55 text-black font-semibold">
+                  🎙️ Noise Cancellation
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </motion.div>
+      );
+
+    case 4:
+      return (
+        <motion.div
+          key="content-workflow"
+          initial={{ opacity: 0, scale: 0.95, y: 15 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: -15 }}
+          transition={{ duration: 0.4 }}
+          className="relative w-full h-full flex flex-col justify-center items-center min-h-[350px] md:min-h-[450px] p-4"
+        >
+          {/* Background Overlay */}
+          <div className="absolute inset-0 bg-[#E8E6E1]/40 rounded-[32px] overflow-hidden" />
+
+          {/* Workflow/Pipeline cards board */}
+          <div className="relative w-full max-w-[340px] space-y-3.5 z-10 text-left">
+            {/* Step 1: Upload progress card */}
+            <div className="bg-white border border-[#E8E6E1] p-3.5 rounded-xl shadow-md flex items-center gap-3">
+              <div className="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0">
+                <UploadCloud className="w-5 h-5" />
+              </div>
+              <div className="flex-grow min-w-0">
+                <div className="flex justify-between items-center text-[8.5px] font-mono text-[#6B6B6B] mb-0.5">
+                  <span>RAW_FOOTAGE_EP84.MOV</span>
+                  <span className="text-emerald-600 font-bold">92% UPLOADED</span>
+                </div>
+                <div className="w-full bg-[#F5F3EF] h-1.5 rounded-full overflow-hidden">
+                  <motion.div animate={{ width: ["0%", "100%"] }} transition={{ repeat: Infinity, duration: 6 }} className="bg-emerald-500 h-full rounded-full" />
+                </div>
+              </div>
+            </div>
+
+            {/* Step 2: Editorial Magic active card */}
+            <div className="bg-[#1A1A1A] text-white border border-neutral-800 p-3.5 rounded-xl shadow-md flex justify-between items-center">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-white/10 text-yellow-300 flex items-center justify-center flex-shrink-0">
+                  <Sparkles className="w-4 h-4 animate-spin-slow" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono text-white/50 uppercase tracking-widest block">PIPELINE CURRENT STAGE</span>
+                  <span className="text-xs font-bold text-white block">Magic Edits / Auto Captions</span>
+                </div>
+              </div>
+              <div className="bg-white/10 px-2 py-0.5 rounded text-[8px] font-mono border border-white/5 animate-pulse text-white">ACTIVE</div>
+            </div>
+
+            {/* Step 3: Calendar grid scheduler output mockup */}
+            <div className="bg-white border border-[#E8E6E1] p-3 rounded-xl shadow-md space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-[9px] font-mono text-stone-400 block font-semibold">CONTENT DEPLOYMENT CALENDAR</span>
+                <span className="text-[8px] bg-stone-100 text-[#1A1A1A] py-0.5 px-2 rounded-full font-bold">Auto Publish Active</span>
+              </div>
+              
+              <div className="grid grid-cols-7 gap-1 text-[8px] font-semibold text-[#1A1A1A] text-center bg-[#F5F3EF] p-1.5 rounded-lg border border-[#E8E6E1]/60">
+                <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+                <span className="opacity-30">24</span><span className="opacity-30">25</span>
+                <span className="bg-stone-300/40 rounded py-0.5 text-center font-bold">26</span>
+                <span className="bg-[#1A1A1A] text-white rounded py-0.5 font-bold animate-pulse">27 🎬</span>
+                <span className="bg-stone-300/40 rounded py-0.5 font-bold">28</span>
+                <span className="opacity-30">29</span><span className="opacity-30">30</span>
+              </div>
+              <p className="text-[8.5px] text-[#6B6B6B] leading-none text-center">Consistent, predictable distribution with zero chaos.</p>
+            </div>
+          </div>
+        </motion.div>
+      );
+
+    default:
+      return null;
+  }
+};
+
+export default function App() {
+  const [loading, setLoading] = useState(true);
+  const [currentView, setView] = useState("home"); // home, about, work, services, blog
+  const [activeService, setActiveService] = useState(0);
+  const [activeFacelessService, setActiveFacelessService] = useState(0);
+
+  // Scroll to top automatically when view changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [currentView]);
+
+  return (
+    <div className="bg-[#F5F3EF] min-h-screen text-[#1A1A1A] relative selection:bg-neutral-900 selection:text-white overflow-x-hidden">
+      {/* Dynamic interactive custom cursor pointer */}
+      <Cursor />
+
+      {/* Preloader animation screen */}
+      <AnimatePresence mode="wait">
+        {loading && (
+          <Loader key="preloader" onComplete={() => setLoading(false)} />
+        )}
+      </AnimatePresence>
+
+      {!loading && (
+        <motion.div
+          id="main-scroller-container"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="flex flex-col min-h-screen"
+        >
+          {/* Sticky top Navigation Header */}
+          <Navbar 
+            currentView={currentView} 
+            setView={setView} 
+            onBookCallClicked={() => setView("contact")} 
+          />
+
+          {/* Dynamic route switching with clean fade animations */}
+          <main className="flex-grow pt-20">
+            <AnimatePresence mode="wait">
+              {currentView === "home" && (
+                <motion.div
+                  key="home-view"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="space-y-0"
+                >
+                  {/* SECTION 2: HERO */}
+                  <section id="hero-section" className="min-h-screen flex items-center justify-center px-6 sm:px-12 py-16 md:py-24 max-w-7xl mx-auto">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center w-full">
+                      {/* Left Column (Text Content) */}
+                      <div className="lg:col-span-7 space-y-8 text-left">
+
+
+                        {/* Headline */}
+                        <div className="space-y-4 max-w-2xl">
+                          <h1 className="text-6xl sm:text-8xl lg:text-[88px] font-sans font-black text-[#1A1A1A] tracking-tighter leading-[0.95] pb-2">
+                            Record Less <br />Post<span className="inline-block ml-2 sm:ml-4 font-serif font-normal italic text-slate-800">More.</span>
+                          </h1>
+                          <p className="text-xl sm:text-3xl font-times font-normal text-[#1A1A1A]/80 tracking-snug leading-snug italic">
+                            Stop worrying about post-production delays <br />& Start scaling your consistency.
+                          </p>
+                        </div>
+
+                        {/* CTA Button */}
+                        <div className="pt-4">
+                          <button
+                            onClick={() => setView("contact")}
+                            className="bg-black text-white hover:bg-neutral-800 hover:scale-105 active:scale-95 transition-all text-sm font-bold uppercase tracking-wider py-4.5 px-10 rounded-full shadow-md cursor-pointer"
+                          >
+                            BOOK A CALL
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Right Column (Visual Phone Mockup) */}
+                      <div className="lg:col-span-5 flex justify-center lg:justify-end">
+                        <InteractivePhone />
+                      </div>
+                    </div>
+                  </section>
+
+                  {/* SECTION 3: TRUST BAR (Client Logos) */}
+                  <section id="trust-bar-section" className="bg-[#F5F3EF]">
+                    <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-6">
+                      <div className="text-center md:text-left min-w-[200px]">
+                        <span className="text-xs font-mono uppercase tracking-widest text-[#999999] block">
+                          Trusted by Partners
+                        </span>
+                        <p className="text-sm font-semibold text-[#6B6B6B] mt-1">
+                          We've Helped Grow and still Continue With
+                        </p>
+                      </div>
+                      <div className="flex-grow w-full md:w-auto">
+                        <Marquee />
+                      </div>
+                    </div>
+                  </section>
+
+                  {/* SECTION 4: MISSION & VALUE */}
+                  <section id="mission-section" className="pt-16 pb-20 md:pt-24 md:pb-32 px-6 sm:px-12 bg-[#F5F3EF] overflow-hidden">
+                    <div className="max-w-5xl mx-auto">
+                      {/* Top Header */}
+                      <div className="text-center max-w-4xl mx-auto mb-16 md:mb-24">
+                        <h2 className="text-4xl md:text-6xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-tight">
+                          Liberating creators from <br /> <span className="italic font-serif font-normal text-[#1A1A1A]">post-production.</span>
+                        </h2>
+                      </div>
+
+                      {/* Alternating Rows Container */}
+                      <div className="space-y-8 md:space-y-16 relative pb-12">
+                        
+                        {/* Row 1 (Text Left | Image Right) */}
+                        <StackedCard index={0}>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                            <div className="space-y-6">
+                              <h3 className="text-3xl md:text-5xl font-sans font-bold text-[#1A1A1A] tracking-tight leading-tight">
+                                Record Once <br className="hidden md:inline" /> Publish For <span className="italic font-serif font-semibold text-slate-800">Weeks.</span>
+                              </h3>
+                              <p className="text-[#6B6B6B] text-base leading-relaxed">
+                                We transform single recording sessions into weeks of platform-optimized content. Strategic repurposing, precise editing, and systematic delivery eliminating content scarcity without increasing production time.
+                              </p>
+                            </div>
+                            <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-[#E8E6E1]/50 bg-white shadow-sm">
+                              <img
+                                src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=800&auto=format&fit=crop"
+                                alt="Creator recording"
+                                className="w-full h-full object-cover"
+                                referrerPolicy="no-referrer"
+                              />
+                            </div>
+                          </div>
+                        </StackedCard>
+
+                        {/* Row 2 (Image Left | Text Right) */}
+                        <StackedCard index={1}>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                            <div className="order-2 md:order-1 relative aspect-[16/10] overflow-hidden rounded-2xl border border-[#E8E6E1]/50 bg-white shadow-sm">
+                              <img
+                                src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop"
+                                alt="Smartphone with content calendar"
+                                className="w-full h-full object-cover"
+                                referrerPolicy="no-referrer"
+                              />
+                            </div>
+                            <div className="order-1 md:order-2 space-y-6">
+                              <h3 className="text-3xl md:text-5xl font-sans font-bold text-[#1A1A1A] tracking-tight leading-tight">
+                                Consistency Without <br className="hidden md:inline" /> <span className="italic font-serif font-semibold text-slate-800">Compromise.</span>
+                              </h3>
+                              <p className="text-[#6B6B6B] text-base leading-relaxed">
+                                Maintain a predictable publishing cadence across all platforms. We handle formatting, optimization, and quality control so your brand presence remains relentless while your workload stays manageable.
+                              </p>
+                            </div>
+                          </div>
+                        </StackedCard>
+
+                        {/* Row 3 (Text Left | Image Right) */}
+                        <StackedCard index={2}>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                            <div className="space-y-6">
+                              <h3 className="text-3xl md:text-5xl font-sans font-bold text-[#1A1A1A] tracking-tight leading-tight">
+                                You Create Vision <br className="hidden md:inline" /> We <span className="italic font-serif font-semibold text-slate-800">Execute.</span>
+                              </h3>
+                              <p className="text-[#6B6B6B] text-base leading-relaxed">
+                                Redirect hours spent on post-production back into strategy, product development, and client acquisition. We function as your dedicated content operations team embedded, reliable, and aligned with your growth objectives.
+                              </p>
+                            </div>
+                            <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-[#E8E6E1]/50 bg-white shadow-sm">
+                              <img
+                                src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop"
+                                alt="Upload Complete UI or finished video"
+                                className="w-full h-full object-cover"
+                                referrerPolicy="no-referrer"
+                              />
+                            </div>
+                          </div>
+                        </StackedCard>
+
+                      </div>
+                    </div>
+                  </section>
+
+                  {/* SECTION 5: SERVICES */}
+                  <section id="services-section" className="w-full bg-[#FFFFFF]">
+                    <div className="pt-12 pb-24 md:pt-16 md:pb-36 px-6 sm:px-12 max-w-7xl mx-auto">
+                      {/* Header Section */}
+                      <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16 space-y-4">
+                        <span className="text-xs font-mono tracking-widest uppercase text-[#999999] font-bold block">
+                          OUR SERVICES
+                        </span>
+                        <h2 className="text-4xl md:text-6xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-tight">
+                          Things we do <span className="font-serif font-normal italic text-slate-800">for you</span>
+                        </h2>
+                        <p className="text-base md:text-lg text-[#6B6B6B] leading-relaxed max-w-2xl mx-auto pt-2">
+                          No more post-production delays. We transform raw recordings into ready-to-post clips, perfectly formatted for every platform. You create. We handle the rest.
+                        </p>
+                      </div>
+
+                      {/* Main Two-Column Layout */}
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+                        {/* Left Column: Vertical List of 5 Services */}
+                        <div className="lg:col-span-7 flex flex-col">
+                          {SERVICES_DATA.map((svc, index) => {
+                            const isActive = activeService === index;
+                            return (
+                              <div
+                                key={index}
+                                className="group py-6 md:py-8 border-b border-[#E8E6E1]/80 hover:border-[#1A1A1A] cursor-pointer transition-colors duration-300 first:border-t"
+                                onMouseEnter={() => setActiveService(index)}
+                                onClick={() => setActiveService(index)}
+                              >
+                                <div className="flex items-center justify-between gap-6">
+                                  <h3 
+                                    className={`text-2xl sm:text-3xl font-sans font-bold tracking-tight transition-all duration-300 text-left ${
+                                      isActive ? "text-[#1A1A1A] translate-x-1" : "text-[#1A1A1A]/40 group-hover:text-[#1A1A1A]/70"
+                                    }`}
+                                  >
+                                    {svc.title}
+                                  </h3>
+                                  
+                                  <div 
+                                    className={`w-10 h-10 rounded-full border flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                                      isActive 
+                                        ? "bg-[#1A1A1A] border-[#1A1A1A] text-white rotate-0" 
+                                        : "border-[#E8E6E1] text-[#1A1A1A] group-hover:bg-[#1A1A1A] group-hover:text-white group-hover:border-black -rotate-45"
+                                    }`}
+                                  >
+                                    <ArrowRight className="w-5 h-5" />
+                                  </div>
+                                </div>
+
+                                <AnimatePresence initial={false}>
+                                  {isActive && (
+                                    <motion.div
+                                      initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                                      animate={{ height: "auto", opacity: 1, marginTop: 16 }}
+                                      exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                                      className="overflow-hidden"
+                                    >
+                                      <p className="text-sm sm:text-base text-[#6B6B6B] leading-relaxed max-w-2xl pr-12 text-left">
+                                        {svc.description}
+                                      </p>
+                                    </motion.div>
+                                  )}
+                                </AnimatePresence>
+                              </div>
+                            );
+                          })}
+                        </div>
+
+                        {/* Right Column: Interactive Preview Card/Illustration */}
+                        <div className="lg:col-span-5 lg:sticky lg:top-32 w-full">
+                          <div className="bg-[#FFFFFF] border border-[#E8E6E1] rounded-[32px] p-6 lg:p-8 shadow-[0_20px_45px_-8px_rgba(26,26,26,0.06),0_15px_15px_-5px_rgba(26,26,26,0.03)] flex items-center justify-center relative overflow-hidden w-full h-[400px] sm:h-[480px]">
+                            <AnimatePresence mode="wait">
+                              {renderPreviewMockup(activeService)}
+                            </AnimatePresence>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  {/* STANDALONE SECTION: FACELESS CONTENT CREATION */}
+                  <section id="faceless-services-section" className="w-full bg-[#FFFFFF] border-t border-[#E8E6E1]/60">
+                    <div className="pt-24 pb-24 md:pt-36 md:pb-36 px-6 sm:px-12 max-w-7xl mx-auto">
+                      {/* Header Section */}
+                      <div className="text-center max-w-4xl mx-auto mb-12 md:mb-16 space-y-5">
+                        <div className="flex items-center justify-center gap-2">
+                          <span className="text-xs font-mono tracking-widest uppercase text-[#999999] font-bold">
+                            OUR SERVICES
+                          </span>
+                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-neutral-900 text-[9px] font-mono font-bold tracking-wider text-white uppercase rounded-full shadow-sm animate-pulse">
+                            <Sparkles className="w-2.5 h-2.5 text-yellow-300" />
+                            <span>New Service</span>
+                          </span>
+                        </div>
+                        <h2 className="text-4xl md:text-6xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-tight text-center">
+                          Faceless <span className="font-serif font-normal italic text-slate-800">Content Creation</span>
+                        </h2>
+                        <p className="text-base md:text-lg text-[#6B6B6B] leading-relaxed max-w-3xl mx-auto pt-1 text-center">
+                          Don't want to be on camera? We've got you. Faceless content that builds authority, grows audiences, and protects your privacy.
+                        </p>
+                      </div>
+
+                      {/* Main Two-Column Layout */}
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+                        {/* Left Column: Vertical List of 5 Services */}
+                        <div className="lg:col-span-7 flex flex-col">
+                          {FACELESS_SERVICES_DATA.map((svc, index) => {
+                            const isActive = activeFacelessService === index;
+                            return (
+                              <div
+                                key={index}
+                                className="group py-6 md:py-8 border-b border-[#E8E6E1]/80 hover:border-[#1A1A1A] cursor-pointer transition-colors duration-300 first:border-t"
+                                onMouseEnter={() => setActiveFacelessService(index)}
+                                onClick={() => setActiveFacelessService(index)}
+                              >
+                                <div className="flex items-center justify-between gap-6">
+                                  <h3 
+                                    className={`text-2xl sm:text-3xl font-sans font-bold tracking-tight transition-all duration-300 text-left ${
+                                      isActive ? "text-[#1A1A1A] translate-x-1" : "text-[#1A1A1A]/40 group-hover:text-[#1A1A1A]/70"
+                                    }`}
+                                  >
+                                    {svc.title}
+                                  </h3>
+                                  
+                                  <div 
+                                    className={`w-10 h-10 rounded-full border flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                                      isActive 
+                                        ? "bg-[#1A1A1A] border-[#1A1A1A] text-white rotate-0" 
+                                        : "border-[#E8E6E1] text-[#1A1A1A] group-hover:bg-[#1A1A1A] group-hover:text-white group-hover:border-black -rotate-45"
+                                    }`}
+                                  >
+                                    <ArrowRight className="w-5 h-5" />
+                                  </div>
+                                </div>
+
+                                <AnimatePresence initial={false}>
+                                  {isActive && (
+                                    <motion.div
+                                      initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                                      animate={{ height: "auto", opacity: 1, marginTop: 16 }}
+                                      exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                                      className="overflow-hidden"
+                                    >
+                                      <p className="text-sm sm:text-base text-[#6B6B6B] leading-relaxed max-w-2xl pr-12 text-left">
+                                        {svc.description}
+                                      </p>
+                                    </motion.div>
+                                  )}
+                                </AnimatePresence>
+                              </div>
+                            );
+                          })}
+                        </div>
+
+                        {/* Right Column: Interactive Preview Card/Illustration */}
+                        <div className="lg:col-span-5 lg:sticky lg:top-32 w-full">
+                          <div className="bg-[#FFFFFF] border border-[#E8E6E1] rounded-[32px] p-6 lg:p-8 shadow-[0_20px_45px_-8px_rgba(26,26,26,0.06),0_15px_15px_-5px_rgba(26,26,26,0.03)] flex items-center justify-center relative overflow-hidden w-full h-[400px] sm:h-[480px]">
+                            <AnimatePresence mode="wait">
+                              {renderFacelessPreviewMockup(activeFacelessService)}
+                            </AnimatePresence>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  {/* SECTION 6: PROCESS (How We Work) */}
+                  <section 
+                    id="process-section" 
+                    className="relative bg-[#F5F3EF] py-24 md:py-36 px-6 sm:px-12 overflow-hidden border-y border-[#E8E6E1]/60"
+                  >
+                    {/* Decorative elegant background glow shapes for subtle branding */}
+                    <div className="absolute top-1/4 left-10 w-96 h-96 rounded-full bg-violet-400/5 blur-[120px] pointer-events-none" />
+                    <div className="absolute bottom-1/4 right-10 w-96 h-96 rounded-full bg-violet-400/5 blur-[120px] pointer-events-none" />
+
+                    <div className="max-w-7xl mx-auto relative z-10">
+                      <div className="text-center mb-16 max-w-3xl mx-auto">
+                        <span className="text-xs font-mono tracking-widest uppercase text-[#1A1A1A]/50 block font-bold mb-4">
+                          Work Process
+                        </span>
+                        <h2 className="text-4xl md:text-6xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-none animate-fade-in">
+                          The Process Behind <span className="italic font-serif font-normal text-stone-700">Every Project</span>
+                        </h2>
+                        <p className="text-xs sm:text-sm font-mono tracking-widest uppercase text-[#1A1A1A] font-extrabold mt-8 block">
+                          Align &rarr; Upload &rarr; Create &rarr; Deliver &rarr; Repeat
+                        </p>
+                      </div>
+
+                      {/* 2x2 Responsive Grid Layout */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                        <ProcessCard
+                          num={1}
+                          title="1. Strategy & Onboarding"
+                          body="We align on your goals, audience, and brand voice through a focused strategy call. You share your guidelines and top-performing content. We define success metrics and lock in your service tier—then you're officially onboarded."
+                        />
+                        <ProcessCard
+                          num={2}
+                          title="2. Upload & Strategic Mapping"
+                          body="Drop your raw footage into our secure portal. We review the full recording to identify high-retention moments: strong hooks, key insights, and shareable clips. Every segment is mapped for maximum repurposing potential across your target platforms."
+                        />
+                        <ProcessCard
+                          num={3}
+                          title="3. Production & Refinement"
+                          body="We edit, format, and optimize each asset—vertical cuts for Reels/Shorts, polished long-form for YouTube, clean audio for podcasts. You receive drafts via a simple feedback link, comment on timestamps, and we implement revisions within 24 hours. Two rounds included."
+                        />
+                        <ProcessCard
+                          num={4}
+                          title="4. Delivery & Continuous Scale"
+                          body="Approved assets arrive organized, labeled, and ready to post. Then the cycle repeats: your next recording triggers the same streamlined workflow. Consistent output, zero operational drag, and a content engine that scales with you."
+                        />
+                      </div>
+                    </div>
+                  </section>
+
+                  {/* SECTION 7: CASE STUDIES */}
+                  <section id="work-case-studies" className="py-24 md:py-36 px-6 sm:px-12 bg-white border-y border-[#E8E6E1]">
+                    <div className="max-w-7xl mx-auto space-y-16">
+                      <div className="text-left space-y-2">
+                        <span className="text-xs font-mono tracking-widest uppercase text-[#999999]">
+                          DOCUMENTED OUTPUT
+                        </span>
+                        <h2 className="text-4xl md:text-6xl font-sans font-bold text-[#1A1A1A]">
+                          Proven case studies
+                        </h2>
+                      </div>
+
+                      <CaseStudySection />
+                    </div>
+                  </section>
+
+
+                  {/* SECTION 9: COMPARISON TABLE */}
+                  <section id="comparison-section" className="py-24 md:py-36 px-6 sm:px-12 bg-[#F5F3EF]">
+                    <div className="max-w-7xl mx-auto space-y-16">
+                      <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16 space-y-4">
+                        <span className="text-xs font-mono tracking-widest uppercase text-[#999999] font-bold block mb-4">
+                          The difference
+                        </span>
+                        <h2 className="text-4xl md:text-6xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-tight">
+                          Why clients choose <span className="font-serif font-normal italic text-slate-800">VikEdit</span>
+                        </h2>
+                      </div>
+
+                      <ComparisonTable />
+                    </div>
+                  </section>
+
+                  {/* SECTION 10: TEAM */}
+                  <section id="team-section" className="py-24 md:py-36 px-6 sm:px-12 bg-white border-y border-[#E8E6E1]">
+                    <div className="max-w-7xl mx-auto space-y-16">
+                      <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                        <span className="text-xs font-mono tracking-widest uppercase text-[#999999] font-bold block mb-4">
+                          Our team
+                        </span>
+                        <h2 className="text-4xl md:text-6xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-tight">
+                          Operational <span className="font-serif font-normal italic text-stone-700">leadership</span>
+                        </h2>
+                      </div>
+
+                      <div id="team-cards-grid" className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
+                        {TEAM_MEMBERS.map((member) => (
+                          <div key={member.id} className="space-y-4 group cursor-pointer text-center flex flex-col items-center">
+                            <div className="relative overflow-hidden rounded-full w-52 h-52 sm:w-56 sm:h-56 bg-[#F5F3EF] border border-[#E8E6E1]/50 shadow-sm flex-shrink-0">
+                              <img
+                                src={member.photoUrl}
+                                alt={member.name}
+                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                referrerPolicy="no-referrer"
+                              />
+                            </div>
+                            <div className="pt-2">
+                              <h3 className="text-xl font-bold text-[#1A1A1A]">{member.name}</h3>
+                              <p className="text-xs uppercase font-semibold text-[#6B6B6B] tracking-wider mt-1">{member.role}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </section>
+
+                  {/* SECTION 11: CAREERS CTA */}
+                  <section id="careers-cta" className="py-16 px-6 sm:px-12 max-w-7xl mx-auto text-center">
+                    <div className="bg-white border border-[#E8E6E1] max-w-3xl mx-auto rounded-[30px] p-8 md:p-14 space-y-6 shadow-[0_4px_20px_rgba(26,26,26,0.015)]">
+                      <h3 className="text-3xl md:text-5xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-tight">
+                        Join our <span className="font-serif font-normal italic text-stone-700">operations team</span>
+                      </h3>
+                      <p className="text-sm text-[#6B6B6B] leading-relaxed max-w-xl mx-auto">
+                        We build precision-driven content infrastructure. If you value strategic editing, systematic workflows, and scalable output, apply below.
+                      </p>
+                      <div className="pt-4">
+                        <button
+                          onClick={() => setView("contact")}
+                          className="bg-black text-white hover:bg-neutral-800 transition-colors py-3.5 px-8 rounded-full text-xs font-bold uppercase tracking-wider cursor-pointer"
+                        >
+                          APPLY NOW
+                        </button>
+                      </div>
+                    </div>
+                  </section>
+
+                  {/* SECTION 12: FAQ */}
+                  <section id="faq-section" className="py-24 md:py-36 px-6 sm:px-12 bg-white border-y border-[#E8E6E1]">
+                    <div className="max-w-7xl mx-auto">
+                      <div className="text-center space-y-4 mb-16">
+                        <span className="text-xs font-mono tracking-widest uppercase text-[#999999]">
+                          Questions
+                        </span>
+                        <h2 className="text-3xl md:text-5xl font-sans font-bold text-[#1A1A1A]">
+                          Frequently <span className="italic font-serif font-medium font-normal text-stone-700">Asked Questions</span>
+                        </h2>
+                      </div>
+
+                      <FaqSection />
+                    </div>
+                  </section>
+
+                  {/* SECTION 13: FINAL CTA */}
+                  <section id="final-cta" className="py-24 md:py-36 px-6 sm:px-12 max-w-7xl mx-auto">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                      {/* Left Side Info */}
+                      <div className="lg:col-span-7 space-y-8">
+                        <span className="text-xs font-mono tracking-widest uppercase text-[#999999]">
+                          Get started
+                        </span>
+                        <h2 className="text-4xl md:text-6xl font-sans font-bold text-[#1A1A1A] leading-tight">
+                          Ready to <span className="italic font-serif font-semibold font-normal text-stone-700">scale output?</span>
+                        </h2>
+                        <p className="text-sm md:text-base text-[#6B6B6B] leading-relaxed max-w-lg">
+                          Transform one recording into weeks of strategic, platform-optimized content. Apply for a dedicated content partnership today.
+                        </p>
+                        <div className="pt-4">
+                          <button
+                            onClick={() => setView("contact")}
+                            className="bg-black text-white hover:bg-neutral-800 hover:scale-105 active:scale-95 transition-all text-sm font-bold uppercase tracking-wider py-4.5 px-10 rounded-full shadow-md cursor-pointer"
+                          >
+                            APPLY FOR PARTNERSHIP
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Right Side Visual Phone mockup */}
+                      <div className="lg:col-span-5 flex justify-center">
+                        <InteractivePhone />
+                      </div>
+                    </div>
+                  </section>
+                </motion.div>
+              )}
+
+                           {currentView === "about" && (
+                <motion.div
+                  key="about-view"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="max-w-7xl mx-auto px-6 py-16 md:py-24 space-y-24 animate-fade-in"
+                >
+                  <div className="max-w-4xl space-y-6">
+                    <span className="text-xs font-mono tracking-widest uppercase text-[#999999] font-bold block mb-4">
+                      Our Positioning
+                    </span>
+                    <h1 className="text-4xl md:text-6xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-none">
+                      We're not just editors. <span className="font-serif font-normal italic text-stone-700 block md:inline">We're your content engine.</span>
+                    </h1>
+                    <p className="text-base md:text-lg text-[#6B6B6B] leading-relaxed pt-2">
+                      While others deliver files, we deliver consistency. VikEdit operates as your outsourced content department handling the entire post-production workflow so you can focus on what you do best! creating, coaching, and growing your business.<br />
+                      No freelancers to manage. No missed deadlines. Just reliable, high quality content that performs.
+                    </p>
+                  </div>
+
+                  {/* Team / Leadership section */}
+                  <div className="space-y-16">
+                    <div className="space-y-4 text-center md:text-left">
+                      <span className="text-xs font-mono tracking-widest uppercase text-[#999999] font-bold block">
+                        Our leadership
+                      </span>
+                      <h2 className="text-3xl md:text-5xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-tight">
+                        Our leadership <span className="font-serif font-normal italic text-stone-700">crew</span>
+                      </h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
+                      {TEAM_MEMBERS.map((member) => (
+                        <div key={member.id} className="space-y-4 group cursor-pointer text-center flex flex-col items-center">
+                          <div className="relative overflow-hidden rounded-full w-52 h-52 sm:w-56 sm:h-56 bg-[#F5F3EF] border border-[#E8E6E1]/50 shadow-sm flex-shrink-0">
+                            <img
+                              src={member.photoUrl}
+                              alt={member.name}
+                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                              referrerPolicy="no-referrer"
+                            />
+                          </div>
+                          <div className="pt-2">
+                            <h3 className="text-xl font-bold text-[#1A1A1A]">{member.name}</h3>
+                            <p className="text-xs uppercase font-semibold text-[#6B6B6B] tracking-wider mt-1">{member.role}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Growth phases */}
+                  <div className="bg-white border border-[#E8E6E1] p-8 md:p-16 rounded-[40px] space-y-12 shadow-[0_4px_20px_rgba(26,26,26,0.015)]">
+                    <div className="space-y-4">
+                      <span className="text-xs font-mono tracking-widest uppercase text-[#999999] font-bold block">
+                        Growth Phases
+                      </span>
+                      <h2 className="text-3xl md:text-5xl font-sans font-extrabold text-[#1A1A1A] tracking-tight">
+                        Where we are. <span className="font-serif font-normal italic text-stone-700">Where we're going.</span>
+                      </h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-4">
+                      {/* Phase 1 */}
+                      <div className="border border-[#E8E6E1] p-8 rounded-3xl space-y-4 hover:border-[#1A1A1A]/30 transition-colors duration-300">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-mono tracking-wider uppercase font-bold text-[#1A1A1A]/40">Phase 1</span>
+                          <span className="bg-emerald-50 text-emerald-700 border border-emerald-100/60 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider">
+                            Current
+                          </span>
+                        </div>
+                        <h3 className="text-xl font-sans font-bold text-[#1A1A1A]">Repurposing Studio</h3>
+                        <p className="text-sm text-[#6B6B6B] leading-relaxed">
+                          We transform one recording into weeks of content. Strategic clipping, platform specific formatting, and high retention edits delivered consistently so you never run dry on content.
+                        </p>
+                      </div>
+
+                      {/* Phase 2 */}
+                      <div className="border border-[#E8E6E1] p-8 rounded-3xl space-y-4 hover:border-[#1A1A1A]/30 transition-colors duration-300">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-mono tracking-wider uppercase font-bold text-[#1A1A1A]/40">Phase 2</span>
+                          <span className="bg-violet-50 text-violet-700 border border-violet-100/60 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider">
+                            Next
+                          </span>
+                        </div>
+                        <h3 className="text-xl font-sans font-bold text-[#1A1A1A]">Content Operations</h3>
+                        <p className="text-sm text-[#6B6B6B] leading-relaxed">
+                          Full workflow ownership. We'll handle everything from content strategy and calendar planning to multi-platform scheduling and performance analytics – your complete content backbone.
+                        </p>
+                      </div>
+
+                      {/* Phase 3 */}
+                      <div className="border border-[#E8E6E1] p-8 rounded-3xl space-y-4 hover:border-[#1A1A1A]/30 transition-colors duration-300">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-mono tracking-wider uppercase font-bold text-[#1A1A1A]/40">Phase 3</span>
+                          <span className="bg-stone-100 text-stone-700 border border-stone-200/60 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider">
+                            Future
+                          </span>
+                        </div>
+                        <h3 className="text-xl font-sans font-bold text-[#1A1A1A]">Media Ecosystem</h3>
+                        <p className="text-sm text-[#6B6B6B] leading-relaxed">
+                          End to end production house. Original content development, distribution partnerships, and monetization infrastructure building media assets that generate revenue beyond your core services.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {currentView === "work" && (
+                <motion.div
+                  key="work-view"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="max-w-7xl mx-auto px-6 py-16 md:py-24 space-y-16"
+                >
+                  <div className="max-w-3xl space-y-4">
+                    <span className="text-xs font-mono tracking-widest uppercase text-[#999999]">
+                      Case studies
+                    </span>
+                    <h1 className="text-5xl md:text-7xl font-sans font-bold text-[#1A1A1A]">
+                      Case studies & output
+                    </h1>
+                    <p className="text-lg text-[#6B6B6B] leading-relaxed">
+                      See how we transform isolated recordings into sustained publishing pipelines. Every engagement is structured for consistency, strategic repurposing, and measurable growth.
+                    </p>
+                  </div>
+
+                  <CaseStudySection />
+                </motion.div>
+              )}
+
+              {currentView === "services" && (
+                <motion.div
+                  key="services-view"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="max-w-7xl mx-auto px-6 py-16 md:py-24 space-y-20"
+                >
+                  <div className="max-w-3xl space-y-4">
+                    <span className="text-xs font-mono tracking-widest uppercase text-[#999999]">
+                      Services
+                    </span>
+                    <h1 className="text-5xl md:text-7xl font-sans font-bold text-[#1A1A1A]">
+                      Service architecture
+                    </h1>
+                    <p className="text-lg text-[#6B6B6B] leading-relaxed">
+                      We operate across three scalable tiers, engineered to match your content velocity, platform expansion, and revenue objectives.
+                    </p>
+                  </div>
+
+                  {/* Service breakdown grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                    {SERVICE_ITEMS.map((svc) => (
+                      <div key={svc.id} className="bg-white border border-[#E8E6E1] p-8 md:p-10 rounded-3xl space-y-6">
+                        <div className="w-12 h-12 rounded-xl bg-[#F5F3EF] flex items-center justify-center text-black">
+                          {svc.iconType === "short" && <Play className="w-6 h-6 fill-current" />}
+                          {svc.iconType === "social" && <Users className="w-6 h-6" />}
+                          {svc.iconType === "paid" && <Layers className="w-6 h-6" />}
+                        </div>
+                        <h3 className="text-xl font-bold text-black">{svc.title}</h3>
+                        <p className="text-[#6B6B6B] text-sm leading-relaxed">{svc.description}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Difference comparison grid */}
+                  <div className="space-y-12">
+                    <h2 className="text-3xl font-bold text-center">Infrastructure over editing</h2>
+                    <ComparisonTable />
+                  </div>
+                </motion.div>
+              )}
+
+              {currentView === "blog" && (
+                <motion.div
+                  key="blog-view"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="max-w-7xl mx-auto px-6 py-16 md:py-24 space-y-16"
+                >
+                  <div className="max-w-3xl space-y-4">
+                    <span className="text-xs font-mono tracking-widest uppercase text-[#999999]">
+                      Blog
+                    </span>
+                    <h1 className="text-5xl md:text-7xl font-sans font-bold text-[#1A1A1A]">
+                      Strategic insights
+                    </h1>
+                    <p className="text-lg text-[#6B6B6B] leading-relaxed">
+                      Actionable frameworks on content multiplication, algorithmic consistency, and operational workflow optimization.
+                    </p>
+                  </div>
+
+                  {/* Blog lists */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    {BLOG_ITEMS.map((item) => (
+                      <div key={item.id} className="space-y-6 bg-white p-6 rounded-3xl border border-[#E8E6E1] hover:shadow-md transition-all cursor-pointer group">
+                        <div className="relative overflow-hidden rounded-2xl h-64 bg-[#F5F3EF]">
+                          <img
+                            src={item.imageUrl}
+                            alt={item.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            referrerPolicy="no-referrer"
+                          />
+                        </div>
+                        <div className="space-y-3">
+                          <span className="text-xs font-semibold text-[#6B6B6B] uppercase tracking-wider">
+                            {item.category} • {item.date}
+                          </span>
+                          <h3 className="text-2xl font-bold text-black group-hover:underline">{item.title}</h3>
+                          <p className="text-[#6B6B6B] text-sm leading-relaxed">{item.description}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {currentView === "contact" && (
+                <motion.div
+                  key="contact-view"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <ContactForm onBack={() => setView("home")} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </main>
+
+          {/* SECTION 14: FOOTER */}
+          <footer className="bg-white border-t border-[#E8E6E1] mt-24">
+            <div id="footer-top-grid" className="max-w-7xl mx-auto px-6 sm:px-12 py-16 md:py-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
+              {/* Brand Col */}
+              <div className="lg:col-span-5 space-y-6">
+                <div 
+                  onClick={() => setView("home")}
+                  className="flex items-center cursor-pointer hover:opacity-80 transition-all duration-300 group"
+                >
+                  <span className="font-sans text-5xl md:text-7xl font-extrabold tracking-tighter text-[#1A1A1A] leading-none select-none flex items-center">
+                    VikEdit
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-[0.85em] w-[0.85em] ml-[0.05em] fill-current text-[#1A1A1A] flex-shrink-0"
+                      style={{ display: "inline-block", verticalAlign: "middle" }}
+                    >
+                      <path
+                        d="M6 4.4v15.2c0 .6.6 1 1.2.7l13.3-7.6c.5-.3.5-1.1 0-1.4L7.2 3.7c-.6-.3-1.2.1-1.2.7z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <p className="text-sm text-[#999999] max-w-sm">
+                  Content operations for expert-led brands. We transform recordings into sustained publishing momentum without internal overhead.
+                </p>
+
+                {/* Social circles */}
+                <div className="flex items-center gap-3">
+                  <a href="#" className="w-10 h-10 rounded-full bg-[#1A1A1A] text-[#F5F3EF] flex items-center justify-center hover:bg-neutral-800 transition-colors" aria-label="X">
+                    <Twitter className="w-4 h-4" />
+                  </a>
+                  <a href="#" className="w-10 h-10 rounded-full bg-[#1A1A1A] text-[#F5F3EF] flex items-center justify-center hover:bg-neutral-800 transition-colors" aria-label="Instagram">
+                    <Instagram className="w-4 h-4" />
+                  </a>
+                  <a href="#" className="w-10 h-10 rounded-full bg-[#1A1A1A] text-[#F5F3EF] flex items-center justify-center hover:bg-neutral-800 transition-colors" aria-label="LinkedIn">
+                    <Linkedin className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Navigate Col */}
+              <div className="lg:col-span-2 space-y-4">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-[#1A1A1A]">
+                  NAVIGATE
+                </h4>
+                <ul className="space-y-2.5 text-sm">
+                  <li>
+                    <button onClick={() => setView("home")} className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer">
+                      Home
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={() => setView("services")} className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer">
+                      Services
+                    </button>
+                  </li>
+                  <li>
+                    <button 
+                      onClick={() => {
+                        setView("home");
+                        setTimeout(() => document.getElementById("process-section")?.scrollIntoView({ behavior: "smooth" }), 200);
+                      }} 
+                      className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer"
+                    >
+                      Workflow
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={() => setView("work")} className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer">
+                      Case Studies
+                    </button>
+                  </li>
+                  <li>
+                    <button 
+                      onClick={() => {
+                        setView("home");
+                        setTimeout(() => document.getElementById("faq-section")?.scrollIntoView({ behavior: "smooth" }), 200);
+                      }} 
+                      className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer"
+                    >
+                      FAQ
+                    </button>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Connect Col */}
+              <div className="lg:col-span-2 space-y-4">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-[#1A1A1A]">
+                  CONNECT
+                </h4>
+                <ul className="space-y-2.5 text-sm font-sans">
+                  <li>
+                    <button onClick={() => setView("contact")} className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer">
+                      Book a Call
+                    </button>
+                  </li>
+                  <li>
+                    <a href="#" className="text-[#6B6B6B] hover:text-[#1A1A1A]">
+                      LinkedIn
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="text-[#6B6B6B] hover:text-[#1A1A1A]">
+                      Instagram
+                    </a>
+                  </li>
+                  <li>
+                    <button onClick={() => setView("contact")} className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer">
+                      Contact
+                    </button>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Legal Col */}
+              <div className="lg:col-span-3 space-y-4">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-[#1A1A1A]">
+                  LEGAL
+                </h4>
+                <ul className="space-y-2.5 text-sm font-sans">
+                  <li>
+                    <a href="#" className="text-[#6B6B6B] hover:text-[#1A1A1A]">
+                      Privacy Policy
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="text-[#6B6B6B] hover:text-[#1A1A1A]">
+                      Terms
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="text-[#6B6B6B] hover:text-[#1A1A1A]">
+                      Refund Policy
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="text-[#6B6B6B] hover:text-[#1A1A1A]">
+                      Sitemap
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Bottom copyright segment */}
+            <div className="border-t border-[#E8E6E1] py-8 px-6 sm:px-12">
+              <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p className="text-xs text-[#999999]">
+                  © 2026 VikEdit. Created by Vikram Mehta.
+                </p>
+              </div>
+            </div>
+          </footer>
+        </motion.div>
+      )}
+    </div>
+  );
+}

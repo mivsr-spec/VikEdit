@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-times: "Times New Roman", Times, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Custom palette matching specs */
+  --color-bg: #F5F3EF;
+  --color-primary: #1A1A1A;
+  --color-secondary: #6B6B6B;
+  --color-accent: #000000;
+  --color-border-beige: #E8E6E1;
+  --color-hover-beige: #D4D0C8;
+}
+
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin 16s linear infinite;
+  }
+  
+  .animate-marquee {
+    animation: marquee-scroll 65s linear infinite;
+  }
+
+  .animate-float {
+    animation: float-soft 4s ease-in-out infinite;
+  }
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes float-soft {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1.5deg);
+  }
+}
+
+/* Base custom resets */
+html {
+  scroll-behavior: smooth;
+  background-color: #F5F3EF;
+  color: #1A1A1A;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom black active focus inputs */
+input:focus, textarea:focus, select:focus {
+  border-color: #000000 !important;
+  outline: none;
+}
+
+/* Dynamic scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F5F3EF;
+}
+::-webkit-scrollbar-thumb {
+  background: #D4D0C8;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #6B6B6B;
+}
+
+/* Stagger page entrances */
+.page-fade-up {
+  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

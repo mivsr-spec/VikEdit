@@ -1,0 +1,6 @@
+{
+  "name": "VikEdit",
+  "description": "Premium, modern video editing agency website with high-end, minimalist design and seamless smooth animations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
