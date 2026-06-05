@@ -20,7 +20,9 @@ import {
   UploadCloud,
   Cpu,
   EyeOff,
-  Mic
+  Mic,
+  X,
+  Check
 } from "lucide-react";
 
 import Cursor from "./components/Cursor";
@@ -173,6 +175,66 @@ const FACELESS_SERVICES_DATA: ServiceDataItem[] = [
   {
     title: "Reddit & Story Channels",
     description: "Engaging narrated stories paired with gameplay, stock visuals, or kinetic text."
+  }
+];
+
+export interface PortfolioItem {
+  id: string;
+  category: "short-form" | "long-form" | "corporate" | "faceless" | "workflow";
+  tag: string;
+  title: string;
+  description: string;
+  image: string;
+}
+
+const PORTFOLIO_ITEMS: PortfolioItem[] = [
+  {
+    id: "short-form-content",
+    category: "short-form",
+    tag: "High Retention",
+    title: "Short-Form Content",
+    description: "High-retention Reels & Shorts with fast-paced cuts, eye-catching captions, and motion graphics that stop the scroll.",
+    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop"
+  },
+  {
+    id: "long-form-repurposing",
+    category: "long-form",
+    tag: "Repurposing",
+    title: "Long-Form Repurposing",
+    description: "Turn your hour-long podcast into 10+ bite-sized clips. We extract the best moments so one recording fuels weeks of content.",
+    image: "https://images.unsplash.com/photo-1590602847861-f357a9333bbc?q=80&w=1000&auto=format&fit=crop"
+  },
+  {
+    id: "faceless-content",
+    category: "faceless",
+    tag: "New Service",
+    title: "Faceless Content",
+    description: "AI voiceovers, stock footage, and kinetic typography. Build authority and grow audiences without ever showing your face.",
+    image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?q=80&w=1000&auto=format&fit=crop"
+  },
+  {
+    id: "corporate-courses",
+    category: "corporate",
+    tag: "Professional",
+    title: "Corporate & Courses",
+    description: "Polished webinars, training videos, and marketing content. We make your business content look professional and engaging.",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1000&auto=format&fit=crop"
+  },
+  {
+    id: "multi-platform-formatting",
+    category: "short-form",
+    tag: "Optimization",
+    title: "Multi-Platform Formatting",
+    description: "We resize and reformat content for Instagram, YouTube, and LinkedIn so it looks native and performs better everywhere.",
+    image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=1000&auto=format&fit=crop"
+  },
+  {
+    id: "content-workflow",
+    category: "workflow",
+    tag: "Systematic",
+    title: "Content Workflow",
+    description: "Upload your raw footage. We handle the rest—editing, revisions, formatting, and delivery. No back-and-forth chaos.",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop"
   }
 ];
 
@@ -1129,6 +1191,16 @@ export default function App() {
   const [currentView, setView] = useState("home"); // home, about, work, services, blog
   const [activeService, setActiveService] = useState(0);
   const [activeFacelessService, setActiveFacelessService] = useState(0);
+  const [portfolioFilter, setPortfolioFilter] = useState("all");
+  const [selectedPortfolioItem, setSelectedPortfolioItem] = useState<PortfolioItem | null>(null);
+
+  // States for final CTA contact card
+  const [ctaName, setCtaName] = useState("");
+  const [ctaEmail, setCtaEmail] = useState("");
+  const [ctaPhone, setCtaPhone] = useState("");
+  const [ctaMessage, setCtaMessage] = useState("");
+  const [ctaIsSubmitting, setCtaIsSubmitting] = useState(false);
+  const [ctaIsSubmitted, setCtaIsSubmitted] = useState(false);
 
   // Scroll to top automatically when view changes
   useEffect(() => {
@@ -1309,173 +1381,319 @@ export default function App() {
                     </div>
                   </section>
 
-                  {/* SECTION 5: SERVICES */}
-                  <section id="services-section" className="w-full bg-[#FFFFFF]">
-                    <div className="pt-12 pb-24 md:pt-16 md:pb-36 px-6 sm:px-12 max-w-7xl mx-auto">
-                      {/* Header Section */}
-                      <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16 space-y-4">
-                        <span className="text-xs font-mono tracking-widest uppercase text-[#999999] font-bold block">
+                  {/* COMPREHENSIVE SERVICES PORTFOLIO SECTION */}
+                  <section id="services-section" className="w-[100%] bg-[#F5F3EF] py-24 md:py-36 px-6 sm:px-12 border-t border-[#E8E6E1]/60">
+                    <div className="max-w-7xl mx-auto">
+                      
+                      {/* Section Header */}
+                      <div className="text-center md:max-w-3xl mx-auto mb-16 space-y-4">
+                        <span className="text-xs font-mono tracking-widest uppercase text-[#666666] font-bold block">
                           OUR SERVICES
                         </span>
-                        <h2 className="text-4xl md:text-6xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-tight">
-                          Things we do <span className="font-serif font-normal italic text-slate-800">for you</span>
+                        <h2 className="text-4xl md:text-6xl font-serif font-extrabold text-[#111111] tracking-tight leading-none text-center">
+                          Things we do <span className="font-serif font-normal italic text-[#111111]/80">for you</span>
                         </h2>
-                        <p className="text-base md:text-lg text-[#6B6B6B] leading-relaxed max-w-2xl mx-auto pt-2">
-                          No more post-production delays. We transform raw recordings into ready-to-post clips, perfectly formatted for every platform. You create. We handle the rest.
+                        <p className="text-sm sm:text-base text-[#666666] leading-relaxed max-w-2xl mx-auto pt-2 text-center">
+                          No more post-production delays. We transform raw recordings into ready-to-post clips, perfectly formatted for every platform.
                         </p>
                       </div>
 
-                      {/* Main Two-Column Layout */}
-                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-                        {/* Left Column: Vertical List of 5 Services */}
-                        <div className="lg:col-span-7 flex flex-col">
-                          {SERVICES_DATA.map((svc, index) => {
-                            const isActive = activeService === index;
-                            return (
-                              <div
-                                key={index}
-                                className="group py-6 md:py-8 border-b border-[#E8E6E1]/80 hover:border-[#1A1A1A] cursor-pointer transition-colors duration-300 first:border-t"
-                                onMouseEnter={() => setActiveService(index)}
-                                onClick={() => setActiveService(index)}
+                      {/* Interactive Filter Navigation */}
+                      <ul className="flex justify-center flex-wrap gap-2 mb-12 list-none p-0 max-w-4xl mx-auto">
+                        {[
+                          { key: "all", label: "All" },
+                          { key: "short-form", label: "Short-Form" },
+                          { key: "long-form", label: "Long-Form" },
+                          { key: "corporate", label: "Corporate" },
+                          { key: "faceless", label: "Faceless" },
+                          { key: "workflow", label: "Workflow" }
+                        ].map((btn) => {
+                          const isActive = portfolioFilter === btn.key;
+                          return (
+                            <li key={btn.key}>
+                              <button
+                                onClick={() => setPortfolioFilter(btn.key)}
+                                className={`px-6 py-2.5 font-sans text-sm font-medium rounded-full cursor-pointer transition-all duration-300 ${
+                                  isActive
+                                    ? "bg-[#111111] text-[#FFFFFF] shadow-sm scale-102"
+                                    : "bg-transparent text-[#666666] hover:text-[#111111]"
+                                }`}
                               >
-                                <div className="flex items-center justify-between gap-6">
-                                  <h3 
-                                    className={`text-2xl sm:text-3xl font-sans font-bold tracking-tight transition-all duration-300 text-left ${
-                                      isActive ? "text-[#1A1A1A] translate-x-1" : "text-[#1A1A1A]/40 group-hover:text-[#1A1A1A]/70"
-                                    }`}
-                                  >
-                                    {svc.title}
-                                  </h3>
-                                  
-                                  <div 
-                                    className={`w-10 h-10 rounded-full border flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
-                                      isActive 
-                                        ? "bg-[#1A1A1A] border-[#1A1A1A] text-white rotate-0" 
-                                        : "border-[#E8E6E1] text-[#1A1A1A] group-hover:bg-[#1A1A1A] group-hover:text-white group-hover:border-black -rotate-45"
-                                    }`}
-                                  >
-                                    <ArrowRight className="w-5 h-5" />
-                                  </div>
+                                {btn.label}
+                              </button>
+                            </li>
+                          );
+                        })}
+                      </ul>
+
+                      {/* Dynamic Portfolio Grid with Layout Animations */}
+                      <motion.div 
+                        layout 
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[220px]"
+                      >
+                        <AnimatePresence mode="popLayout">
+                          {PORTFOLIO_ITEMS.filter(
+                            (item) => portfolioFilter === "all" || item.category === portfolioFilter
+                          ).map((item) => {
+                            const isTall = item.category === "short-form" || item.category === "faceless";
+                            const isWorkflow = item.category === "workflow";
+                            
+                            return (
+                              <motion.div
+                                key={item.id}
+                                layout
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                transition={{ duration: 0.4 }}
+                                className={`relative rounded-[8px] overflow-hidden cursor-pointer group bg-stone-100 ${
+                                  isTall
+                                    ? "row-span-2 h-full"
+                                    : isWorkflow
+                                    ? "row-span-1.5 h-full"
+                                    : "row-span-1 h-full"
+                                }`}
+                                onClick={() => setSelectedPortfolioItem(item)}
+                              >
+                                <img
+                                  src={item.image}
+                                  alt={item.title}
+                                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                  referrerPolicy="no-referrer"
+                                />
+                                
+                                {/* Dark radial overlay gradient */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-300 group-hover:via-black/55" />
+
+                                {/* Play Button Hover representation */}
+                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-75 w-14 h-14 bg-white/95 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 shadow-xl z-20">
+                                  <div className="w-0 h-0 border-y-[6px] border-y-transparent border-l-[11px] border-l-[#111111] ml-1" />
                                 </div>
 
-                                <AnimatePresence initial={false}>
-                                  {isActive && (
-                                    <motion.div
-                                      initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                                      animate={{ height: "auto", opacity: 1, marginTop: 16 }}
-                                      exit={{ height: 0, opacity: 0, marginTop: 0 }}
-                                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                                      className="overflow-hidden"
-                                    >
-                                      <p className="text-sm sm:text-base text-[#6B6B6B] leading-relaxed max-w-2xl pr-12 text-left">
-                                        {svc.description}
-                                      </p>
-                                    </motion.div>
-                                  )}
-                                </AnimatePresence>
-                              </div>
+                                {/* Content layer */}
+                                <div className="absolute bottom-0 left-0 w-full p-6 text-white z-10 transition-transform duration-300 group-hover:-translate-y-1 select-none pointer-events-none">
+                                  <span className="text-[9px] uppercase tracking-wider text-white/70 font-mono font-bold mb-1.5 block">
+                                    {item.tag}
+                                  </span>
+                                  <h3 className="font-serif font-semibold text-2xl mb-1.5 leading-tight tracking-tight">
+                                    {item.title}
+                                  </h3>
+                                  <p className="text-xs sm:text-[13px] text-stone-200/90 leading-relaxed font-sans max-h-0 opacity-0 group-hover:max-h-24 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-in-out">
+                                    {item.description}
+                                  </p>
+                                </div>
+                              </motion.div>
                             );
                           })}
-                        </div>
+                        </AnimatePresence>
+                      </motion.div>
 
-                        {/* Right Column: Interactive Preview Card/Illustration */}
-                        <div className="lg:col-span-5 lg:sticky lg:top-32 w-full">
-                          <div className="bg-[#FFFFFF] border border-[#E8E6E1] rounded-[32px] p-6 lg:p-8 shadow-[0_20px_45px_-8px_rgba(26,26,26,0.06),0_15px_15px_-5px_rgba(26,26,26,0.03)] flex items-center justify-center relative overflow-hidden w-full h-[400px] sm:h-[480px]">
-                            <AnimatePresence mode="wait">
-                              {renderPreviewMockup(activeService)}
-                            </AnimatePresence>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </section>
 
-                  {/* STANDALONE SECTION: FACELESS CONTENT CREATION */}
-                  <section id="faceless-services-section" className="w-full bg-[#FFFFFF] border-t border-[#E8E6E1]/60">
-                    <div className="pt-24 pb-24 md:pt-36 md:pb-36 px-6 sm:px-12 max-w-7xl mx-auto">
-                      {/* Header Section */}
-                      <div className="text-center max-w-4xl mx-auto mb-12 md:mb-16 space-y-5">
-                        <div className="flex items-center justify-center gap-2">
-                          <span className="text-xs font-mono tracking-widest uppercase text-[#999999] font-bold">
-                            OUR SERVICES
-                          </span>
-                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-neutral-900 text-[9px] font-mono font-bold tracking-wider text-white uppercase rounded-full shadow-sm animate-pulse">
-                            <Sparkles className="w-2.5 h-2.5 text-yellow-300" />
-                            <span>New Service</span>
-                          </span>
-                        </div>
-                        <h2 className="text-4xl md:text-6xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-tight text-center">
-                          Faceless <span className="font-serif font-normal italic text-slate-800">Content Creation</span>
-                        </h2>
-                        <p className="text-base md:text-lg text-[#6B6B6B] leading-relaxed max-w-3xl mx-auto pt-1 text-center">
-                          Don't want to be on camera? We've got you. Faceless content that builds authority, grows audiences, and protects your privacy.
-                        </p>
-                      </div>
-
-                      {/* Main Two-Column Layout */}
-                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-                        {/* Left Column: Vertical List of 5 Services */}
-                        <div className="lg:col-span-7 flex flex-col">
-                          {FACELESS_SERVICES_DATA.map((svc, index) => {
-                            const isActive = activeFacelessService === index;
-                            return (
-                              <div
-                                key={index}
-                                className="group py-6 md:py-8 border-b border-[#E8E6E1]/80 hover:border-[#1A1A1A] cursor-pointer transition-colors duration-300 first:border-t"
-                                onMouseEnter={() => setActiveFacelessService(index)}
-                                onClick={() => setActiveFacelessService(index)}
-                              >
-                                <div className="flex items-center justify-between gap-6">
-                                  <h3 
-                                    className={`text-2xl sm:text-3xl font-sans font-bold tracking-tight transition-all duration-300 text-left ${
-                                      isActive ? "text-[#1A1A1A] translate-x-1" : "text-[#1A1A1A]/40 group-hover:text-[#1A1A1A]/70"
-                                    }`}
-                                  >
-                                    {svc.title}
-                                  </h3>
-                                  
-                                  <div 
-                                    className={`w-10 h-10 rounded-full border flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
-                                      isActive 
-                                        ? "bg-[#1A1A1A] border-[#1A1A1A] text-white rotate-0" 
-                                        : "border-[#E8E6E1] text-[#1A1A1A] group-hover:bg-[#1A1A1A] group-hover:text-white group-hover:border-black -rotate-45"
-                                    }`}
-                                  >
-                                    <ArrowRight className="w-5 h-5" />
-                                  </div>
+                  {/* Dynamic Showreel and Workflow Playback Modal */}
+                  <AnimatePresence>
+                    {selectedPortfolioItem && (
+                      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          className="relative bg-neutral-900 border border-neutral-800 rounded-3xl p-6 md:p-8 max-w-4xl w-full text-white shadow-2xl flex flex-col md:flex-row gap-8 overflow-hidden z-20"
+                        >
+                          {/* Inner glow embellishment */}
+                          <div className="absolute -top-1/4 -left-1/4 w-1/2 h-1/2 bg-stone-500/10 rounded-full blur-[80px] pointer-events-none" />
+                          
+                          {/* Playback Device Mockup Frame (Smart device representation) */}
+                          <div className="w-full md:w-1/2 flex items-center justify-center bg-black/40 p-4 rounded-2xl border border-neutral-800/60 min-h-[300px]">
+                            {selectedPortfolioItem.category === "short-form" || selectedPortfolioItem.category === "faceless" ? (
+                              /* Vertical Device Screen Mockup */
+                              <div className="w-[190px] sm:w-[220px] h-[330px] sm:h-[390px] bg-neutral-950 rounded-[32px] border-[6px] border-neutral-800 relative shadow-2xl overflow-hidden flex flex-col justify-between">
+                                {/* Sound speaker mesh cutout */}
+                                <div className="w-16 h-3.5 bg-neutral-800 absolute top-0 left-1/2 -translate-x-1/2 rounded-b-xl z-20" />
+                                
+                                {/* Poster Image container */}
+                                <div className="absolute inset-0 z-0">
+                                  <img 
+                                    src={selectedPortfolioItem.image} 
+                                    alt={selectedPortfolioItem.title} 
+                                    className="w-full h-full object-cover opacity-50"
+                                    referrerPolicy="no-referrer"
+                                  />
+                                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-black/50" />
                                 </div>
 
-                                <AnimatePresence initial={false}>
-                                  {isActive && (
-                                    <motion.div
-                                      initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                                      animate={{ height: "auto", opacity: 1, marginTop: 16 }}
-                                      exit={{ height: 0, opacity: 0, marginTop: 0 }}
-                                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                                      className="overflow-hidden"
-                                    >
-                                      <p className="text-sm sm:text-base text-[#6B6B6B] leading-relaxed max-w-2xl pr-12 text-left">
-                                        {svc.description}
-                                      </p>
-                                    </motion.div>
-                                  )}
-                                </AnimatePresence>
-                              </div>
-                            );
-                          })}
-                        </div>
+                                {/* Active signal */}
+                                <div className="relative z-10 p-3 flex justify-between items-center mt-2.5">
+                                  <span className="text-[8px] font-mono tracking-widest opacity-80 text-white font-bold uppercase">DIGITAL FEED</span>
+                                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                </div>
 
-                        {/* Right Column: Interactive Preview Card/Illustration */}
-                        <div className="lg:col-span-5 lg:sticky lg:top-32 w-full">
-                          <div className="bg-[#FFFFFF] border border-[#E8E6E1] rounded-[32px] p-6 lg:p-8 shadow-[0_20px_45px_-8px_rgba(26,26,26,0.06),0_15px_15px_-5px_rgba(26,26,26,0.03)] flex items-center justify-center relative overflow-hidden w-full h-[400px] sm:h-[480px]">
-                            <AnimatePresence mode="wait">
-                              {renderFacelessPreviewMockup(activeFacelessService)}
-                            </AnimatePresence>
+                                {/* Specialized layout animations for text/signals */}
+                                {selectedPortfolioItem.id === "short-form-content" ? (
+                                  <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 gap-1.5 my-auto">
+                                    <div className="bg-yellow-400 text-black px-1.5 py-0.5 rounded font-black text-[10px] uppercase tracking-wide">
+                                      RETENTION +180% 🚀
+                                    </div>
+                                    <motion.p
+                                      animate={{ color: ["#FFF", "#FFEB60", "#FFF"] }}
+                                      transition={{ repeat: Infinity, duration: 1.8 }}
+                                      className="text-[10px] sm:text-xs font-extrabold text-white tracking-tight leading-tight uppercase font-sans"
+                                    >
+                                      "This 1 simple tweak saves 20 hours editing..."
+                                    </motion.p>
+                                  </div>
+                                ) : selectedPortfolioItem.id === "faceless-content" ? (
+                                  <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 gap-2 my-auto">
+                                    <Cpu className="w-7 h-7 text-violet-400 animate-pulse" />
+                                    <span className="text-[8px] font-mono text-violet-300 font-bold uppercase tracking-widest leading-none">SYNTHESIZING...</span>
+                                    <div className="flex gap-1 items-end h-5 pt-1">
+                                      <motion.div animate={{ height: [4, 14, 4] }} transition={{ repeat: Infinity, duration: 0.6 }} className="w-1 bg-violet-400 rounded-sm" />
+                                      <motion.div animate={{ height: [6, 20, 6] }} transition={{ repeat: Infinity, duration: 0.4 }} className="w-1 bg-violet-400 rounded-sm" />
+                                      <motion.div animate={{ height: [12, 4, 12] }} transition={{ repeat: Infinity, duration: 0.8 }} className="w-1 bg-violet-400 rounded-sm" />
+                                      <motion.div animate={{ height: [8, 15, 8] }} transition={{ repeat: Infinity, duration: 0.5 }} className="w-1 bg-violet-400 rounded-sm" />
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 gap-1.5 my-auto">
+                                    <Sparkles className="w-6 h-6 text-amber-300 animate-bounce" />
+                                    <span className="text-[9px] font-bold text-white tracking-widest uppercase">DIMENSION MORPH</span>
+                                    <span className="text-[7.5px] font-mono text-[#E8E6E1]/70">Optimizing 9:16 Feed</span>
+                                  </div>
+                                )}
+
+                                {/* Persistent progression tracker */}
+                                <div className="relative z-10 p-3 bg-black/50 backdrop-blur-sm">
+                                  <div className="w-full bg-white/20 h-1 rounded-full overflow-hidden mb-1">
+                                    <motion.div 
+                                      animate={{ width: ["0%", "100%"] }} 
+                                      transition={{ repeat: Infinity, duration: 4.2, ease: "linear" }} 
+                                      className="bg-emerald-400 h-full" 
+                                    />
+                                  </div>
+                                  <div className="flex justify-between text-[7.5px] text-white/50 font-mono">
+                                    <span>00:03</span>
+                                    <span>00:15</span>
+                                  </div>
+                                </div>
+                              </div>
+                            ) : (
+                              /* Widescreen Desktop / Cinema video player mockup */
+                              <div className="w-full h-fit aspect-[16/9] bg-neutral-950 rounded-xl border-[4px] border-neutral-800 relative shadow-2xl overflow-hidden flex flex-col justify-between">
+                                {/* Thumbnail Background poster */}
+                                <div className="absolute inset-0 z-0">
+                                  <img 
+                                    src={selectedPortfolioItem.image} 
+                                    alt={selectedPortfolioItem.title} 
+                                    className="w-full h-full object-cover opacity-45"
+                                    referrerPolicy="no-referrer"
+                                  />
+                                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50" />
+                                </div>
+
+                                {/* Player Top Bar Header */}
+                                <div className="relative z-10 p-2.5 flex justify-between items-center text-white bg-black/20">
+                                  <span className="text-[8px] font-mono tracking-widest opacity-80 font-bold uppercase">{selectedPortfolioItem.tag} PLAYBACK</span>
+                                  <span className="text-[8px] font-mono text-stone-300 bg-neutral-800 px-1 py-0.5 rounded">SOURCE: RAW 1080P</span>
+                                </div>
+
+                                {/* Dynamic highlight effects */}
+                                {selectedPortfolioItem.id === "content-workflow" ? (
+                                  <div className="relative z-10 p-3 flex flex-col gap-1.5 my-auto max-w-[240px] mx-auto bg-black/40 rounded-lg">
+                                    <span className="text-[7.5px] font-mono font-bold text-emerald-400 block text-center uppercase tracking-wider">Strategic Delivery Engine</span>
+                                    <div className="grid grid-cols-3 gap-1">
+                                      <div className="bg-neutral-900/90 p-1.5 rounded border border-neutral-800 text-[6.5px] text-center">
+                                        <span className="text-white/40 block">RAW FEED</span>
+                                        <span className="text-emerald-300 animate-pulse">Received</span>
+                                      </div>
+                                      <div className="bg-neutral-900/90 p-1.5 rounded border border-neutral-800 text-[6.5px] text-center">
+                                        <span className="text-white/40 block">EDITING</span>
+                                        <motion.span animate={{ opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1.5 }} className="text-amber-300 font-bold font-mono">Synthesizing</motion.span>
+                                      </div>
+                                      <div className="bg-neutral-900/90 p-1.5 rounded border border-neutral-800 text-[6.5px] text-center">
+                                        <span className="text-white/40 block">DELIVERED</span>
+                                        <span className="text-stone-500">Awaiting</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className="relative z-10 flex flex-col items-center justify-center my-auto">
+                                    <Play className="w-7 h-7 text-stone-200 fill-stone-200 animate-pulse cursor-pointer" />
+                                  </div>
+                                )}
+
+                                {/* Equalizer waves bottom progress */}
+                                <div className="relative z-10 p-2.5 bg-black/50">
+                                  <div className="flex gap-0.5 items-end h-3.5 mb-1.5 overflow-hidden justify-center opacity-70">
+                                    <motion.div animate={{ height: [3, 9, 3] }} transition={{ repeat: Infinity, duration: 0.6 }} className="w-0.5 bg-stone-500" />
+                                    <motion.div animate={{ height: [5, 12, 5] }} transition={{ repeat: Infinity, duration: 0.8 }} className="w-0.5 bg-stone-400" />
+                                    <motion.div animate={{ height: [8, 3, 8] }} transition={{ repeat: Infinity, duration: 0.5 }} className="w-0.5 bg-stone-300" />
+                                    <motion.div animate={{ height: [3, 10, 3] }} transition={{ repeat: Infinity, duration: 0.7 }} className="w-0.5 bg-stone-500" />
+                                  </div>
+                                  <div className="w-full bg-white/20 h-0.5 rounded-full overflow-hidden">
+                                    <motion.div 
+                                      animate={{ width: ["0%", "100%"] }} 
+                                      transition={{ repeat: Infinity, duration: 5.5, ease: "linear" }} 
+                                      className="bg-white h-full" 
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            )}
                           </div>
-                        </div>
+
+                          {/* Info panel metadata */}
+                          <div className="w-full md:w-1/2 flex flex-col justify-between relative z-10">
+                            <div className="space-y-4 text-left">
+                              <div className="flex items-center gap-2.5">
+                                <span className="text-[10px] font-mono font-bold tracking-widest text-[#FFFFFF] uppercase bg-neutral-800 px-2.5 py-0.5 rounded border border-neutral-700">
+                                  {selectedPortfolioItem.category}
+                                </span>
+                                <span className="text-xs font-mono text-[#D4D0C8] font-semibold">{selectedPortfolioItem.tag}</span>
+                              </div>
+                              
+                              <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold tracking-tight text-white leading-tight">
+                                {selectedPortfolioItem.title}
+                              </h3>
+                              
+                              <p className="text-xs sm:text-sm md:text-base text-stone-300 font-sans leading-relaxed">
+                                {selectedPortfolioItem.description}
+                              </p>
+                              
+                              <p className="text-[11px] sm:text-xs md:text-sm text-stone-400 leading-relaxed font-sans italic">
+                                Our bespoke video system ensures every asset is trimmed with extreme precision, beautifully timed, styled with custom high-contrast visual captions, and polished within 24 hours. No delays, no friction, just pure audience growth.
+                              </p>
+                            </div>
+
+                            <div className="pt-6 border-t border-neutral-800 flex flex-wrap gap-4 items-center justify-between mt-6">
+                              <span className="text-[10px] font-mono text-stone-500 uppercase tracking-widest">Post System: Active</span>
+                              <button 
+                                onClick={() => {
+                                  setSelectedPortfolioItem(null);
+                                  setTimeout(() => {
+                                    const target = document.getElementById("final-cta");
+                                    if (target) target.scrollIntoView({ behavior: "smooth" });
+                                  }, 150);
+                                }}
+                                className="bg-[#FFFFFF] text-[#111111] hover:bg-neutral-100 font-mono font-bold text-xs uppercase py-2.5 px-6 rounded-full inline-flex items-center gap-2 cursor-pointer transition-all duration-350"
+                              >
+                                <span>Book a Start Call</span>
+                                <ArrowRight className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          </div>
+
+                          {/* Absolute close button */}
+                          <button
+                            onClick={() => setSelectedPortfolioItem(null)}
+                            className="absolute top-4 right-4 bg-neutral-800 hover:bg-neutral-700 text-white p-2 rounded-full transition-colors z-20 cursor-pointer"
+                          >
+                            <X className="w-5 h-5" />
+                          </button>
+                        </motion.div>
                       </div>
-                    </div>
-                  </section>
+                    )}
+                  </AnimatePresence>
 
                   {/* SECTION 6: PROCESS (How We Work) */}
                   <section 
@@ -1503,22 +1721,22 @@ export default function App() {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
                         <ProcessCard
                           num={1}
-                          title="1. Strategy & Onboarding"
+                          title="Strategy & Onboarding"
                           body="We align on your goals, audience, and brand voice through a focused strategy call. You share your guidelines and top-performing content. We define success metrics and lock in your service tier—then you're officially onboarded."
                         />
                         <ProcessCard
                           num={2}
-                          title="2. Upload & Strategic Mapping"
+                          title="Upload & Strategic Mapping"
                           body="Drop your raw footage into our secure portal. We review the full recording to identify high-retention moments: strong hooks, key insights, and shareable clips. Every segment is mapped for maximum repurposing potential across your target platforms."
                         />
                         <ProcessCard
                           num={3}
-                          title="3. Production & Refinement"
+                          title="Production & Refinement"
                           body="We edit, format, and optimize each asset—vertical cuts for Reels/Shorts, polished long-form for YouTube, clean audio for podcasts. You receive drafts via a simple feedback link, comment on timestamps, and we implement revisions within 24 hours. Two rounds included."
                         />
                         <ProcessCard
                           num={4}
-                          title="4. Delivery & Continuous Scale"
+                          title="Delivery & Continuous Scale"
                           body="Approved assets arrive organized, labeled, and ready to post. Then the cycle repeats: your next recording triggers the same streamlined workflow. Consistent output, zero operational drag, and a content engine that scales with you."
                         />
                       </div>
@@ -1628,27 +1846,130 @@ export default function App() {
                   </section>
 
                   {/* SECTION 13: FINAL CTA */}
-                  <section id="final-cta" className="py-24 md:py-36 px-6 sm:px-12 max-w-7xl mx-auto">
+                  <section id="final-cta" className="pt-36 pb-24 md:pt-48 md:pb-36 px-6 sm:px-12 max-w-7xl mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                       {/* Left Side Info */}
-                      <div className="lg:col-span-7 space-y-8">
-                        <span className="text-xs font-mono tracking-widest uppercase text-[#999999]">
-                          Get started
-                        </span>
-                        <h2 className="text-4xl md:text-6xl font-sans font-bold text-[#1A1A1A] leading-tight">
-                          Ready to <span className="italic font-serif font-semibold font-normal text-stone-700">scale output?</span>
-                        </h2>
-                        <p className="text-sm md:text-base text-[#6B6B6B] leading-relaxed max-w-lg">
-                          Transform one recording into weeks of strategic, platform-optimized content. Apply for a dedicated content partnership today.
-                        </p>
-                        <div className="pt-4">
-                          <button
-                            onClick={() => setView("contact")}
-                            className="bg-black text-white hover:bg-neutral-800 hover:scale-105 active:scale-95 transition-all text-sm font-bold uppercase tracking-wider py-4.5 px-10 rounded-full shadow-md cursor-pointer"
-                          >
-                            APPLY FOR PARTNERSHIP
-                          </button>
-                        </div>
+                      <div className="lg:col-span-7">
+                        <AnimatePresence mode="wait">
+                          {!ctaIsSubmitted ? (
+                            <motion.div
+                              key="cta-form-card"
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, scale: 0.98 }}
+                              transition={{ duration: 0.4 }}
+                              className="w-full bg-[#FFFFFF] rounded-[24px] border border-[#E8E6E1]/70 shadow-[0_20px_50px_rgba(26,26,26,0.04),0_1px_3px_rgba(26,26,26,0.02)] p-8 sm:p-12 text-left transform-gpu"
+                            >
+                              <h3 className="font-serif font-bold text-4xl sm:text-5xl text-[#111111] mb-5 tracking-tight leading-tight">
+                                Ready to <span className="italic font-serif font-semibold font-normal text-stone-700">scale output?</span>
+                              </h3>
+                              <p className="font-sans text-xs sm:text-sm text-[#666666] leading-relaxed mb-8">
+                                Your content deserves a system that works. Share your goals below, and we'll show you how to publish consistently without the overhead. We respond within 24 hours.
+                              </p>
+
+                              <form
+                                onSubmit={(e) => {
+                                  e.preventDefault();
+                                  setCtaIsSubmitting(true);
+                                  setTimeout(() => {
+                                    setCtaIsSubmitting(false);
+                                    setCtaIsSubmitted(true);
+                                  }, 1200);
+                                }}
+                                className="flex flex-col gap-4"
+                              >
+                                {/* Name Input */}
+                                <input
+                                  type="text"
+                                  placeholder="Your Name"
+                                  value={ctaName}
+                                  onChange={(e) => setCtaName(e.target.value)}
+                                  required
+                                  className="w-full bg-[#FFFFFF] border border-[#E5E5E5] rounded-[8px] py-[14px] px-4 font-sans text-sm text-[#111111] placeholder:text-[#969592]/70 focus:outline-none focus:border-[#111111] focus:ring-1 focus:ring-[#111111]/10 transition-all duration-300"
+                                />
+
+                                {/* Email Input */}
+                                <input
+                                  type="email"
+                                  placeholder="Business Email"
+                                  value={ctaEmail}
+                                  onChange={(e) => setCtaEmail(e.target.value)}
+                                  required
+                                  className="w-full bg-[#FFFFFF] border border-[#E5E5E5] rounded-[8px] py-[14px] px-4 font-sans text-sm text-[#111111] placeholder:text-[#969592]/70 focus:outline-none focus:border-[#111111] focus:ring-1 focus:ring-[#111111]/10 transition-all duration-300"
+                                />
+
+                                {/* Phone Input */}
+                                <div className="flex items-center bg-[#FFFFFF] border border-[#E5E5E5] rounded-[8px] overflow-hidden focus-within:border-[#111111] focus-within:ring-1 focus-within:ring-[#111111]/10 transition-all duration-300">
+                                  <span className="px-4 py-[14px] bg-[#F2F2F2] text-sm font-medium text-[#666666] border-r border-[#E5E5E5] whitespace-nowrap select-none">
+                                    +1
+                                  </span>
+                                  <input
+                                    type="tel"
+                                    placeholder="Phone Number with Country Code"
+                                    value={ctaPhone}
+                                    onChange={(e) => setCtaPhone(e.target.value)}
+                                    className="flex-1 border-none focus:outline-none focus:ring-0 py-[14px] px-4 font-sans text-sm text-[#111111] placeholder:text-[#969592]/70 bg-transparent"
+                                  />
+                                </div>
+
+                                {/* Textarea Input */}
+                                <textarea
+                                  placeholder="Tell us about your project, content volume, and goals..."
+                                  required
+                                  value={ctaMessage}
+                                  onChange={(e) => setCtaMessage(e.target.value)}
+                                  className="w-full bg-[#FFFFFF] border border-[#E5E5E5] rounded-[8px] py-[14px] px-4 font-sans text-sm text-[#111111] placeholder:text-[#969592]/70 focus:outline-none focus:border-[#111111] focus:ring-1 focus:ring-[#111111]/10 transition-all duration-300 resize-y min-h-[120px]"
+                                />
+
+                                {/* Submit button */}
+                                <button
+                                  type="submit"
+                                  disabled={ctaIsSubmitting}
+                                  className="w-full py-4 px-4 bg-[#111111] text-[#FFFFFF] hover:bg-neutral-800 disabled:opacity-50 rounded-[8px] font-sans font-medium text-sm transition-all duration-300 uppercase tracking-wider cursor-pointer flex items-center justify-center gap-2 mt-2"
+                                >
+                                  {ctaIsSubmitting ? (
+                                    <>
+                                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                      <span>Submitting...</span>
+                                    </>
+                                  ) : (
+                                    "Submit Inquiry"
+                                  )}
+                                </button>
+                              </form>
+                            </motion.div>
+                          ) : (
+                            <motion.div
+                              key="cta-success-card"
+                              initial={{ opacity: 0, scale: 0.95 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              exit={{ opacity: 0 }}
+                              className="w-full bg-[#FFFFFF] rounded-[24px] border border-[#E8E6E1]/70 shadow-[0_20px_50px_rgba(26,26,26,0.04)] p-6 sm:p-10 text-center mt-6 flex flex-col items-center justify-center min-h-[400px] transform-gpu"
+                            >
+                              <div className="w-12 h-12 bg-[#111111] text-[#FFFFFF] rounded-full flex items-center justify-center mb-6">
+                                <Check className="w-6 h-6 stroke-[3]" />
+                              </div>
+                              <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#111111] mb-2">
+                                Inquiry Received
+                              </h3>
+                              <p className="text-xs sm:text-sm text-[#666666] leading-relaxed max-w-sm mb-6">
+                                Thank you, <span className="text-[#111111] font-semibold">{ctaName}</span>! Our lead operations crew will review your goals and contact you within 24 hours.
+                              </p>
+                              <button
+                                onClick={() => {
+                                  setCtaName("");
+                                  setCtaEmail("");
+                                  setCtaPhone("");
+                                  setCtaMessage("");
+                                  setCtaIsSubmitted(false);
+                                }}
+                                className="bg-[#111111] text-[#FFFFFF] hover:bg-neutral-800 rounded-[8px] px-6 py-3 font-sans text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer"
+                              >
+                                Send Another Inquiry
+                              </button>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
 
                       {/* Right Side Visual Phone mockup */}
@@ -1669,14 +1990,14 @@ export default function App() {
                   transition={{ duration: 0.5 }}
                   className="max-w-7xl mx-auto px-6 py-16 md:py-24 space-y-24 animate-fade-in"
                 >
-                  <div className="max-w-4xl space-y-6">
+                  <div className="max-w-4xl mx-auto text-center space-y-6">
                     <span className="text-xs font-mono tracking-widest uppercase text-[#999999] font-bold block mb-4">
                       Our Positioning
                     </span>
-                    <h1 className="text-4xl md:text-6xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-none">
+                    <h1 className="text-4xl md:text-6xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-none text-center">
                       We're not just editors. <span className="font-serif font-normal italic text-stone-700 block md:inline">We're your content engine.</span>
                     </h1>
-                    <p className="text-base md:text-lg text-[#6B6B6B] leading-relaxed pt-2">
+                    <p className="text-base md:text-lg text-[#6B6B6B] leading-relaxed pt-2 text-center">
                       While others deliver files, we deliver consistency. VikEdit operates as your outsourced content department handling the entire post-production workflow so you can focus on what you do best! creating, coaching, and growing your business.<br />
                       No freelancers to manage. No missed deadlines. Just reliable, high quality content that performs.
                     </p>
@@ -1684,7 +2005,7 @@ export default function App() {
 
                   {/* Team / Leadership section */}
                   <div className="space-y-16">
-                    <div className="space-y-4 text-center md:text-left">
+                    <div className="space-y-4 text-center">
                       <span className="text-xs font-mono tracking-widest uppercase text-[#999999] font-bold block">
                         Our leadership
                       </span>
@@ -1901,7 +2222,7 @@ export default function App() {
           </main>
 
           {/* SECTION 14: FOOTER */}
-          <footer className="bg-white border-t border-[#E8E6E1] mt-24">
+          <footer className={`bg-white border-t border-[#E8E6E1]/60 relative z-30 shadow-[0_-25px_60px_-15px_rgba(17,17,17,0.12),0_-10px_25px_-5px_rgba(17,17,17,0.06)] transform-gpu ${currentView === "home" ? "mt-0" : "mt-24"}`}>
             <div id="footer-top-grid" className="max-w-7xl mx-auto px-6 sm:px-12 py-16 md:py-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
               {/* Brand Col */}
               <div className="lg:col-span-5 space-y-6">
@@ -2048,9 +2369,9 @@ export default function App() {
 
             {/* Bottom copyright segment */}
             <div className="border-t border-[#E8E6E1] py-8 px-6 sm:px-12">
-              <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="max-w-7xl mx-auto flex items-center justify-center gap-4 text-center">
                 <p className="text-xs text-[#999999]">
-                  © 2026 VikEdit. Created by Vikram Mehta.
+                  © 2026 VikEdit. Created by Vikram Singh Rawat
                 </p>
               </div>
             </div>
