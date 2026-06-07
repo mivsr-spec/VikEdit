@@ -49,29 +49,55 @@ export const SERVICE_ITEMS: ServiceItem[] = [
 export const CASE_STUDIES: CaseStudy[] = [
   {
     id: "cs-1",
-    category: "DOCUMENTED OUTPUT",
-    title: "From single recording to fourteen ",
+    category: "Repurposing Multiplies ROI",
+    title: "From one recording to fifteen ",
     italicWord: "assets",
-    description: "We transformed raw footage into high-retention clips, optimizing hooks, pacing, and platform formatting for maximum reach.",
+    description: "Strategic repurposing transforms a single recording into a content machine, dramatically increasing your output without adding production time. Currently, short-form video is the highest-performing content format on the market.",
     metrics: [
-      { value: "14", label: "ASSETS GENERATED", sublabel: "" },
-      { value: "3X", label: "PUBLISHING FREQUENCY", sublabel: "" }
+      { value: "9x", label: "RETURN ON INVESTMENT", sublabel: "" },
+      { value: "10-15", label: "ASSETS FROM ONE VIDEO", sublabel: "" }
     ],
     imageUrl: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=600&auto=format&fit=crop",
-    overlayText: "Coaching Firm"
+    overlayText: "Creator Platform"
   },
   {
     id: "cs-2",
-    category: "DOCUMENTED OUTPUT",
-    title: "Podcast to multi-platform ",
-    italicWord: "pipeline",
-    description: "A single long-form interview was systematically segmented into Shorts, Reels, LinkedIn clips, and promotional assets.",
+    category: "Consistency Drives Algorithmic Favor",
+    title: "Consistent cadences for multi-platform ",
+    italicWord: "growth",
+    description: "Social algorithms prioritize accounts that post consistently. Short-form clips under 90 seconds retain half their viewers on average, far outperforming long-form retention and static posts.",
     metrics: [
-      { value: "8", label: "HOURS SAVED PER MONTH", sublabel: "" },
-      { value: "95%", label: "ON-TIME DELIVERY RATE", sublabel: "" }
+      { value: "70%", label: "HIGHER ENGAGEMENT", sublabel: "" },
+      { value: "50%", label: "AVERAGE VIEWER RETENTION", sublabel: "" }
     ],
     imageUrl: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=600&auto=format&fit=crop",
-    overlayText: "Industry Podcast"
+    overlayText: "Brand Content"
+  },
+  {
+    id: "cs-3",
+    category: "Outsourcing Editing Boosts Productivity",
+    title: "Reclaiming hours with specialized ",
+    italicWord: "partners",
+    description: "Gain access to expert talent and advanced tools without the overhead of full-time staff. Outsourcing post-production removes bottlenecks, allowing your team to focus on strategy rather than editing.",
+    metrics: [
+      { value: "10-15", label: "HOURS RECLAIMED WEEKLY", sublabel: "" },
+      { value: "3X", label: "FASTER CONTENT TURNAROUND", sublabel: "" }
+    ],
+    imageUrl: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop",
+    overlayText: "Creator Operations"
+  },
+  {
+    id: "cs-4",
+    category: "Professional Editing Improves Performance",
+    title: "High-retention edits that build ",
+    italicWord: "trust",
+    description: "Professional post-production utilizes strong hooks, captions, and dynamic pacing to increase watch time and shares—the key signals algorithms use to promote content to new audiences.",
+    metrics: [
+      { value: "PRO", label: "CONSISTENT BRAND QUALITY", sublabel: "" },
+      { value: "MAX", label: "AUDIENCE TRUST & RETENTION", sublabel: "" }
+    ],
+    imageUrl: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=600&auto=format&fit=crop",
+    overlayText: "Media Network"
   }
 ];
 

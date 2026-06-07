@@ -1,26 +1,37 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronLeft, ChevronRight, Heart, Share2, MessageCircle, Bookmark } from "lucide-react";
-import { HERO_CAROUSEL_IMAGES } from "../data";
+
+// ========================================================
+// EASILY EDITABLE ARRAY OF 5 REELS IMAGES
+// You can freely swap out these image URLs as needed!
+// ========================================================
+const REELS_IMAGES = [
+  "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=500&auto=format&fit=crop", // Warm skincare setup
+  "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=500&auto=format&fit=crop", // Premium skincare display
+  "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=500&auto=format&fit=crop", // Cosmetic flatlay
+  "https://images.unsplash.com/photo-1617897903246-719242758050?q=80&w=500&auto=format&fit=crop", // Beauty serum bottle
+  "https://images.unsplash.com/photo-1608248597481-496100c8c836?q=80&w=500&auto=format&fit=crop"  // Serum droplet closeup (5th image)
+];
 
 export default function InteractivePhone() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Auto-rotating sequence every 4 seconds
+  // Auto-rotating Reels sequence every 2.5 seconds in an infinite loop
   useEffect(() => {
     const timer = setInterval(() => {
       handleNext();
-    }, 4000);
+    }, 2500);
     return () => clearInterval(timer);
   }, [currentIndex]);
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % HERO_CAROUSEL_IMAGES.length);
+    setCurrentIndex((prev) => (prev + 1) % REELS_IMAGES.length);
   };
 
   const handlePrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + HERO_CAROUSEL_IMAGES.length) % HERO_CAROUSEL_IMAGES.length);
+    setCurrentIndex((prev) => (prev - 1 + REELS_IMAGES.length) % REELS_IMAGES.length);
   };
 
   return (
@@ -64,10 +75,10 @@ export default function InteractivePhone() {
 
         {/* Dynamic stories indicator line */}
         <div className="absolute top-7 inset-x-3 h-0.5 flex gap-1 z-40">
-          {HERO_CAROUSEL_IMAGES.map((_, i) => (
+          {REELS_IMAGES.map((_, i) => (
             <div key={i} className="flex-1 bg-white/30 rounded-full overflow-hidden">
               <div 
-                className={`h-full bg-white transition-all duration-[4000ms] ease-linear ${
+                className={`h-full bg-white transition-all duration-[2500ms] ease-linear ${
                   i === currentIndex ? "w-full" : i < currentIndex ? "w-full opacity-60" : "w-0"
                 }`}
               />
@@ -75,37 +86,18 @@ export default function InteractivePhone() {
           ))}
         </div>
 
-        {/* Top User Metadata Bar */}
-        <div className="absolute top-9 inset-x-4 flex items-center justify-between z-40 text-white drop-shadow-md">
-          <div className="flex items-center gap-2">
-            <img 
-              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop" 
-              alt="Jessica Su"
-              className="w-8 h-8 rounded-full border border-white/40 OBJECT-cover"
-              referrerPolicy="no-referrer"
-            />
-            <div className="flex flex-col">
-              <span className="font-sans text-xs font-semibold tracking-wide">jessicasu</span>
-              <span className="font-sans text-[10px] text-white/80">3h • Original Audio</span>
-            </div>
-          </div>
-          <div className="flex items-center gap-1 bg-black/20 backdrop-blur-md px-2.5 py-1 rounded-full text-[11px] font-medium border border-white/10">
-            <span>Reels</span>
-          </div>
-        </div>
-
         {/* Image Slideshow (Carousel) */}
         <div className="flex-1 relative w-full h-full bg-[#1A1A1A] overflow-hidden">
-          <AnimatePresence mode="wait">
+          <AnimatePresence initial={false}>
             <motion.img
               key={currentIndex}
-              src={HERO_CAROUSEL_IMAGES[currentIndex]}
+              src={REELS_IMAGES[currentIndex]}
               alt={`Cosmetic scene ${currentIndex + 1}`}
               className="absolute inset-0 w-full h-full object-cover select-none"
-              initial={{ opacity: 0, scale: 1.05 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
+              initial={{ y: "100%" }}
+              animate={{ y: "0%" }}
+              exit={{ y: "-100%" }}
+              transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
               referrerPolicy="no-referrer"
             />
           </AnimatePresence>
@@ -194,21 +186,6 @@ export default function InteractivePhone() {
               ease: "easeInOut"
             }}
           />
-
-          {/* Bottom center overlay: Black rounded square banner with white play logo */}
-          <div className="absolute bottom-3 inset-x-0 flex justify-center z-50">
-            <div className="bg-[#1A1A1A] hover:scale-105 active:scale-95 transition-transform duration-300 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center text-white border border-neutral-800 shadow-xl cursor-pointer">
-              <svg
-                viewBox="0 0 24 24"
-                className="h-5 w-5 sm:h-6 sm:w-6 fill-current text-white flex-shrink-0"
-              >
-                <path
-                  d="M6 4.4v15.2c0 .6.6 1 1.2.7l13.3-7.6c.5-.3.5-1.1 0-1.4L7.2 3.7c-.6-.3-1.2.1-1.2.7z"
-                  fill="currentColor"
-                />
-              </svg>
-            </div>
-          </div>
         </div>
       </motion.div>
     </div>

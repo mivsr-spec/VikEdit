@@ -4,42 +4,57 @@ import { CASE_STUDIES } from "../data";
 
 // Sub-component to count up beautifully on viewport entry
 function AnimCounter({ targetValue }: { targetValue: string }) {
-  const ref = useRef(null);
+  const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
-  const [current, setCurrent] = useState(0);
-
-  // Extract numeric digits from value (e.g., "128K" -> { num: 128, suffix: "K" })
-  const match = targetValue.match(/^([\d.,]+)(.*)$/);
-  const numVal = match ? parseFloat(match[1].replace(/,/g, "")) : 100;
-  const suffixStr = match ? match[2] : "";
+  const [current, setCurrent] = useState<number | string>("");
 
   useEffect(() => {
-    if (!isInView) return;
+    const match = targetValue.match(/^([\d.,]+)(.*)$/);
+    if (!match) {
+      setCurrent(targetValue);
+      return;
+    }
 
-    let start = 0;
-    const duration = 1500; // 1.5s as specified
-    const fps = 60;
-    const steps = Math.floor(duration / (1000 / fps));
-    const increment = numVal / steps;
-    let tickCount = 0;
+    const numVal = parseFloat(match[1].replace(/,/g, ""));
+    const suffixStr = match[2] || "";
 
-    const timer = setInterval(() => {
-      tickCount++;
-      start += increment;
-      if (tickCount >= steps) {
-        setCurrent(numVal);
-        clearInterval(timer);
-      } else {
-        setCurrent(Math.floor(start));
+    if (!isInView) {
+      setCurrent(`0${suffixStr}`);
+      return;
+    }
+
+    let startTimestamp: number | null = null;
+    const duration = 1200; // 1.2s for smooth counting
+    let animationFrameId: number;
+
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const easeOutQuad = (t: number) => t * (2 - t);
+      const currentVal = progress === 1 ? numVal : numVal * easeOutQuad(progress);
+
+      const formattedNum = Math.floor(currentVal).toLocaleString();
+      setCurrent(`${formattedNum}${suffixStr}`);
+
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(step);
       }
-    }, 1000 / fps);
+    };
 
-    return () => clearInterval(timer);
-  }, [isInView, numVal]);
+    animationFrameId = requestAnimationFrame(step);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isInView, targetValue]);
 
   return (
-    <span ref={ref} className="font-sans text-5xl md:text-6xl font-extrabold tracking-tight text-[#1A1A1A]">
-      {current.toLocaleString()}{suffixStr}
+    <span 
+      ref={ref} 
+      className="font-sans text-5xl md:text-6xl font-extrabold tracking-tight text-[#1A1A1A]"
+      style={{ willChange: "transform", transform: "translateZ(0)" }}
+    >
+      {current || targetValue}
     </span>
   );
 }
@@ -61,10 +76,6 @@ export default function CaseStudySection() {
                 isReversed ? "lg:order-2" : "lg:order-1"
               }`}
             >
-              <span className="text-xs font-mono tracking-widest uppercase text-[#999999] block mb-3">
-                {study.category}
-              </span>
-              
               <h3 className="text-3xl md:text-5xl font-sans font-bold text-[#1A1A1A] tracking-tight leading-tight mb-6">
                 {study.title}
                 <span className="italic font-serif font-medium font-normal text-slate-800">
@@ -80,10 +91,10 @@ export default function CaseStudySection() {
               <div id="metrics-grid-element" className="grid grid-cols-2 gap-6 sm:gap-10 border-t border-[#E8E6E1] pt-8">
                 {study.metrics.map((metric, mIdx) => (
                   <div key={mIdx} className="space-y-1">
-                    <div className="flex items-baseline">
+                    <div className="flex items-baseline mb-1">
                       <AnimCounter targetValue={metric.value} />
                     </div>
-                    <div className="text-xs uppercase font-bold tracking-widest text-[#1A1A1A] mt-1">
+                    <div className="text-xs uppercase font-bold tracking-widest text-[#1A1A1A]">
                       {metric.label}
                     </div>
                     <div className="text-[11px] text-[#999999] leading-tight">

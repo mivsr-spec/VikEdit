@@ -180,7 +180,7 @@ const FACELESS_SERVICES_DATA: ServiceDataItem[] = [
 
 export interface PortfolioItem {
   id: string;
-  category: "short-form" | "long-form" | "corporate" | "faceless" | "workflow";
+  category: "short-form" | "corporate" | "faceless" | "workflow";
   tag: string;
   title: string;
   description: string;
@@ -194,31 +194,15 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "High Retention",
     title: "Short-Form Content",
     description: "High-retention Reels & Shorts with fast-paced cuts, eye-catching captions, and motion graphics that stop the scroll.",
-    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop"
+    image: "https://images2.imgbox.com/1e/9c/AL4oo6Ei_o.png"
   },
   {
     id: "long-form-repurposing",
-    category: "long-form",
+    category: "workflow",
     tag: "Repurposing",
     title: "Long-Form Repurposing",
     description: "Turn your hour-long podcast into 10+ bite-sized clips. We extract the best moments so one recording fuels weeks of content.",
-    image: "https://images.unsplash.com/photo-1590602847861-f357a9333bbc?q=80&w=1000&auto=format&fit=crop"
-  },
-  {
-    id: "faceless-content",
-    category: "faceless",
-    tag: "New Service",
-    title: "Faceless Content",
-    description: "AI voiceovers, stock footage, and kinetic typography. Build authority and grow audiences without ever showing your face.",
-    image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?q=80&w=1000&auto=format&fit=crop"
-  },
-  {
-    id: "corporate-courses",
-    category: "corporate",
-    tag: "Professional",
-    title: "Corporate & Courses",
-    description: "Polished webinars, training videos, and marketing content. We make your business content look professional and engaging.",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1000&auto=format&fit=crop"
+    image: "https://images2.imgbox.com/a6/2a/Oxhle4Am_o.png"
   },
   {
     id: "multi-platform-formatting",
@@ -226,7 +210,23 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "Optimization",
     title: "Multi-Platform Formatting",
     description: "We resize and reformat content for Instagram, YouTube, and LinkedIn so it looks native and performs better everywhere.",
-    image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=1000&auto=format&fit=crop"
+    image: "https://images2.imgbox.com/80/4c/bJmyg3gc_o.png"
+  },
+  {
+    id: "corporate-courses",
+    category: "corporate",
+    tag: "Professional",
+    title: "Corporate & Courses",
+    description: "Polished webinars, training videos, and marketing content. We make your business content look professional and engaging.",
+    image: "https://images2.imgbox.com/c9/21/sn3tFdID_o.png"
+  },
+  {
+    id: "faceless-content",
+    category: "faceless",
+    tag: "New Service",
+    title: "Faceless Content",
+    description: "AI voiceovers, stock footage, and kinetic typography. Build authority and grow audiences without ever showing your face.",
+    image: "https://images2.imgbox.com/06/28/7ycmEMyO_o.png"
   },
   {
     id: "content-workflow",
@@ -234,7 +234,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "Systematic",
     title: "Content Workflow",
     description: "Upload your raw footage. We handle the rest—editing, revisions, formatting, and delivery. No back-and-forth chaos.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop"
+    image: "https://images2.imgbox.com/d3/99/BnMGtaVf_o.png"
   }
 ];
 
@@ -1197,6 +1197,7 @@ export default function App() {
   // States for final CTA contact card
   const [ctaName, setCtaName] = useState("");
   const [ctaEmail, setCtaEmail] = useState("");
+  const [ctaCountryCode, setCtaCountryCode] = useState("+1");
   const [ctaPhone, setCtaPhone] = useState("");
   const [ctaMessage, setCtaMessage] = useState("");
   const [ctaIsSubmitting, setCtaIsSubmitting] = useState(false);
@@ -1204,7 +1205,38 @@ export default function App() {
 
   // Scroll to top automatically when view changes
   useEffect(() => {
+    const hash = window.location.hash;
+    if (hash && hash.startsWith("#")) {
+      return;
+    }
     window.scrollTo({ top: 0, behavior: "instant" });
+  }, [currentView]);
+
+  // Handle scrolling to sections when landing on home view (especially from other views)
+  useEffect(() => {
+    if (currentView === "home") {
+      const hash = window.location.hash;
+      if (hash && hash.startsWith("#")) {
+        const targetId = hash.substring(1);
+        let attempts = 0;
+        const interval = setInterval(() => {
+          const el = document.getElementById(targetId);
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+            clearInterval(interval);
+            // clear hash after small delay to keep URL clean
+            setTimeout(() => {
+              window.history.replaceState(null, "", " ");
+            }, 1000);
+          }
+          attempts++;
+          if (attempts > 30) { // max 1.5 seconds of polling
+            clearInterval(interval);
+          }
+        }, 50);
+        return () => clearInterval(interval);
+      }
+    }
   }, [currentView]);
 
   return (
@@ -1403,7 +1435,6 @@ export default function App() {
                         {[
                           { key: "all", label: "All" },
                           { key: "short-form", label: "Short-Form" },
-                          { key: "long-form", label: "Long-Form" },
                           { key: "corporate", label: "Corporate" },
                           { key: "faceless", label: "Faceless" },
                           { key: "workflow", label: "Workflow" }
@@ -1429,15 +1460,12 @@ export default function App() {
                       {/* Dynamic Portfolio Grid with Layout Animations */}
                       <motion.div 
                         layout 
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[220px]"
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
                       >
                         <AnimatePresence mode="popLayout">
                           {PORTFOLIO_ITEMS.filter(
                             (item) => portfolioFilter === "all" || item.category === portfolioFilter
                           ).map((item) => {
-                            const isTall = item.category === "short-form" || item.category === "faceless";
-                            const isWorkflow = item.category === "workflow";
-                            
                             return (
                               <motion.div
                                 key={item.id}
@@ -1446,13 +1474,7 @@ export default function App() {
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.4 }}
-                                className={`relative rounded-[8px] overflow-hidden cursor-pointer group bg-stone-100 ${
-                                  isTall
-                                    ? "row-span-2 h-full"
-                                    : isWorkflow
-                                    ? "row-span-1.5 h-full"
-                                    : "row-span-1 h-full"
-                                }`}
+                                className="relative rounded-3xl overflow-hidden cursor-pointer group bg-stone-100 aspect-[9/16] w-full border border-[#E8E6E1]/50 shadow-sm hover:shadow-xl transition-all duration-300"
                                 onClick={() => setSelectedPortfolioItem(item)}
                               >
                                 <img
@@ -1698,7 +1720,7 @@ export default function App() {
                   {/* SECTION 6: PROCESS (How We Work) */}
                   <section 
                     id="process-section" 
-                    className="relative bg-[#F5F3EF] py-24 md:py-36 px-6 sm:px-12 overflow-hidden border-y border-[#E8E6E1]/60"
+                    className="relative bg-[#F5F3EF] pt-12 pb-24 md:pt-16 md:pb-36 px-6 sm:px-12 overflow-hidden border-y border-[#E8E6E1]/60"
                   >
                     {/* Decorative elegant background glow shapes for subtle branding */}
                     <div className="absolute top-1/4 left-10 w-96 h-96 rounded-full bg-violet-400/5 blur-[120px] pointer-events-none" />
@@ -1709,12 +1731,9 @@ export default function App() {
                         <span className="text-xs font-mono tracking-widest uppercase text-[#1A1A1A]/50 block font-bold mb-4">
                           Work Process
                         </span>
-                        <h2 className="text-4xl md:text-6xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-none animate-fade-in">
+                        <h2 className="text-4xl md:text-6xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-tight animate-fade-in">
                           The Process Behind <span className="italic font-serif font-normal text-stone-700">Every Project</span>
                         </h2>
-                        <p className="text-xs sm:text-sm font-mono tracking-widest uppercase text-[#1A1A1A] font-extrabold mt-8 block">
-                          Align &rarr; Upload &rarr; Create &rarr; Deliver &rarr; Repeat
-                        </p>
                       </div>
 
                       {/* 2x2 Responsive Grid Layout */}
@@ -1744,14 +1763,14 @@ export default function App() {
                   </section>
 
                   {/* SECTION 7: CASE STUDIES */}
-                  <section id="work-case-studies" className="py-24 md:py-36 px-6 sm:px-12 bg-white border-y border-[#E8E6E1]">
+                  <section id="work-case-studies" className="pt-12 pb-24 md:pt-16 md:pb-36 px-6 sm:px-12 bg-white border-y border-[#E8E6E1]">
                     <div className="max-w-7xl mx-auto space-y-16">
                       <div className="text-left space-y-2">
                         <span className="text-xs font-mono tracking-widest uppercase text-[#999999]">
-                          DOCUMENTED OUTPUT
+                          CASE STUDIES
                         </span>
                         <h2 className="text-4xl md:text-6xl font-sans font-bold text-[#1A1A1A]">
-                          Proven case studies
+                          Proven Results
                         </h2>
                       </div>
 
@@ -1861,7 +1880,7 @@ export default function App() {
                               className="w-full bg-[#FFFFFF] rounded-[24px] border border-[#E8E6E1]/70 shadow-[0_20px_50px_rgba(26,26,26,0.04),0_1px_3px_rgba(26,26,26,0.02)] p-8 sm:p-12 text-left transform-gpu"
                             >
                               <h3 className="font-serif font-bold text-4xl sm:text-5xl text-[#111111] mb-5 tracking-tight leading-tight">
-                                Ready to <span className="italic font-serif font-semibold font-normal text-stone-700">scale output?</span>
+                                Let's make this <span className="italic font-serif font-medium text-stone-700">easy for you.</span>
                               </h3>
                               <p className="font-sans text-xs sm:text-sm text-[#666666] leading-relaxed mb-8">
                                 Your content deserves a system that works. Share your goals below, and we'll show you how to publish consistently without the overhead. We respond within 24 hours.
@@ -1900,9 +1919,29 @@ export default function App() {
 
                                 {/* Phone Input */}
                                 <div className="flex items-center bg-[#FFFFFF] border border-[#E5E5E5] rounded-[8px] overflow-hidden focus-within:border-[#111111] focus-within:ring-1 focus-within:ring-[#111111]/10 transition-all duration-300">
-                                  <span className="px-4 py-[14px] bg-[#F2F2F2] text-sm font-medium text-[#666666] border-r border-[#E5E5E5] whitespace-nowrap select-none">
-                                    +1
-                                  </span>
+                                  <div className="relative flex items-center bg-[#F2F2F2] border-r border-[#E5E5E5]">
+                                    <select
+                                      value={ctaCountryCode}
+                                      onChange={(e) => setCtaCountryCode(e.target.value)}
+                                      className="py-[14px] pl-4 pr-10 bg-[#F2F2F2] text-sm font-medium text-[#666666] appearance-none focus:outline-none cursor-pointer font-sans"
+                                    >
+                                      <option value="+1">+1 (US)</option>
+                                      <option value="+44">+44 (UK)</option>
+                                      <option value="+91">+91 (IN)</option>
+                                      <option value="+61">+61 (AU)</option>
+                                      <option value="+49">+49 (DE)</option>
+                                      <option value="+33">+33 (FR)</option>
+                                      <option value="+81">+81 (JP)</option>
+                                      <option value="+65">+65 (SG)</option>
+                                      <option value="+971">+971 (AE)</option>
+                                      <option value="+55">+55 (BR)</option>
+                                    </select>
+                                    <div className="absolute right-3.5 pointer-events-none text-[#666666]">
+                                      <svg className="w-3.5 h-3.5 fill-none stroke-current" strokeWidth="2.5" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                      </svg>
+                                    </div>
+                                  </div>
                                   <input
                                     type="tel"
                                     placeholder="Phone Number with Country Code"
@@ -1998,8 +2037,7 @@ export default function App() {
                       We're not just editors. <span className="font-serif font-normal italic text-stone-700 block md:inline">We're your content engine.</span>
                     </h1>
                     <p className="text-base md:text-lg text-[#6B6B6B] leading-relaxed pt-2 text-center">
-                      While others deliver files, we deliver consistency. VikEdit operates as your outsourced content department handling the entire post-production workflow so you can focus on what you do best! creating, coaching, and growing your business.<br />
-                      No freelancers to manage. No missed deadlines. Just reliable, high quality content that performs.
+                      While others deliver files, we deliver consistency. VikEdit operates as your outsourced content department handling the entire post-production workflow so you can focus on what you do best! creating, coaching, and growing your business.
                     </p>
                   </div>
 
@@ -2092,74 +2130,7 @@ export default function App() {
                 </motion.div>
               )}
 
-              {currentView === "work" && (
-                <motion.div
-                  key="work-view"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5 }}
-                  className="max-w-7xl mx-auto px-6 py-16 md:py-24 space-y-16"
-                >
-                  <div className="max-w-3xl space-y-4">
-                    <span className="text-xs font-mono tracking-widest uppercase text-[#999999]">
-                      Case studies
-                    </span>
-                    <h1 className="text-5xl md:text-7xl font-sans font-bold text-[#1A1A1A]">
-                      Case studies & output
-                    </h1>
-                    <p className="text-lg text-[#6B6B6B] leading-relaxed">
-                      See how we transform isolated recordings into sustained publishing pipelines. Every engagement is structured for consistency, strategic repurposing, and measurable growth.
-                    </p>
-                  </div>
 
-                  <CaseStudySection />
-                </motion.div>
-              )}
-
-              {currentView === "services" && (
-                <motion.div
-                  key="services-view"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5 }}
-                  className="max-w-7xl mx-auto px-6 py-16 md:py-24 space-y-20"
-                >
-                  <div className="max-w-3xl space-y-4">
-                    <span className="text-xs font-mono tracking-widest uppercase text-[#999999]">
-                      Services
-                    </span>
-                    <h1 className="text-5xl md:text-7xl font-sans font-bold text-[#1A1A1A]">
-                      Service architecture
-                    </h1>
-                    <p className="text-lg text-[#6B6B6B] leading-relaxed">
-                      We operate across three scalable tiers, engineered to match your content velocity, platform expansion, and revenue objectives.
-                    </p>
-                  </div>
-
-                  {/* Service breakdown grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-                    {SERVICE_ITEMS.map((svc) => (
-                      <div key={svc.id} className="bg-white border border-[#E8E6E1] p-8 md:p-10 rounded-3xl space-y-6">
-                        <div className="w-12 h-12 rounded-xl bg-[#F5F3EF] flex items-center justify-center text-black">
-                          {svc.iconType === "short" && <Play className="w-6 h-6 fill-current" />}
-                          {svc.iconType === "social" && <Users className="w-6 h-6" />}
-                          {svc.iconType === "paid" && <Layers className="w-6 h-6" />}
-                        </div>
-                        <h3 className="text-xl font-bold text-black">{svc.title}</h3>
-                        <p className="text-[#6B6B6B] text-sm leading-relaxed">{svc.description}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Difference comparison grid */}
-                  <div className="space-y-12">
-                    <h2 className="text-3xl font-bold text-center">Infrastructure over editing</h2>
-                    <ComparisonTable />
-                  </div>
-                </motion.div>
-              )}
 
               {currentView === "blog" && (
                 <motion.div
@@ -2269,20 +2240,42 @@ export default function App() {
                 </h4>
                 <ul className="space-y-2.5 text-sm">
                   <li>
-                    <button onClick={() => setView("home")} className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer">
+                    <button 
+                      onClick={() => {
+                        setView("home");
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }} 
+                      className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer"
+                    >
                       Home
                     </button>
                   </li>
                   <li>
-                    <button onClick={() => setView("services")} className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer">
+                    <button 
+                      onClick={() => {
+                        window.location.hash = "services-section";
+                        if (currentView !== "home") {
+                          setView("home");
+                        } else {
+                          document.getElementById("services-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                          setTimeout(() => window.history.replaceState(null, "", " "), 850);
+                        }
+                      }} 
+                      className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer"
+                    >
                       Services
                     </button>
                   </li>
                   <li>
                     <button 
                       onClick={() => {
-                        setView("home");
-                        setTimeout(() => document.getElementById("process-section")?.scrollIntoView({ behavior: "smooth" }), 200);
+                        window.location.hash = "process-section";
+                        if (currentView !== "home") {
+                          setView("home");
+                        } else {
+                          document.getElementById("process-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                          setTimeout(() => window.history.replaceState(null, "", " "), 850);
+                        }
                       }} 
                       className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer"
                     >
@@ -2290,15 +2283,31 @@ export default function App() {
                     </button>
                   </li>
                   <li>
-                    <button onClick={() => setView("work")} className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer">
+                    <button 
+                      onClick={() => {
+                        window.location.hash = "work-case-studies";
+                        if (currentView !== "home") {
+                          setView("home");
+                        } else {
+                          document.getElementById("work-case-studies")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                          setTimeout(() => window.history.replaceState(null, "", " "), 850);
+                        }
+                      }} 
+                      className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer"
+                    >
                       Case Studies
                     </button>
                   </li>
                   <li>
                     <button 
                       onClick={() => {
-                        setView("home");
-                        setTimeout(() => document.getElementById("faq-section")?.scrollIntoView({ behavior: "smooth" }), 200);
+                        window.location.hash = "faq-section";
+                        if (currentView !== "home") {
+                          setView("home");
+                        } else {
+                          document.getElementById("faq-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                          setTimeout(() => window.history.replaceState(null, "", " "), 850);
+                        }
                       }} 
                       className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer"
                     >
@@ -2376,6 +2385,27 @@ export default function App() {
               </div>
             </div>
           </footer>
+
+          {/* Sticky floating WhatsApp button */}
+          <motion.a
+            href="https://wa.me/918958123147?text=Hi%20Vikedit%2C%20I'm%20interested%20in%20your%20services"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 flex items-center justify-center w-14 h-14 bg-black hover:bg-neutral-950 rounded-full shadow-2xl border border-neutral-800 cursor-pointer text-white focus:outline-none"
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, duration: 0.4 }}
+            title="Chat with us on WhatsApp"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className="w-7 h-7 fill-current stroke-none text-white flex-shrink-0"
+            >
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.455 5.703 1.456h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
+          </motion.a>
         </motion.div>
       )}
     </div>

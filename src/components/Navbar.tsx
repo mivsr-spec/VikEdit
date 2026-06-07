@@ -33,6 +33,40 @@ export default function Navbar({ currentView, setView, onBookCallClicked }: Navb
   ];
 
   const handleNavClick = (viewId: string) => {
+    if (viewId === "services") {
+      setMobileMenuOpen(false);
+      window.location.hash = "services-section";
+      if (currentView !== "home") {
+        setView("home");
+      } else {
+        const el = document.getElementById("services-section");
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        setTimeout(() => {
+          window.history.replaceState(null, "", " ");
+        }, 850);
+      }
+      return;
+    }
+
+    if (viewId === "work") {
+      setMobileMenuOpen(false);
+      window.location.hash = "process-section";
+      if (currentView !== "home") {
+        setView("home");
+      } else {
+        const el = document.getElementById("process-section");
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        setTimeout(() => {
+          window.history.replaceState(null, "", " ");
+        }, 850);
+      }
+      return;
+    }
+
     setView(viewId);
     setMobileMenuOpen(false);
     
