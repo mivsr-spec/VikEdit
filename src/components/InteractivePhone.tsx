@@ -7,11 +7,11 @@ import { ChevronLeft, ChevronRight, Heart, Share2, MessageCircle, Bookmark } fro
 // You can freely swap out these image URLs as needed!
 // ========================================================
 const REELS_IMAGES = [
-  "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=500&auto=format&fit=crop", // Warm skincare setup
-  "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=500&auto=format&fit=crop", // Premium skincare display
-  "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=500&auto=format&fit=crop", // Cosmetic flatlay
-  "https://images.unsplash.com/photo-1617897903246-719242758050?q=80&w=500&auto=format&fit=crop", // Beauty serum bottle
-  "https://images.unsplash.com/photo-1608248597481-496100c8c836?q=80&w=500&auto=format&fit=crop"  // Serum droplet closeup (5th image)
+  "https://images2.imgbox.com/80/d4/iuS9T3j2_o.png",
+  "https://images2.imgbox.com/70/bf/IPLl3DAQ_o.png",
+  "https://images2.imgbox.com/a5/39/99HLfbOK_o.png",
+  "https://images2.imgbox.com/8d/88/fM7vWu7V_o.png",
+  "https://images2.imgbox.com/24/47/yaWkQBym_o.png"
 ];
 
 export default function InteractivePhone() {

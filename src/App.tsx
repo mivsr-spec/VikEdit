@@ -194,7 +194,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "High Retention",
     title: "Short-Form Content",
     description: "High-retention Reels & Shorts with fast-paced cuts, eye-catching captions, and motion graphics that stop the scroll.",
-    image: "https://images2.imgbox.com/1e/9c/AL4oo6Ei_o.png"
+    image: "https://images2.imgbox.com/9d/3a/xhcxdPo9_o.png"
   },
   {
     id: "long-form-repurposing",
@@ -202,7 +202,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "Repurposing",
     title: "Long-Form Repurposing",
     description: "Turn your hour-long podcast into 10+ bite-sized clips. We extract the best moments so one recording fuels weeks of content.",
-    image: "https://images2.imgbox.com/a6/2a/Oxhle4Am_o.png"
+    image: "https://images2.imgbox.com/f4/7a/2us0k7jl_o.png"
   },
   {
     id: "multi-platform-formatting",
@@ -210,7 +210,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "Optimization",
     title: "Multi-Platform Formatting",
     description: "We resize and reformat content for Instagram, YouTube, and LinkedIn so it looks native and performs better everywhere.",
-    image: "https://images2.imgbox.com/80/4c/bJmyg3gc_o.png"
+    image: "https://images2.imgbox.com/14/08/53gq0W2K_o.png"
   },
   {
     id: "corporate-courses",
@@ -218,7 +218,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "Professional",
     title: "Corporate & Courses",
     description: "Polished webinars, training videos, and marketing content. We make your business content look professional and engaging.",
-    image: "https://images2.imgbox.com/c9/21/sn3tFdID_o.png"
+    image: "https://images2.imgbox.com/7a/12/7NF9Ubm5_o.png"
   },
   {
     id: "faceless-content",
@@ -226,7 +226,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "New Service",
     title: "Faceless Content",
     description: "AI voiceovers, stock footage, and kinetic typography. Build authority and grow audiences without ever showing your face.",
-    image: "https://images2.imgbox.com/06/28/7ycmEMyO_o.png"
+    image: "https://images2.imgbox.com/39/91/xaznJ6iF_o.png"
   },
   {
     id: "content-workflow",
@@ -234,7 +234,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "Systematic",
     title: "Content Workflow",
     description: "Upload your raw footage. We handle the rest—editing, revisions, formatting, and delivery. No back-and-forth chaos.",
-    image: "https://images2.imgbox.com/d3/99/BnMGtaVf_o.png"
+    image: "https://images2.imgbox.com/fd/da/gVSDq283_o.png"
   }
 ];
 
@@ -1330,86 +1330,16 @@ export default function App() {
                     </div>
                   </section>
 
-                  {/* SECTION 4: MISSION & VALUE */}
-                  <section id="mission-section" className="pt-16 pb-20 md:pt-24 md:pb-32 px-6 sm:px-12 bg-[#F5F3EF] overflow-hidden">
-                    <div className="max-w-5xl mx-auto">
-                      {/* Top Header */}
-                      <div className="text-center max-w-4xl mx-auto mb-16 md:mb-24">
-                        <h2 className="text-4xl md:text-6xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-tight">
+                  {/* SECTION 7: CASE STUDIES */}
+                  <section id="work-case-studies" className="pt-24 pb-24 md:pt-36 md:pb-36 px-6 sm:px-12 bg-[#F5F3EF] border-y border-[#E8E6E1]">
+                    <div className="max-w-7xl mx-auto space-y-24 md:space-y-32">
+                      <div className="text-center select-none mx-auto max-w-4xl">
+                        <h2 className="text-4xl md:text-6xl font-sans font-bold text-[#1A1A1A] tracking-tight leading-tight">
                           Liberating creators from <br /> <span className="italic font-serif font-normal text-[#1A1A1A]">post-production.</span>
                         </h2>
                       </div>
 
-                      {/* Alternating Rows Container */}
-                      <div className="space-y-8 md:space-y-16 relative pb-12">
-                        
-                        {/* Row 1 (Text Left | Image Right) */}
-                        <StackedCard index={0}>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                            <div className="space-y-6">
-                              <h3 className="text-3xl md:text-5xl font-sans font-bold text-[#1A1A1A] tracking-tight leading-tight">
-                                Record Once <br className="hidden md:inline" /> Publish For <span className="italic font-serif font-semibold text-slate-800">Weeks.</span>
-                              </h3>
-                              <p className="text-[#6B6B6B] text-base leading-relaxed">
-                                We transform single recording sessions into weeks of platform-optimized content. Strategic repurposing, precise editing, and systematic delivery eliminating content scarcity without increasing production time.
-                              </p>
-                            </div>
-                            <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-[#E8E6E1]/50 bg-white shadow-sm">
-                              <img
-                                src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=800&auto=format&fit=crop"
-                                alt="Creator recording"
-                                className="w-full h-full object-cover"
-                                referrerPolicy="no-referrer"
-                              />
-                            </div>
-                          </div>
-                        </StackedCard>
-
-                        {/* Row 2 (Image Left | Text Right) */}
-                        <StackedCard index={1}>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                            <div className="order-2 md:order-1 relative aspect-[16/10] overflow-hidden rounded-2xl border border-[#E8E6E1]/50 bg-white shadow-sm">
-                              <img
-                                src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop"
-                                alt="Smartphone with content calendar"
-                                className="w-full h-full object-cover"
-                                referrerPolicy="no-referrer"
-                              />
-                            </div>
-                            <div className="order-1 md:order-2 space-y-6">
-                              <h3 className="text-3xl md:text-5xl font-sans font-bold text-[#1A1A1A] tracking-tight leading-tight">
-                                Consistency Without <br className="hidden md:inline" /> <span className="italic font-serif font-semibold text-slate-800">Compromise.</span>
-                              </h3>
-                              <p className="text-[#6B6B6B] text-base leading-relaxed">
-                                Maintain a predictable publishing cadence across all platforms. We handle formatting, optimization, and quality control so your brand presence remains relentless while your workload stays manageable.
-                              </p>
-                            </div>
-                          </div>
-                        </StackedCard>
-
-                        {/* Row 3 (Text Left | Image Right) */}
-                        <StackedCard index={2}>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                            <div className="space-y-6">
-                              <h3 className="text-3xl md:text-5xl font-sans font-bold text-[#1A1A1A] tracking-tight leading-tight">
-                                You Create Vision <br className="hidden md:inline" /> We <span className="italic font-serif font-semibold text-slate-800">Execute.</span>
-                              </h3>
-                              <p className="text-[#6B6B6B] text-base leading-relaxed">
-                                Redirect hours spent on post-production back into strategy, product development, and client acquisition. We function as your dedicated content operations team embedded, reliable, and aligned with your growth objectives.
-                              </p>
-                            </div>
-                            <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-[#E8E6E1]/50 bg-white shadow-sm">
-                              <img
-                                src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop"
-                                alt="Upload Complete UI or finished video"
-                                className="w-full h-full object-cover"
-                                referrerPolicy="no-referrer"
-                              />
-                            </div>
-                          </div>
-                        </StackedCard>
-
-                      </div>
+                      <CaseStudySection />
                     </div>
                   </section>
 
@@ -1484,9 +1414,6 @@ export default function App() {
                                   referrerPolicy="no-referrer"
                                 />
                                 
-                                {/* Dark radial overlay gradient */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-300 group-hover:via-black/55" />
-
                                 {/* Play Button Hover representation */}
                                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-75 w-14 h-14 bg-white/95 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 shadow-xl z-20">
                                   <div className="w-0 h-0 border-y-[6px] border-y-transparent border-l-[11px] border-l-[#111111] ml-1" />
@@ -1687,22 +1614,7 @@ export default function App() {
                               </p>
                             </div>
 
-                            <div className="pt-6 border-t border-neutral-800 flex flex-wrap gap-4 items-center justify-between mt-6">
-                              <span className="text-[10px] font-mono text-stone-500 uppercase tracking-widest">Post System: Active</span>
-                              <button 
-                                onClick={() => {
-                                  setSelectedPortfolioItem(null);
-                                  setTimeout(() => {
-                                    const target = document.getElementById("final-cta");
-                                    if (target) target.scrollIntoView({ behavior: "smooth" });
-                                  }, 150);
-                                }}
-                                className="bg-[#FFFFFF] text-[#111111] hover:bg-neutral-100 font-mono font-bold text-xs uppercase py-2.5 px-6 rounded-full inline-flex items-center gap-2 cursor-pointer transition-all duration-350"
-                              >
-                                <span>Book a Start Call</span>
-                                <ArrowRight className="w-3.5 h-3.5" />
-                              </button>
-                            </div>
+
                           </div>
 
                           {/* Absolute close button */}
@@ -1759,22 +1671,6 @@ export default function App() {
                           body="Approved assets arrive organized, labeled, and ready to post. Then the cycle repeats: your next recording triggers the same streamlined workflow. Consistent output, zero operational drag, and a content engine that scales with you."
                         />
                       </div>
-                    </div>
-                  </section>
-
-                  {/* SECTION 7: CASE STUDIES */}
-                  <section id="work-case-studies" className="pt-12 pb-24 md:pt-16 md:pb-36 px-6 sm:px-12 bg-white border-y border-[#E8E6E1]">
-                    <div className="max-w-7xl mx-auto space-y-16">
-                      <div className="text-left space-y-2">
-                        <span className="text-xs font-mono tracking-widest uppercase text-[#999999]">
-                          CASE STUDIES
-                        </span>
-                        <h2 className="text-4xl md:text-6xl font-sans font-bold text-[#1A1A1A]">
-                          Proven Results
-                        </h2>
-                      </div>
-
-                      <CaseStudySection />
                     </div>
                   </section>
 
@@ -2131,52 +2027,6 @@ export default function App() {
               )}
 
 
-
-              {currentView === "blog" && (
-                <motion.div
-                  key="blog-view"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5 }}
-                  className="max-w-7xl mx-auto px-6 py-16 md:py-24 space-y-16"
-                >
-                  <div className="max-w-3xl space-y-4">
-                    <span className="text-xs font-mono tracking-widest uppercase text-[#999999]">
-                      Blog
-                    </span>
-                    <h1 className="text-5xl md:text-7xl font-sans font-bold text-[#1A1A1A]">
-                      Strategic insights
-                    </h1>
-                    <p className="text-lg text-[#6B6B6B] leading-relaxed">
-                      Actionable frameworks on content multiplication, algorithmic consistency, and operational workflow optimization.
-                    </p>
-                  </div>
-
-                  {/* Blog lists */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    {BLOG_ITEMS.map((item) => (
-                      <div key={item.id} className="space-y-6 bg-white p-6 rounded-3xl border border-[#E8E6E1] hover:shadow-md transition-all cursor-pointer group">
-                        <div className="relative overflow-hidden rounded-2xl h-64 bg-[#F5F3EF]">
-                          <img
-                            src={item.imageUrl}
-                            alt={item.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            referrerPolicy="no-referrer"
-                          />
-                        </div>
-                        <div className="space-y-3">
-                          <span className="text-xs font-semibold text-[#6B6B6B] uppercase tracking-wider">
-                            {item.category} • {item.date}
-                          </span>
-                          <h3 className="text-2xl font-bold text-black group-hover:underline">{item.title}</h3>
-                          <p className="text-[#6B6B6B] text-sm leading-relaxed">{item.description}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
 
               {currentView === "contact" && (
                 <motion.div

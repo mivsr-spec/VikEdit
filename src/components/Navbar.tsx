@@ -67,6 +67,23 @@ export default function Navbar({ currentView, setView, onBookCallClicked }: Navb
       return;
     }
 
+    if (viewId === "blog") {
+      setMobileMenuOpen(false);
+      window.location.hash = "work-case-studies";
+      if (currentView !== "home") {
+        setView("home");
+      } else {
+        const el = document.getElementById("work-case-studies");
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        setTimeout(() => {
+          window.history.replaceState(null, "", " ");
+        }, 850);
+      }
+      return;
+    }
+
     setView(viewId);
     setMobileMenuOpen(false);
     

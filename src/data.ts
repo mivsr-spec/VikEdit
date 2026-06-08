@@ -57,7 +57,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       { value: "9x", label: "RETURN ON INVESTMENT", sublabel: "" },
       { value: "10-15", label: "ASSETS FROM ONE VIDEO", sublabel: "" }
     ],
-    imageUrl: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=600&auto=format&fit=crop",
+    imageUrl: "https://images2.imgbox.com/1f/5d/z48Oltyf_o.png",
     overlayText: "Creator Platform"
   },
   {
@@ -70,7 +70,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       { value: "70%", label: "HIGHER ENGAGEMENT", sublabel: "" },
       { value: "50%", label: "AVERAGE VIEWER RETENTION", sublabel: "" }
     ],
-    imageUrl: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=600&auto=format&fit=crop",
+    imageUrl: "https://images2.imgbox.com/f5/37/THBC9n3N_o.png",
     overlayText: "Brand Content"
   },
   {
@@ -83,7 +83,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       { value: "10-15", label: "HOURS RECLAIMED WEEKLY", sublabel: "" },
       { value: "3X", label: "FASTER CONTENT TURNAROUND", sublabel: "" }
     ],
-    imageUrl: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop",
+    imageUrl: "https://images2.imgbox.com/57/ec/RbQRuxTS_o.png",
     overlayText: "Creator Operations"
   },
   {
@@ -96,7 +96,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       { value: "PRO", label: "CONSISTENT BRAND QUALITY", sublabel: "" },
       { value: "MAX", label: "AUDIENCE TRUST & RETENTION", sublabel: "" }
     ],
-    imageUrl: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=600&auto=format&fit=crop",
+    imageUrl: "https://images2.imgbox.com/3c/aa/3YQL6IFh_o.png",
     overlayText: "Media Network"
   }
 ];
