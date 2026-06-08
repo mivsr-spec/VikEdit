@@ -11,6 +11,7 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
   // Form input states
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [countryCode, setCountryCode] = useState("+91");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
 
@@ -90,12 +91,33 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                   {/* Phone input with custom country code decoration */}
                   <div className="flex flex-col gap-1">
                     <div className="flex items-center bg-[#FFFFFF] border border-[#E5E5E5] rounded-[4px] overflow-hidden focus-within:border-[#111111] focus-within:ring-1 focus-within:ring-[#111111]/10 transition-all duration-300">
-                      <span className="country-code px-3.5 py-3.5 bg-[#F2F2F2] text-xs font-medium text-[#666666] border-r border-[#E5E5E5] whitespace-nowrap">
-                        +1
-                      </span>
+                      <div className="relative flex items-center bg-[#F2F2F2] border-r border-[#E5E5E5]">
+                        <select
+                          value={countryCode}
+                          onChange={(e) => setCountryCode(e.target.value)}
+                          className="country-code py-3.5 pl-3.5 pr-8 bg-[#F2F2F2] text-xs font-semibold text-[#111111] border-none outline-none focus:outline-none focus:ring-0 cursor-pointer appearance-none rounded-l-[4px]"
+                          style={{
+                            backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='none' stroke='%23666666' stroke-width='2.5' viewBox='0 0 24 24'><path d='M6 9l6 6 6-6'/></svg>")`,
+                            backgroundPosition: 'calc(100% - 10px) center',
+                            backgroundRepeat: 'no-repeat',
+                          }}
+                        >
+                          <option value="+91">🇮🇳 +91</option>
+                          <option value="+1">🇺🇸 +1</option>
+                          <option value="+44">🇬🇧 +44</option>
+                          <option value="+61">🇦🇺 +61</option>
+                          <option value="+81">🇯🇵 +81</option>
+                          <option value="+49">🇩🇪 +49</option>
+                          <option value="+33">🇫🇷 +33</option>
+                          <option value="+86">🇨🇳 +86</option>
+                          <option value="+55">🇧🇷 +55</option>
+                          <option value="+971">🇦🇪 +971</option>
+                          <option value="+65">🇸🇬 +65</option>
+                        </select>
+                      </div>
                       <input
                         type="tel"
-                        placeholder="Phone Number with Country Code"
+                        placeholder="Phone Number"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         className="flex-1 border-none focus:outline-none focus:ring-0 p-3.5 font-sans text-[13px] sm:text-sm text-[#111111] placeholder:text-[#969592]/70 bg-transparent"
@@ -141,8 +163,7 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                     Operations HQ
                   </h3>
                   <p className="text-[13px] sm:text-sm text-[#111111] leading-relaxed text-left">
-                    123 Creative Blvd, Suite 400<br />
-                    Austin, TX 78701
+                    East Delhi, India 110092
                   </p>
                 </div>
 
@@ -153,16 +174,16 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                   </h3>
                   <div className="flex flex-col gap-1 text-left">
                     <a
-                      href="mailto:hello@vikedit.com"
+                      href="mailto:Hellovikedit@gmail.com"
                       className="text-[13px] sm:text-sm text-[#111111] font-sans hover:opacity-70 transition-opacity"
                     >
-                      hello@vikedit.com
+                      Hellovikedit@gmail.com
                     </a>
                     <a
-                      href="tel:+15551234567"
+                      href="tel:+918958123147"
                       className="text-[13px] sm:text-sm text-[#111111] font-sans hover:opacity-70 transition-opacity"
                     >
-                      +1 (555) 123-4567
+                      +91 895-812-3147
                     </a>
                   </div>
                 </div>
@@ -197,6 +218,7 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                 onClick={() => {
                   setName("");
                   setEmail("");
+                  setCountryCode("+91");
                   setPhone("");
                   setMessage("");
                   setIsSubmitted(false);
