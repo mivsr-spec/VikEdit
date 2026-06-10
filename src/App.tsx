@@ -1192,6 +1192,7 @@ export default function App() {
   const [activeService, setActiveService] = useState(0);
   const [activeFacelessService, setActiveFacelessService] = useState(0);
   const [portfolioFilter, setPortfolioFilter] = useState("all");
+  const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
 
   // States for final CTA contact card
   const [ctaName, setCtaName] = useState("");
@@ -1395,6 +1396,7 @@ export default function App() {
                           {PORTFOLIO_ITEMS.filter(
                             (item) => portfolioFilter === "all" || item.category === portfolioFilter
                           ).map((item) => {
+                            const isExpanded = expandedCardId === item.id;
                             return (
                               <motion.div
                                 key={item.id}
@@ -1403,7 +1405,10 @@ export default function App() {
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.4 }}
-                                className="relative rounded-3xl overflow-hidden cursor-default group bg-stone-100 aspect-[9/16] w-full border border-[#E8E6E1]/50 shadow-sm hover:shadow-xl transition-all duration-300"
+                                onClick={() => {
+                                  setExpandedCardId(isExpanded ? null : item.id);
+                                }}
+                                className="relative rounded-3xl overflow-hidden cursor-pointer group bg-stone-100 aspect-[9/16] w-full border border-[#E8E6E1]/50 shadow-sm hover:shadow-xl transition-all duration-300"
                               >
                                 <img
                                   src={item.image}
@@ -1413,14 +1418,18 @@ export default function App() {
                                 />
                                 
                                 {/* Content layer */}
-                                <div className="absolute bottom-0 left-0 w-full p-6 text-white z-10 transition-transform duration-300 group-hover:-translate-y-1 select-none pointer-events-none">
+                                <div className={`absolute bottom-0 left-0 w-full p-6 text-white z-10 transition-transform duration-300 select-none pointer-events-none md:group-hover:-translate-y-1 ${isExpanded ? "-translate-y-1" : ""}`}>
                                   <span className="text-[9px] uppercase tracking-wider text-white/70 font-mono font-bold mb-1.5 block">
                                     {item.tag}
                                   </span>
                                   <h3 className="font-serif font-semibold text-2xl mb-1.5 leading-tight tracking-tight">
                                     {item.title}
                                   </h3>
-                                  <p className="text-xs sm:text-[13px] text-stone-200/90 leading-relaxed font-sans max-h-0 opacity-0 group-hover:max-h-24 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-in-out">
+                                  <p className={`text-xs sm:text-[13px] text-stone-200/90 leading-relaxed font-sans overflow-hidden transition-all duration-500 ease-in-out ${
+                                    isExpanded 
+                                      ? "max-h-24 opacity-100" 
+                                      : "max-h-0 opacity-0 md:group-hover:max-h-24 md:group-hover:opacity-100"
+                                  }`}>
                                     {item.description}
                                   </p>
                                 </div>
