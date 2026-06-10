@@ -194,7 +194,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "High Retention",
     title: "Short-Form Content",
     description: "High-retention Reels & Shorts with fast-paced cuts, eye-catching captions, and motion graphics that stop the scroll.",
-    image: "https://images2.imgbox.com/9d/3a/xhcxdPo9_o.png"
+    image: "https://images2.imgbox.com/21/20/bZ2VNuja_o.png"
   },
   {
     id: "long-form-repurposing",
@@ -202,7 +202,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "Repurposing",
     title: "Long-Form Repurposing",
     description: "Turn your hour-long podcast into 10+ bite-sized clips. We extract the best moments so one recording fuels weeks of content.",
-    image: "https://images2.imgbox.com/f4/7a/2us0k7jl_o.png"
+    image: "https://images2.imgbox.com/96/d0/yx2ys49b_o.png"
   },
   {
     id: "multi-platform-formatting",
@@ -210,7 +210,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "Optimization",
     title: "Multi-Platform Formatting",
     description: "We resize and reformat content for Instagram, YouTube, and LinkedIn so it looks native and performs better everywhere.",
-    image: "https://images2.imgbox.com/14/08/53gq0W2K_o.png"
+    image: "https://images2.imgbox.com/eb/cc/6UEUkWxn_o.png"
   },
   {
     id: "corporate-courses",
@@ -218,7 +218,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "Professional",
     title: "Corporate & Courses",
     description: "Polished webinars, training videos, and marketing content. We make your business content look professional and engaging.",
-    image: "https://images2.imgbox.com/7a/12/7NF9Ubm5_o.png"
+    image: "https://images2.imgbox.com/44/f9/oj2ZFV3S_o.png"
   },
   {
     id: "faceless-content",
@@ -226,7 +226,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "New Service",
     title: "Faceless Content",
     description: "AI voiceovers, stock footage, and kinetic typography. Build authority and grow audiences without ever showing your face.",
-    image: "https://images2.imgbox.com/39/91/xaznJ6iF_o.png"
+    image: "https://images2.imgbox.com/a5/48/aCQQEenH_o.png"
   },
   {
     id: "content-workflow",
@@ -234,7 +234,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "Systematic",
     title: "Content Workflow",
     description: "Upload your raw footage. We handle the rest—editing, revisions, formatting, and delivery. No back-and-forth chaos.",
-    image: "https://images2.imgbox.com/fd/da/gVSDq283_o.png"
+    image: "https://images2.imgbox.com/a0/b7/8mYD7omb_o.png"
   }
 ];
 
@@ -1192,7 +1192,6 @@ export default function App() {
   const [activeService, setActiveService] = useState(0);
   const [activeFacelessService, setActiveFacelessService] = useState(0);
   const [portfolioFilter, setPortfolioFilter] = useState("all");
-  const [selectedPortfolioItem, setSelectedPortfolioItem] = useState<PortfolioItem | null>(null);
 
   // States for final CTA contact card
   const [ctaName, setCtaName] = useState("");
@@ -1404,8 +1403,7 @@ export default function App() {
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.4 }}
-                                className="relative rounded-3xl overflow-hidden cursor-pointer group bg-stone-100 aspect-[9/16] w-full border border-[#E8E6E1]/50 shadow-sm hover:shadow-xl transition-all duration-300"
-                                onClick={() => setSelectedPortfolioItem(item)}
+                                className="relative rounded-3xl overflow-hidden cursor-default group bg-stone-100 aspect-[9/16] w-full border border-[#E8E6E1]/50 shadow-sm hover:shadow-xl transition-all duration-300"
                               >
                                 <img
                                   src={item.image}
@@ -1414,11 +1412,6 @@ export default function App() {
                                   referrerPolicy="no-referrer"
                                 />
                                 
-                                {/* Play Button Hover representation */}
-                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-75 w-14 h-14 bg-white/95 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 shadow-xl z-20">
-                                  <div className="w-0 h-0 border-y-[6px] border-y-transparent border-l-[11px] border-l-[#111111] ml-1" />
-                                </div>
-
                                 {/* Content layer */}
                                 <div className="absolute bottom-0 left-0 w-full p-6 text-white z-10 transition-transform duration-300 group-hover:-translate-y-1 select-none pointer-events-none">
                                   <span className="text-[9px] uppercase tracking-wider text-white/70 font-mono font-bold mb-1.5 block">
@@ -1440,194 +1433,6 @@ export default function App() {
                     </div>
                   </section>
 
-                  {/* Dynamic Showreel and Workflow Playback Modal */}
-                  <AnimatePresence>
-                    {selectedPortfolioItem && (
-                      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.95 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.95 }}
-                          className="relative bg-neutral-900 border border-neutral-800 rounded-3xl p-6 md:p-8 max-w-4xl w-full text-white shadow-2xl flex flex-col md:flex-row gap-8 overflow-hidden z-20"
-                        >
-                          {/* Inner glow embellishment */}
-                          <div className="absolute -top-1/4 -left-1/4 w-1/2 h-1/2 bg-stone-500/10 rounded-full blur-[80px] pointer-events-none" />
-                          
-                          {/* Playback Device Mockup Frame (Smart device representation) */}
-                          <div className="w-full md:w-1/2 flex items-center justify-center bg-black/40 p-4 rounded-2xl border border-neutral-800/60 min-h-[300px]">
-                            {selectedPortfolioItem.category === "short-form" || selectedPortfolioItem.category === "faceless" ? (
-                              /* Vertical Device Screen Mockup */
-                              <div className="w-[190px] sm:w-[220px] h-[330px] sm:h-[390px] bg-neutral-950 rounded-[32px] border-[6px] border-neutral-800 relative shadow-2xl overflow-hidden flex flex-col justify-between">
-                                {/* Sound speaker mesh cutout */}
-                                <div className="w-16 h-3.5 bg-neutral-800 absolute top-0 left-1/2 -translate-x-1/2 rounded-b-xl z-20" />
-                                
-                                {/* Poster Image container */}
-                                <div className="absolute inset-0 z-0">
-                                  <img 
-                                    src={selectedPortfolioItem.image} 
-                                    alt={selectedPortfolioItem.title} 
-                                    className="w-full h-full object-cover opacity-50"
-                                    referrerPolicy="no-referrer"
-                                  />
-                                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-black/50" />
-                                </div>
-
-                                {/* Active signal */}
-                                <div className="relative z-10 p-3 flex justify-between items-center mt-2.5">
-                                  <span className="text-[8px] font-mono tracking-widest opacity-80 text-white font-bold uppercase">DIGITAL FEED</span>
-                                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                </div>
-
-                                {/* Specialized layout animations for text/signals */}
-                                {selectedPortfolioItem.id === "short-form-content" ? (
-                                  <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 gap-1.5 my-auto">
-                                    <div className="bg-yellow-400 text-black px-1.5 py-0.5 rounded font-black text-[10px] uppercase tracking-wide">
-                                      RETENTION +180% 🚀
-                                    </div>
-                                    <motion.p
-                                      animate={{ color: ["#FFF", "#FFEB60", "#FFF"] }}
-                                      transition={{ repeat: Infinity, duration: 1.8 }}
-                                      className="text-[10px] sm:text-xs font-extrabold text-white tracking-tight leading-tight uppercase font-sans"
-                                    >
-                                      "This 1 simple tweak saves 20 hours editing..."
-                                    </motion.p>
-                                  </div>
-                                ) : selectedPortfolioItem.id === "faceless-content" ? (
-                                  <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 gap-2 my-auto">
-                                    <Cpu className="w-7 h-7 text-violet-400 animate-pulse" />
-                                    <span className="text-[8px] font-mono text-violet-300 font-bold uppercase tracking-widest leading-none">SYNTHESIZING...</span>
-                                    <div className="flex gap-1 items-end h-5 pt-1">
-                                      <motion.div animate={{ height: [4, 14, 4] }} transition={{ repeat: Infinity, duration: 0.6 }} className="w-1 bg-violet-400 rounded-sm" />
-                                      <motion.div animate={{ height: [6, 20, 6] }} transition={{ repeat: Infinity, duration: 0.4 }} className="w-1 bg-violet-400 rounded-sm" />
-                                      <motion.div animate={{ height: [12, 4, 12] }} transition={{ repeat: Infinity, duration: 0.8 }} className="w-1 bg-violet-400 rounded-sm" />
-                                      <motion.div animate={{ height: [8, 15, 8] }} transition={{ repeat: Infinity, duration: 0.5 }} className="w-1 bg-violet-400 rounded-sm" />
-                                    </div>
-                                  </div>
-                                ) : (
-                                  <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 gap-1.5 my-auto">
-                                    <Sparkles className="w-6 h-6 text-amber-300 animate-bounce" />
-                                    <span className="text-[9px] font-bold text-white tracking-widest uppercase">DIMENSION MORPH</span>
-                                    <span className="text-[7.5px] font-mono text-[#E8E6E1]/70">Optimizing 9:16 Feed</span>
-                                  </div>
-                                )}
-
-                                {/* Persistent progression tracker */}
-                                <div className="relative z-10 p-3 bg-black/50 backdrop-blur-sm">
-                                  <div className="w-full bg-white/20 h-1 rounded-full overflow-hidden mb-1">
-                                    <motion.div 
-                                      animate={{ width: ["0%", "100%"] }} 
-                                      transition={{ repeat: Infinity, duration: 4.2, ease: "linear" }} 
-                                      className="bg-emerald-400 h-full" 
-                                    />
-                                  </div>
-                                  <div className="flex justify-between text-[7.5px] text-white/50 font-mono">
-                                    <span>00:03</span>
-                                    <span>00:15</span>
-                                  </div>
-                                </div>
-                              </div>
-                            ) : (
-                              /* Widescreen Desktop / Cinema video player mockup */
-                              <div className="w-full h-fit aspect-[16/9] bg-neutral-950 rounded-xl border-[4px] border-neutral-800 relative shadow-2xl overflow-hidden flex flex-col justify-between">
-                                {/* Thumbnail Background poster */}
-                                <div className="absolute inset-0 z-0">
-                                  <img 
-                                    src={selectedPortfolioItem.image} 
-                                    alt={selectedPortfolioItem.title} 
-                                    className="w-full h-full object-cover opacity-45"
-                                    referrerPolicy="no-referrer"
-                                  />
-                                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50" />
-                                </div>
-
-                                {/* Player Top Bar Header */}
-                                <div className="relative z-10 p-2.5 flex justify-between items-center text-white bg-black/20">
-                                  <span className="text-[8px] font-mono tracking-widest opacity-80 font-bold uppercase">{selectedPortfolioItem.tag} PLAYBACK</span>
-                                  <span className="text-[8px] font-mono text-stone-300 bg-neutral-800 px-1 py-0.5 rounded">SOURCE: RAW 1080P</span>
-                                </div>
-
-                                {/* Dynamic highlight effects */}
-                                {selectedPortfolioItem.id === "content-workflow" ? (
-                                  <div className="relative z-10 p-3 flex flex-col gap-1.5 my-auto max-w-[240px] mx-auto bg-black/40 rounded-lg">
-                                    <span className="text-[7.5px] font-mono font-bold text-emerald-400 block text-center uppercase tracking-wider">Strategic Delivery Engine</span>
-                                    <div className="grid grid-cols-3 gap-1">
-                                      <div className="bg-neutral-900/90 p-1.5 rounded border border-neutral-800 text-[6.5px] text-center">
-                                        <span className="text-white/40 block">RAW FEED</span>
-                                        <span className="text-emerald-300 animate-pulse">Received</span>
-                                      </div>
-                                      <div className="bg-neutral-900/90 p-1.5 rounded border border-neutral-800 text-[6.5px] text-center">
-                                        <span className="text-white/40 block">EDITING</span>
-                                        <motion.span animate={{ opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1.5 }} className="text-amber-300 font-bold font-mono">Synthesizing</motion.span>
-                                      </div>
-                                      <div className="bg-neutral-900/90 p-1.5 rounded border border-neutral-800 text-[6.5px] text-center">
-                                        <span className="text-white/40 block">DELIVERED</span>
-                                        <span className="text-stone-500">Awaiting</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                ) : (
-                                  <div className="relative z-10 flex flex-col items-center justify-center my-auto">
-                                    <Play className="w-7 h-7 text-stone-200 fill-stone-200 animate-pulse cursor-pointer" />
-                                  </div>
-                                )}
-
-                                {/* Equalizer waves bottom progress */}
-                                <div className="relative z-10 p-2.5 bg-black/50">
-                                  <div className="flex gap-0.5 items-end h-3.5 mb-1.5 overflow-hidden justify-center opacity-70">
-                                    <motion.div animate={{ height: [3, 9, 3] }} transition={{ repeat: Infinity, duration: 0.6 }} className="w-0.5 bg-stone-500" />
-                                    <motion.div animate={{ height: [5, 12, 5] }} transition={{ repeat: Infinity, duration: 0.8 }} className="w-0.5 bg-stone-400" />
-                                    <motion.div animate={{ height: [8, 3, 8] }} transition={{ repeat: Infinity, duration: 0.5 }} className="w-0.5 bg-stone-300" />
-                                    <motion.div animate={{ height: [3, 10, 3] }} transition={{ repeat: Infinity, duration: 0.7 }} className="w-0.5 bg-stone-500" />
-                                  </div>
-                                  <div className="w-full bg-white/20 h-0.5 rounded-full overflow-hidden">
-                                    <motion.div 
-                                      animate={{ width: ["0%", "100%"] }} 
-                                      transition={{ repeat: Infinity, duration: 5.5, ease: "linear" }} 
-                                      className="bg-white h-full" 
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                            )}
-                          </div>
-
-                          {/* Info panel metadata */}
-                          <div className="w-full md:w-1/2 flex flex-col justify-between relative z-10">
-                            <div className="space-y-4 text-left">
-                              <div className="flex items-center gap-2.5">
-                                <span className="text-[10px] font-mono font-bold tracking-widest text-[#FFFFFF] uppercase bg-neutral-800 px-2.5 py-0.5 rounded border border-neutral-700">
-                                  {selectedPortfolioItem.category}
-                                </span>
-                                <span className="text-xs font-mono text-[#D4D0C8] font-semibold">{selectedPortfolioItem.tag}</span>
-                              </div>
-                              
-                              <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold tracking-tight text-white leading-tight">
-                                {selectedPortfolioItem.title}
-                              </h3>
-                              
-                              <p className="text-xs sm:text-sm md:text-base text-stone-300 font-sans leading-relaxed">
-                                {selectedPortfolioItem.description}
-                              </p>
-                              
-                              <p className="text-[11px] sm:text-xs md:text-sm text-stone-400 leading-relaxed font-sans italic">
-                                Our bespoke video system ensures every asset is trimmed with extreme precision, beautifully timed, styled with custom high-contrast visual captions, and polished within 24 hours. No delays, no friction, just pure audience growth.
-                              </p>
-                            </div>
-
-
-                          </div>
-
-                          {/* Absolute close button */}
-                          <button
-                            onClick={() => setSelectedPortfolioItem(null)}
-                            className="absolute top-4 right-4 bg-neutral-800 hover:bg-neutral-700 text-white p-2 rounded-full transition-colors z-20 cursor-pointer"
-                          >
-                            <X className="w-5 h-5" />
-                          </button>
-                        </motion.div>
-                      </div>
-                    )}
-                  </AnimatePresence>
 
                   {/* SECTION 6: PROCESS (How We Work) */}
                   <section 

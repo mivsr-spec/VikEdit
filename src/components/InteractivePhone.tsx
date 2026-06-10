@@ -7,11 +7,11 @@ import { ChevronLeft, ChevronRight, Heart, Share2, MessageCircle, Bookmark } fro
 // You can freely swap out these image URLs as needed!
 // ========================================================
 const REELS_IMAGES = [
-  "https://images2.imgbox.com/80/d4/iuS9T3j2_o.png",
-  "https://images2.imgbox.com/70/bf/IPLl3DAQ_o.png",
-  "https://images2.imgbox.com/a5/39/99HLfbOK_o.png",
-  "https://images2.imgbox.com/8d/88/fM7vWu7V_o.png",
-  "https://images2.imgbox.com/24/47/yaWkQBym_o.png"
+  "https://images2.imgbox.com/21/d8/OMFR9mNs_o.png",
+  "https://images2.imgbox.com/2c/ed/pAcYEGF9_o.png",
+  "https://images2.imgbox.com/2c/39/CW97SCi6_o.png",
+  "https://images2.imgbox.com/87/f5/CgA0jE1V_o.png",
+  "https://images2.imgbox.com/18/e2/SNI8knAT_o.png"
 ];
 
 export default function InteractivePhone() {
