@@ -9,20 +9,18 @@ export const LOGO_SVG = `
 `;
 
 export const MARQUEE_BRANDS = [
-  "KAY Rated",
-  "ShivomJewellers",
-  "Charging Point Hindi",
-  "Corprest Consultancy",
-  "Round1MMA",
-  "YaroMedia",
-  "NkFitness",
-  "KAY Rated",
-  "ShivomJewellers",
-  "Charging Point Hindi",
-  "Corprest Consultancy",
-  "Round1MMA",
-  "YaroMedia",
-  "NkFitness"
+  "Mindful Momentum",
+  "The Growth Grid",
+  "Pixel & Purpose",
+  "Brew & Bean Co.",
+  "Aura Wellness Studio",
+  "Summit Fitness Hub",
+  "Lena Creates",
+  "The Daily Dose with Kai",
+  "Nova Notes",
+  "The Insight Lab",
+  "Curveball Conversations",
+  "The Focus Frame"
 ];
 
 export const SERVICE_ITEMS: ServiceItem[] = [

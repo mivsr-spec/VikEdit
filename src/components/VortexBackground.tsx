@@ -66,16 +66,16 @@ export const VortexBackground: React.FC<VortexBackgroundProps> = ({ className = 
 
     // Generate static/twinkling stars (cosmic dust texture)
     const stars: Star[] = [];
-    const numStars = 180;
+    const numStars = 150;
     for (let i = 0; i < numStars; i++) {
-      const baseAlpha = 0.1 + Math.random() * 0.45;
+      const baseAlpha = 0.04 + Math.random() * 0.18;
       stars.push({
         x: Math.random(),
         y: Math.random(),
-        size: 0.4 + Math.random() * 1.2,
+        size: 0.3 + Math.random() * 0.7,
         alpha: baseAlpha,
         baseAlpha: baseAlpha,
-        twinkleSpeed: 0.005 + Math.random() * 0.015,
+        twinkleSpeed: 0.003 + Math.random() * 0.012,
         phase: Math.random() * Math.PI * 2,
       });
     }
@@ -284,10 +284,10 @@ export const VortexBackground: React.FC<VortexBackgroundProps> = ({ className = 
           const avgZ = (p1.z + p2.z) / 2; // range from -1 to 1
           // normalize depth to 0..1 scale
           const depthScale = (avgZ + 1) / 2;
-          const alphaOnDepth = 0.04 + depthScale * 0.28; // Subtle line intensity
+          const alphaOnDepth = 0.02 + depthScale * 0.10; // Extra subtle line intensity
 
           ctx.strokeStyle = `rgba(255, 255, 255, ${alphaOnDepth})`;
-          ctx.lineWidth = 0.5 + depthScale * 0.6; // Thin and elegant (front lines are ~1px, back lines are ~0.5px)
+          ctx.lineWidth = 0.35 + depthScale * 0.45; // Subtly thinner and more elegant
           
           ctx.beginPath();
           ctx.moveTo(p1.x, p1.y);
@@ -299,8 +299,8 @@ export const VortexBackground: React.FC<VortexBackgroundProps> = ({ className = 
         rotated.forEach((node) => {
           // Draw only visible/closer half nodes with clean white dots to match constellation look
           if (node.z > -0.4) {
-            const nodeRadius = 2 + (node.z + 1) * 1.5; // size based on depth
-            const nodeOpacity = 0.2 + (node.z + 1) * 0.4;
+            const nodeRadius = 1.0 + (node.z + 1) * 0.8; // smaller based on depth
+            const nodeOpacity = 0.06 + (node.z + 1) * 0.12; // lower opacity
 
             // Draw center hard point
             ctx.fillStyle = `rgba(255, 255, 255, ${nodeOpacity})`;
@@ -310,10 +310,10 @@ export const VortexBackground: React.FC<VortexBackgroundProps> = ({ className = 
 
             // Draw subtle surrounding glow ring on main polyhedrons
             if (index < 2 && node.z > 0.3) {
-              ctx.strokeStyle = `rgba(255, 255, 255, ${nodeOpacity * 0.25})`;
-              ctx.lineWidth = 0.6;
+              ctx.strokeStyle = `rgba(255, 255, 255, ${nodeOpacity * 0.15})`;
+              ctx.lineWidth = 0.5;
               ctx.beginPath();
-              ctx.arc(node.x, node.y, nodeRadius * 2.8, 0, Math.PI * 2);
+              ctx.arc(node.x, node.y, nodeRadius * 2.5, 0, Math.PI * 2);
               ctx.stroke();
             }
           }

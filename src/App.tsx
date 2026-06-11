@@ -1552,8 +1552,8 @@ export default function App() {
                   {/* SECTION 11: CAREERS CTA */}
                   <section id="careers-cta" className="py-16 px-6 sm:px-12 max-w-7xl mx-auto text-center">
                     <div className="bg-neutral-900 border border-neutral-800/80 max-w-3xl mx-auto rounded-[30px] p-8 md:p-14 space-y-6 shadow-[0_4px_30px_rgba(0,0,0,0.4)]">
-                      <h3 className="text-3xl md:text-5xl font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-tight">
-                        Join our <span className="font-serif font-normal italic bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">operations team</span>
+                      <h3 className="text-3xl md:text-5xl font-sans font-extrabold bg-gradient-to-b from-white via-stone-200 to-stone-400 bg-clip-text text-transparent drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] select-none tracking-tight leading-tight">
+                        Join our <span className="font-serif font-normal italic bg-gradient-to-b from-white via-stone-200 to-stone-400 bg-clip-text text-transparent">operations team</span>
                       </h3>
                       <p className="text-sm text-stone-300 leading-relaxed max-w-xl mx-auto">
                         We build precision-driven content infrastructure. If you value strategic editing, systematic workflows, and scalable output, apply below.
