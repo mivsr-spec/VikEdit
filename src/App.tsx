@@ -1198,7 +1198,7 @@ export default function App() {
   // States for final CTA contact card
   const [ctaName, setCtaName] = useState("");
   const [ctaEmail, setCtaEmail] = useState("");
-  const [ctaCountryCode, setCtaCountryCode] = useState("+1");
+  const [ctaCountryCode, setCtaCountryCode] = useState("+91");
   const [ctaPhone, setCtaPhone] = useState("");
   const [ctaMessage, setCtaMessage] = useState("");
   const [ctaIsSubmitting, setCtaIsSubmitting] = useState(false);
@@ -1670,9 +1670,9 @@ export default function App() {
                                       onChange={(e) => setCtaCountryCode(e.target.value)}
                                       className="py-[14px] pl-4 pr-10 bg-neutral-900 text-sm font-medium text-stone-300 appearance-none focus:outline-none cursor-pointer font-sans"
                                     >
+                                      <option className="bg-neutral-950 text-white" value="+91">+91 (IN)</option>
                                       <option className="bg-neutral-950 text-white" value="+1">+1 (US)</option>
                                       <option className="bg-neutral-950 text-white" value="+44">+44 (UK)</option>
-                                      <option className="bg-neutral-950 text-white" value="+91">+91 (IN)</option>
                                       <option className="bg-neutral-950 text-white" value="+61">+61 (AU)</option>
                                       <option className="bg-neutral-950 text-white" value="+49">+49 (DE)</option>
                                       <option className="bg-neutral-950 text-white" value="+33">+33 (FR)</option>
