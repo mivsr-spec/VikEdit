@@ -17,44 +17,37 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError("");
     
     try {
-      // Create FormData for Web3Forms
-      const formData = new FormData();
-      formData.append('access_key', 'b618c998-6e89-4aa7-acfb-5ab181286e41');
-      formData.append('name', name);
-      formData.append('email', email);
-      formData.append('phone', `${countryCode} ${phone}`);
-      formData.append('message', message);
-      formData.append('subject', `New Inquiry from ${name}`);
-      formData.append('from_name', name);
-
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formData
+      const response = await fetch("https://formsubmit.co/ajax/hellovikedit@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          phone: `${countryCode} ${phone}`,
+          message: message,
+          _subject: `New Lead from VikEdit Contact View: ${name}`
+        })
       });
-
       const data = await response.json();
-
-      if (response.ok && data.success) {
+      if (response.ok && data.success === "true") {
         setIsSubmitted(true);
-        // Reset form
-        setName("");
-        setEmail("");
-        setCountryCode("+91");
-        setPhone("");
-        setMessage("");
       } else {
-        console.error('Web3Forms error:', data);
-        alert('Something went wrong. Please try again.');
+        throw new Error(data.message || "Failed to submit form. Please try again.");
       }
-    } catch (error) {
-      console.error('Submission error:', error);
-      alert('Something went wrong. Please try again.');
+    } catch (err: any) {
+      console.error("Submission error:", err);
+      setError(err.message || "An unexpected error occurred. Please try again or email us directly at hellovikedit@gmail.com");
     } finally {
       setIsSubmitting(false);
     }
@@ -114,7 +107,7 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                   {/* Business Email */}
                   <div className="flex flex-col gap-1">
                     <input
-                      type="email"
+                      type="type"
                       placeholder="Business Email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -172,6 +165,11 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                   </div>
 
                   {/* Submit Button */}
+                  {error && (
+                    <div className="text-red-500 text-xs font-sans mt-1 bg-red-500/10 border border-red-500/20 px-3 py-2 rounded">
+                      {error}
+                    </div>
+                  )}
                   <button
                     type="submit"
                     disabled={isSubmitting}

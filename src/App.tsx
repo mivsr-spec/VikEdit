@@ -1203,6 +1203,7 @@ export default function App() {
   const [ctaMessage, setCtaMessage] = useState("");
   const [ctaIsSubmitting, setCtaIsSubmitting] = useState(false);
   const [ctaIsSubmitted, setCtaIsSubmitted] = useState(false);
+  const [ctaError, setCtaError] = useState("");
 
   // Scroll to top automatically when view changes
   useEffect(() => {
@@ -1606,14 +1607,38 @@ export default function App() {
                                 Your content deserves a system that works. Share your goals below, and we'll show you how to publish consistently without the overhead. We respond within 24 hours.
                               </p>
 
-                              <form
-                                onSubmit={(e) => {
+                               <form
+                                onSubmit={async (e) => {
                                   e.preventDefault();
                                   setCtaIsSubmitting(true);
-                                  setTimeout(() => {
+                                  setCtaError("");
+                                  try {
+                                    const response = await fetch("https://formsubmit.co/ajax/hellovikedit@gmail.com", {
+                                      method: "POST",
+                                      headers: {
+                                        "Content-Type": "application/json",
+                                        "Accept": "application/json"
+                                      },
+                                      body: JSON.stringify({
+                                        name: ctaName,
+                                        email: ctaEmail,
+                                        phone: `${ctaCountryCode} ${ctaPhone}`,
+                                        message: ctaMessage,
+                                        _subject: `New Lead from VikEdit Footer Form: ${ctaName}`
+                                      })
+                                    });
+                                    const data = await response.json();
+                                    if (response.ok && data.success === "true") {
+                                      setCtaIsSubmitted(true);
+                                    } else {
+                                      throw new Error(data.message || "Failed to submit form. Please try again.");
+                                    }
+                                  } catch (error: any) {
+                                    console.error("Submission error:", error);
+                                    setCtaError(error.message || "An unexpected error occurred. Please try again or email us directly at hellovikedit@gmail.com");
+                                  } finally {
                                     setCtaIsSubmitting(false);
-                                    setCtaIsSubmitted(true);
-                                  }, 1200);
+                                  }
                                 }}
                                 className="flex flex-col gap-4"
                               >
@@ -1681,6 +1706,11 @@ export default function App() {
                                 />
 
                                 {/* Submit button */}
+                                {ctaError && (
+                                  <div className="text-red-500 text-xs font-sans mt-1 bg-red-500/10 border border-red-500/20 px-3 py-2 rounded text-left">
+                                    {ctaError}
+                                  </div>
+                                )}
                                 <button
                                   type="submit"
                                   disabled={ctaIsSubmitting}
