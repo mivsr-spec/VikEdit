@@ -25,24 +25,25 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
     setError("");
     
     try {
-      // Web3Forms requires FormData, not JSON
       const formData = new FormData();
-      formData.append("access_key", "b618c998-6e89-4aa7-acfb-5ab181286e41");
       formData.append("name", name);
       formData.append("email", email);
       formData.append("phone", `${countryCode} ${phone}`);
       formData.append("message", message);
-      formData.append("subject", `New Lead from VikEdit Contact View: ${name}`);
-      formData.append("from_name", name);
+      formData.append("_subject", `New Lead from VikEdit Contact View: ${name}`);
+      formData.append("_next", window.location.href); // Redirect back to same page
 
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("https://formsubmit.co/ajax/hellovikedit@gmail.com", {
         method: "POST",
-        body: formData
+        body: formData,
+        headers: {
+          "Accept": "application/json"
+        }
       });
       
       const data = await response.json();
       
-      if (response.ok && data.success) {
+      if (response.ok) {
         setIsSubmitted(true);
       } else {
         throw new Error(data.message || "Failed to submit form. Please try again.");
@@ -133,13 +134,13 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                           }}
                         >
                           <option value="+91">🇮🇳 +91</option>
-                          <option value="+1">🇺🇸 +1</option>
-                          <option value="+44">🇬🇧 +44</option>
+                          <option value="+1">🇺 +1</option>
+                          <option value="+44">🇬 +44</option>
                           <option value="+61">🇦🇺 +61</option>
-                          <option value="+81">🇯🇵 +81</option>
+                          <option value="+81">🇯 +81</option>
                           <option value="+49">🇩🇪 +49</option>
                           <option value="+33">🇫🇷 +33</option>
-                          <option value="+86">🇨🇳 +86</option>
+                          <option value="+86">🇨 +86</option>
                           <option value="+55">🇧🇷 +55</option>
                           <option value="+971">🇦🇪 +971</option>
                           <option value="+65">🇸🇬 +65</option>
@@ -227,7 +228,7 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
 
             </motion.div>
           ) : (
-            /* Submission Success State */
+            /* Submission Success State */}
             <motion.div
               key="success-screen"
               initial={{ opacity: 0, scale: 0.98 }}
