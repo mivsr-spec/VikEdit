@@ -1,6 +1,20 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ChevronLeft, ChevronRight, Heart, Share2, MessageCircle, Bookmark } from "lucide-react";
+import { 
+  ChevronLeft, 
+  ChevronRight, 
+  Heart, 
+  MessageCircle, 
+  Send, 
+  MoreHorizontal, 
+  ChevronDown, 
+  Sparkles, 
+  Home, 
+  Search, 
+  Play, 
+  ShoppingBag, 
+  Music
+} from "lucide-react";
 
 // ========================================================
 // EASILY EDITABLE ARRAY OF 5 REELS IMAGES
@@ -103,44 +117,97 @@ export default function InteractivePhone() {
           </AnimatePresence>
 
           {/* Social Interactions Overlay (Right vertical edge mimicking real social app) */}
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-40 text-white">
-            <motion.button whileTap={{ scale: 0.9 }} className="flex flex-col items-center gap-0.5 cursor-pointer">
-              <div className="p-2 rounded-full bg-black/20 backdrop-blur-sm border border-white/10 hover:bg-black/40">
-                <Heart className="w-5 h-5 text-rose-500 fill-rose-500" />
-              </div>
-              <span className="text-[10px] font-mono tracking-tight text-white font-medium shadow-sm">4.2K</span>
+          <div className="absolute right-3.5 bottom-16 flex flex-col items-center gap-4 z-40 text-white drop-shadow-md">
+            {/* Heart (Like) */}
+            <motion.button whileTap={{ scale: 0.9 }} className="flex flex-col items-center cursor-pointer group">
+              <Heart className="w-7 h-7 text-white stroke-[2.2] group-hover:scale-115 transition-transform" />
+              <span className="text-[10px] sm:text-[11px] font-sans tracking-wide text-white font-bold mt-0.5 select-none text-shadow-sm">135k</span>
             </motion.button>
 
-            <motion.button whileTap={{ scale: 0.9 }} className="flex flex-col items-center gap-0.5 cursor-pointer">
-              <div className="p-2 rounded-full bg-black/20 backdrop-blur-sm border border-white/10 hover:bg-black/40">
-                <MessageCircle className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-[10px] font-mono tracking-tight text-white font-medium shadow-sm">186</span>
+            {/* Comment (MessageCircle) */}
+            <motion.button whileTap={{ scale: 0.9 }} className="flex flex-col items-center cursor-pointer group">
+              <MessageCircle className="w-7 h-7 text-white stroke-[2.2] group-hover:scale-115 transition-transform" />
+              <span className="text-[10px] sm:text-[11px] font-sans tracking-wide text-white font-bold mt-0.5 select-none text-shadow-sm">11.k</span>
             </motion.button>
 
-            <motion.button whileTap={{ scale: 0.9 }} className="flex flex-col items-center gap-0.5 cursor-pointer">
-              <div className="p-2 rounded-full bg-black/20 backdrop-blur-sm border border-white/10 hover:bg-black/40">
-                <Bookmark className="w-5 h-5 text-amber-400 fill-amber-400" />
-              </div>
-              <span className="text-[10px] font-mono tracking-tight text-white font-medium shadow-sm">623</span>
+            {/* Share (Send Paper Airplane) */}
+            <motion.button whileTap={{ scale: 0.9 }} className="flex flex-col items-center cursor-pointer group">
+              <Send className="w-7 h-7 text-white stroke-[2.2] rotate-[-22deg] translate-y-[-1px] group-hover:scale-115 transition-transform" />
+              <span className="text-[10px] sm:text-[11px] font-sans tracking-wide text-white font-bold mt-0.5 select-none text-shadow-sm">22.k</span>
             </motion.button>
 
-            <motion.button whileTap={{ scale: 0.9 }} className="flex flex-col items-center gap-0.5 cursor-pointer">
-              <div className="p-2 rounded-full bg-black/20 backdrop-blur-sm border border-white/10 hover:bg-black/40">
-                <Share2 className="w-5 h-5 text-white" />
+            {/* More Options */}
+            <motion.button whileTap={{ scale: 0.9 }} className="flex flex-col items-center cursor-pointer opacity-90 hover:opacity-100">
+              <MoreHorizontal className="w-6 h-6 text-white" />
+            </motion.button>
+
+            {/* Down arrow inside rounded squared border (Constellation music audio album art placeholder) */}
+            <motion.button whileTap={{ scale: 0.9 }} className="flex flex-col items-center cursor-pointer">
+              <div className="w-7 h-7 rounded bg-black/40 backdrop-blur-sm border border-white/20 flex items-center justify-center">
+                <ChevronDown className="w-4 h-4 text-white stroke-[2.5]" />
               </div>
-              <span className="text-[10px] font-mono tracking-tight text-white font-medium shadow-sm">Share</span>
             </motion.button>
           </div>
 
-          {/* Live Engagement Popover at the bottom-left */}
-          <div className="absolute left-3 bottom-14 z-40 max-w-[70%] text-white drop-shadow-md p-1.5 flex flex-col gap-1.5">
-            <div className="flex gap-1 items-center bg-[#000000]/40 backdrop-blur-sm p-1 rounded-sm w-max">
-              <span className="text-[10px] font-mono text-emerald-400">♥ 98.7% Retention</span>
+          {/* Real Instagram Reels Bottom Metadata & Branding Layout */}
+          <div className="absolute left-3.5 bottom-16 z-40 max-w-[70%] text-white drop-shadow-md flex flex-col gap-2">
+            {/* Audio theme badge (translucent dark pill) */}
+            <div className="bg-black/30 backdrop-blur-md rounded-full px-2.5 py-0.5 flex items-center gap-1 w-max border border-white/5">
+              <Sparkles className="w-3 h-3 text-white fill-white" />
+              <span className="text-[8.5px] font-sans uppercase tracking-[0.12em] text-white font-bold">DREAMS</span>
             </div>
-            <p className="font-sans text-xs font-semibold leading-relaxed line-clamp-2">
-              The absolute best warm skincare aesthetic routines with VikEdit dynamic framing and key typography!
+
+            {/* User row: Avatar circle (colorful gradient) + @username + Follow button */}
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] p-[1.5px] flex items-center justify-center shadow-lg">
+                <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
+                  <ChevronDown className="w-3.5 h-3.5 text-white stroke-[2.5]" />
+                </div>
+              </div>
+              <span className="text-xs font-sans font-bold text-white select-none">username</span>
+              <button className="border border-white/45 bg-black/10 hover:bg-white/10 active:scale-95 text-[9.5px] font-bold px-2 py-[1.5px] rounded transition-all cursor-pointer">
+                Follow
+              </button>
+            </div>
+
+            {/* Caption */}
+            <p className="font-sans text-[11px] text-white/95 leading-snug font-medium line-clamp-2 select-none">
+              Great song!
             </p>
+
+            {/* Sound track name info footer ticker */}
+            <div className="flex items-center gap-1.5 text-[9.5px] text-white/90 font-sans tracking-wide py-0.5 select-none">
+              <Music className="w-3 h-3 text-white fill-white animate-pulse" />
+              <div className="truncate text-stone-200">
+                Storm Boy • Xavier.. ✦ DREAMS
+              </div>
+            </div>
+          </div>
+
+          {/* Translucent Glass Bottom Navigation Bar styled like Instagram Reels */}
+          <div className="absolute bottom-0 inset-x-0 h-12 bg-black/70 backdrop-blur-md border-t border-white/5 flex items-center justify-around px-3 z-45 text-white pb-1.5">
+            <motion.button whileTap={{ scale: 0.9 }} className="cursor-pointer p-1 text-white hover:opacity-80">
+              <Home className="w-5 h-5 text-white" />
+            </motion.button>
+            <motion.button whileTap={{ scale: 0.9 }} className="cursor-pointer p-1 text-white hover:opacity-80">
+              <Search className="w-5 h-5 text-white" />
+            </motion.button>
+            {/* Reels / Film Center Button */}
+            <motion.button whileTap={{ scale: 0.9 }} className="cursor-pointer p-1 text-white hover:scale-105 transition-transform">
+              <div className="relative w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center border border-white/20">
+                <Play className="w-4 h-4 fill-white text-white translate-x-[1px]" />
+              </div>
+            </motion.button>
+            <motion.button whileTap={{ scale: 0.9 }} className="cursor-pointer p-1 text-white hover:opacity-80">
+              <ShoppingBag className="w-5 h-5 text-white" />
+            </motion.button>
+            <motion.button whileTap={{ scale: 0.9 }} className="cursor-pointer p-1 text-white hover:opacity-80">
+              <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] p-[1px] flex items-center justify-center shadow">
+                <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
+                  <ChevronDown className="w-3 h-3 text-white stroke-[3.5]" />
+                </div>
+              </div>
+            </motion.button>
           </div>
 
           {/* Nav Arrows */}
