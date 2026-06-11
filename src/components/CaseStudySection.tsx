@@ -76,9 +76,9 @@ export default function CaseStudySection() {
                 isReversed ? "lg:order-2" : "lg:order-1"
               }`}
             >
-              <h3 className="text-3xl md:text-5xl font-sans font-bold tracking-tight leading-tight mb-6 bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">
+              <h3 className="text-3xl md:text-5xl font-sans font-bold tracking-tight leading-tight mb-6 bg-gradient-to-b from-white via-stone-200 to-stone-400 bg-clip-text text-transparent drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] select-none">
                 {study.title}{" "}
-                <span className="italic font-serif font-normal bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">
+                <span className="italic font-serif font-normal bg-gradient-to-b from-white via-stone-200 to-stone-400 bg-clip-text text-transparent">
                   {study.italicWord}
                 </span>
               </h3>
