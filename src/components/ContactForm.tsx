@@ -18,15 +18,46 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate premium submit delay
-    setTimeout(() => {
+    try {
+      // Create FormData for Web3Forms
+      const formData = new FormData();
+      formData.append('access_key', 'b618c998-6e89-4aa7-acfb-5ab181286e41');
+      formData.append('name', name);
+      formData.append('email', email);
+      formData.append('phone', `${countryCode} ${phone}`);
+      formData.append('message', message);
+      formData.append('subject', `New Inquiry from ${name}`);
+      formData.append('from_name', name);
+
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setIsSubmitted(true);
+        // Reset form
+        setName("");
+        setEmail("");
+        setCountryCode("+91");
+        setPhone("");
+        setMessage("");
+      } else {
+        console.error('Web3Forms error:', data);
+        alert('Something went wrong. Please try again.');
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert('Something went wrong. Please try again.');
+    } finally {
       setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 1200);
+    }
   };
 
   const inputClasses = isInline
@@ -83,7 +114,7 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                   {/* Business Email */}
                   <div className="flex flex-col gap-1">
                     <input
-                      type="type"
+                      type="email"
                       placeholder="Business Email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
