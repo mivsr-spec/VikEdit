@@ -8,6 +8,7 @@ interface ContactFormProps {
 }
 
 export default function ContactForm({ onBack, isInline = false }: ContactFormProps) {
+  // Form input states
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [countryCode, setCountryCode] = useState("+91");
@@ -24,23 +25,22 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
     setError("");
     
     try {
-      const formData = new FormData();
-      formData.append("access_key", "b618c998-6e89-4aa7-acfb-5ab181286e41");
-      formData.append("name", name);
-      formData.append("email", email);
-      formData.append("phone", `${countryCode} ${phone}`);
-      formData.append("message", message);
-      formData.append("subject", `New Lead from VikEdit Contact View: ${name}`);
-      formData.append("from_name", name);
-
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("https://formsubmit.co/ajax/hellovikedit@gmail.com", {
         method: "POST",
-        body: formData
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          phone: `${countryCode} ${phone}`,
+          message: message,
+          _subject: `New Lead from VikEdit Contact View: ${name}`
+        })
       });
-      
       const data = await response.json();
-      
-      if (response.ok && data.success) {
+      if (response.ok && data.success === "true") {
         setIsSubmitted(true);
       } else {
         throw new Error(data.message || "Failed to submit form. Please try again.");
@@ -60,6 +60,7 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
   return (
     <div className={`w-full ${isInline ? "bg-[#FFFFFF] pt-12 pb-2 md:pt-16 md:pb-2 border-t border-[#E8E6E1]/60" : "bg-black min-h-screen py-16 md:py-24"} px-6 sm:px-12 flex flex-col items-center`}>
       <div className="w-full max-w-[1200px]">
+        {/* Subtle Back Button */}
         {!isInline && onBack && (
           <button
             onClick={onBack}
@@ -80,6 +81,8 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
               transition={{ duration: 0.5 }}
               className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start text-left"
             >
+              
+              {/* LEFT: FORM WRAPPER */}
               <div className="lg:col-span-7">
                 <h2 className={`font-serif font-extrabold text-5xl sm:text-6xl md:text-7xl tracking-tighter leading-tight mb-5 ${isInline ? "text-[#111111]" : "bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent"}`}>
                   Let's make this <span className={`italic font-serif font-normal ${isInline ? "text-stone-700" : "bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent"}`}>easy for you.</span>
@@ -89,6 +92,7 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                 </p>
 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
+                  {/* Name field */}
                   <div className="flex flex-col gap-1">
                     <input
                       type="text"
@@ -100,9 +104,10 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                     />
                   </div>
 
+                  {/* Business Email */}
                   <div className="flex flex-col gap-1">
                     <input
-                      type="email"
+                      type="type"
                       placeholder="Business Email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -111,6 +116,7 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                     />
                   </div>
 
+                  {/* Phone input with custom country code decoration */}
                   <div className="flex flex-col gap-1">
                     <div className={`flex items-center rounded-[4px] overflow-hidden transition-all duration-300 ${isInline ? "bg-[#FFFFFF] border border-[#E5E5E5] focus-within:border-[#111111] focus-within:ring-1 focus-within:ring-[#111111]/10" : "bg-neutral-900 border border-neutral-800 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500/20"}`}>
                       <div className={`relative flex items-center border-r ${isInline ? "bg-[#F2F2F2] border-[#E5E5E5]" : "bg-neutral-800 border-neutral-800"}`}>
@@ -127,11 +133,11 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                           <option value="+91">🇮🇳 +91</option>
                           <option value="+1">🇺🇸 +1</option>
                           <option value="+44">🇬🇧 +44</option>
-                          <option value="+61">🇦 +61</option>
+                          <option value="+61">🇦🇺 +61</option>
                           <option value="+81">🇯🇵 +81</option>
                           <option value="+49">🇩🇪 +49</option>
                           <option value="+33">🇫🇷 +33</option>
-                          <option value="+86">🇨 +86</option>
+                          <option value="+86">🇨🇳 +86</option>
                           <option value="+55">🇧🇷 +55</option>
                           <option value="+971">🇦🇪 +971</option>
                           <option value="+65">🇸🇬 +65</option>
@@ -147,6 +153,7 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                     </div>
                   </div>
 
+                  {/* Custom Rich Textarea */}
                   <div className="flex flex-col gap-1">
                     <textarea
                       placeholder="Tell us about your project, content volume, and goals..."
@@ -157,6 +164,7 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                     />
                   </div>
 
+                  {/* Submit Button */}
                   {error && (
                     <div className="text-red-500 text-xs font-sans mt-1 bg-red-500/10 border border-red-500/20 px-3 py-2 rounded">
                       {error}
@@ -179,7 +187,10 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                 </form>
               </div>
 
+              {/* RIGHT: INFO WRAPPER */}
               <div className="lg:col-span-5 pt-2">
+                
+                {/* Operations HQ block */}
                 <div className="mb-8">
                   <h3 className={`text-xs text-left uppercase tracking-widest font-bold font-mono mb-2 ${isInline ? "text-[#666666]" : "text-blue-400"}`}>
                     Operations HQ
@@ -189,6 +200,7 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                   </p>
                 </div>
 
+                {/* Contact block */}
                 <div className="mb-8">
                   <h3 className={`text-xs text-left uppercase tracking-widest font-bold font-mono mb-2 ${isInline ? "text-[#666666]" : "text-blue-400"}`}>
                     Contact
@@ -208,9 +220,12 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                     </a>
                   </div>
                 </div>
+
               </div>
+
             </motion.div>
           ) : (
+            /* Submission Success State */
             <motion.div
               key="success-screen"
               initial={{ opacity: 0, scale: 0.98 }}

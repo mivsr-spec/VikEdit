@@ -4,6 +4,32 @@ interface VortexBackgroundProps {
   className?: string;
 }
 
+interface Star {
+  x: number;
+  y: number;
+  size: number;
+  alpha: number;
+  baseAlpha: number;
+  twinkleSpeed: number;
+  phase: number;
+}
+
+interface FloatingPolyhedron {
+  x: number;
+  y: number;
+  scale: number;
+  rx: number;
+  ry: number;
+  rz: number;
+  drx: number;
+  dry: number;
+  drz: number;
+  dx: number;
+  dy: number;
+  targetX: number;
+  targetY: number;
+}
+
 export const VortexBackground: React.FC<VortexBackgroundProps> = ({ className = "" }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -12,21 +38,20 @@ export const VortexBackground: React.FC<VortexBackgroundProps> = ({ className = 
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d", { alpha: false });
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     let animationFrameId: number;
     let width = 0;
     let height = 0;
 
-    // Handle resizing beautifully
+    // Set canvas dimensions
     const resize = () => {
       if (!canvas || !containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
       width = rect.width;
       height = rect.height;
 
-      // Account for device pixel ratio for super high-DPI display crispness
       const dpr = window.devicePixelRatio || 1;
       canvas.width = width * dpr;
       canvas.height = height * dpr;
@@ -39,129 +64,261 @@ export const VortexBackground: React.FC<VortexBackgroundProps> = ({ className = 
       resizeObserver.observe(containerRef.current);
     }
 
-    // Mathematical parameters for the seamless infinite vortex flight
-    const NUM_LAYERS = 34; // Number of star layers
-    const BASE_ROTATION_SPEED = 0.0003; // Dynamic continuous slow spinning speed of the entire vortex
-    const SPIRAL_TWIST = 0.22; // Twisting angle adjustment per layer (creates the spiral staircase look)
-    const DECAY_FACTOR = 0.88; // Scale factor between layers (how much smaller each consecutive inner layer gets)
-    const ZOOM_SPEED = 0.035; // Slow, perfect zoom speed for steady loop (not too fast, not too slow)
+    // Generate static/twinkling stars (cosmic dust texture)
+    const stars: Star[] = [];
+    const numStars = 180;
+    for (let i = 0; i < numStars; i++) {
+      const baseAlpha = 0.1 + Math.random() * 0.45;
+      stars.push({
+        x: Math.random(),
+        y: Math.random(),
+        size: 0.4 + Math.random() * 1.2,
+        alpha: baseAlpha,
+        baseAlpha: baseAlpha,
+        twinkleSpeed: 0.005 + Math.random() * 0.015,
+        phase: Math.random() * Math.PI * 2,
+      });
+    }
 
-    let time = 0;
+    // Geometry data for a clean 3D icosahedron
+    const phi = (1 + Math.sqrt(5)) / 2;
+    const rawVertices = [
+      [-1,  phi,  0], [ 1,  phi,  0], [-1, -phi,  0], [ 1, -phi,  0],
+      [ 0, -1,  phi], [ 0,  1,  phi], [ 0, -1, -phi], [ 0,  1, -phi],
+      [ phi,  0, -1], [ phi,  0,  1], [-phi,  0, -1], [-phi,  0,  1],
+    ];
 
-    // Helper to draw a single 5-pointed star sub-path
-    const addStarPath = (
-      c: CanvasRenderingContext2D,
-      cx: number,
-      cy: number,
-      tips: number,
-      outerR: number,
-      innerR: number,
-      angleOffset: number
-    ) => {
-      const pointsCount = tips * 2;
-      for (let i = 0; i < pointsCount; i++) {
-        const angle = angleOffset + (i * Math.PI) / tips;
-        const r = i % 2 === 0 ? outerR : innerR;
-        const x = cx + Math.cos(angle) * r;
-        const y = cy + Math.sin(angle) * r;
-        if (i === 0) {
-          c.moveTo(x, y);
-        } else {
-          c.lineTo(x, y);
+    // Normalize vertices to unit sphere
+    const vertices = rawVertices.map(([x, y, z]) => {
+      const length = Math.sqrt(x*x + y*y + z*z);
+      return { x: x / length, y: y / length, z: z / length };
+    });
+
+    // Generate edges connecting vertices with distance <= 1.1 on unit sphere
+    const edges: [number, number][] = [];
+    for (let i = 0; i < vertices.length; i++) {
+      for (let j = i + 1; j < vertices.length; j++) {
+        const dx = vertices[i].x - vertices[j].x;
+        const dy = vertices[i].y - vertices[j].y;
+        const dz = vertices[i].z - vertices[j].z;
+        const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+        if (dist < 1.1) {
+          edges.push([i, j]);
         }
       }
-      c.closePath();
+    }
+
+    // Set up instances of the wireframes floating beautifully on screen
+    // Polyhedron 1: Large slow floating complex in top-right
+    // Polyhedron 2: Main complex in bottom-left
+    // Polyhedron 3: Small background accent in mid-right
+    const polyhedrons: FloatingPolyhedron[] = [
+      {
+        x: 0.85, // fractional coordinates (percent of screen)
+        y: 0.2,
+        scale: 180,
+        rx: 0.2,
+        ry: 0.5,
+        rz: 0.1,
+        drx: 0.002,
+        dry: 0.003,
+        drz: 0.001,
+        dx: -0.0001,
+        dy: 0.0001,
+        targetX: 0.85,
+        targetY: 0.2,
+      },
+      {
+        x: 0.15,
+        y: 0.75,
+        scale: 170,
+        rx: 0.8,
+        ry: 0.2,
+        rz: 0.4,
+        drx: -0.002,
+        dry: 0.003,
+        drz: -0.0015,
+        dx: 0.0001,
+        dy: -0.0001,
+        targetX: 0.15,
+        targetY: 0.75,
+      },
+      {
+        x: 0.5,
+        y: 0.45,
+        scale: 70,
+        rx: 0.5,
+        ry: 0.5,
+        rz: 0.5,
+        drx: 0.004,
+        dry: -0.002,
+        drz: 0.003,
+        dx: 0.0,
+        dy: 0.0,
+        targetX: 0.5,
+        targetY: 0.45,
+      },
+    ];
+
+    // Track mouse coordinates for dynamic parallax displacement
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetParallaxX = 0;
+    let targetParallaxY = 0;
+    let currentParallaxX = 0;
+    let currentParallaxY = 0;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      // Normalize mouse coords (-1 to 1)
+      mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+      targetParallaxX = mouseX * 25; // max 25px displacement
+      targetParallaxY = mouseY * 25;
     };
 
-    // Render loop
-    const render = () => {
-      time += 0.16; // Increments smoothly based on a standard rough 60fps clock delta
+    window.addEventListener("mousemove", handleMouseMove);
 
-      // Draw solid dark background
-      ctx.fillStyle = "#030303";
+    // 3D Rotation helper
+    const rotate3D = (
+      p: { x: number; y: number; z: number },
+      ax: number,
+      ay: number,
+      az: number
+    ) => {
+      // Rotation X
+      let y1 = p.y * Math.cos(ax) - p.z * Math.sin(ax);
+      let z1 = p.y * Math.sin(ax) + p.z * Math.cos(ax);
+      let x1 = p.x;
+
+      // Rotation Y
+      let x2 = x1 * Math.cos(ay) + z1 * Math.sin(ay);
+      let z2 = -x1 * Math.sin(ay) + z1 * Math.cos(ay);
+      let y2 = y1;
+
+      // Rotation Z
+      let x3 = x2 * Math.cos(az) - y2 * Math.sin(az);
+      let y3 = x2 * Math.sin(az) + y2 * Math.cos(az);
+      let z3 = z2;
+
+      return { x: x3, y: y3, z: z3 };
+    };
+
+    let frameCount = 0;
+
+    // Main animation layer
+    const render = () => {
+      frameCount++;
+
+      // Create pure space back drop
+      ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, width, height);
 
-      const cx = width / 2;
-      const cy = height / 2;
+      // Smooth interpolation for parallax float
+      currentParallaxX += (targetParallaxX - currentParallaxX) * 0.05;
+      currentParallaxY += (targetParallaxY - currentParallaxY) * 0.05;
 
-      // Base radius of the outermost star — covering the screen corners comfortably
-      const maxRadius = Math.max(width, height) * 0.95;
+      // Draw starry galaxy backdrop dust
+      for (const star of stars) {
+        // Twinkle effect
+        star.phase += star.twinkleSpeed;
+        star.alpha = star.baseAlpha + Math.sin(star.phase) * 0.15;
 
-      // Seamless zoom fraction 'u' wraps perfectly between 0 and 1
-      const u = (time * ZOOM_SPEED) % 1;
-
-      // Iterate starting from the deepest, smallest background layer up to the largest foreground layer
-      // Drawing back-to-front causes the larger foreground layers to perfectly stack on top of the inner layers
-      for (let j = NUM_LAYERS - 1; j >= 0; j--) {
-        // Virtual fractional layer index based on smooth loop offset
-        const v = j - u;
-
-        // Exponential scale factor for this layer
-        const layerScale = Math.pow(DECAY_FACTOR, v);
+        // Render dot with clean subpixel coordinates + subtle parallax
+        const sX = (star.x * width + currentParallaxX * 0.25) % width;
+        const sY = (star.y * height + currentParallaxY * 0.25) % height;
         
-        // Calculate radii for the outer tips and inner notches of the 5-pointed star
-        const outerR = maxRadius * layerScale;
-        const innerR = outerR * 0.52; // 0.52 ratio maps closely to the star geometry in the reference image
+        ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0.02, Math.min(star.alpha, 1))})`;
+        ctx.beginPath();
+        ctx.arc(sX < 0 ? width + sX : sX, sY < 0 ? height + sY : sY, star.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
 
-        // Calculate the cutout radii for the hollow center of this star plate (matches the next inner star)
-        const innerLayerScale = Math.pow(DECAY_FACTOR, v + 1);
-        const holeOuterR = maxRadius * innerLayerScale;
-        const holeInnerR = holeOuterR * 0.52;
+      // Draw premium floating polyhedrons (constellations)
+      polyhedrons.forEach((poly, index) => {
+        // Slow rotation increment
+        poly.rx += poly.drx;
+        poly.ry += poly.dry;
+        poly.rz += poly.drz;
 
-        // Base spinning rotation of the entire tunnel + spiral twist proportional to layer depth
-        const baseSpin = time * BASE_ROTATION_SPEED;
-        const layerRotation = baseSpin + v * SPIRAL_TWIST;
+        // Gentle drift animation
+        poly.x += poly.dx;
+        poly.y += poly.dy;
 
-        // Opacity fade in as new layers emerge in center, and fade out as outermost layers leave the screen
-        let opacity = 1;
-        if (v < 0) {
-          // Fade out the biggest layer that moves past the screen zoom bounds
-          opacity = Math.max(0, 1 + v);
-        } else if (v > NUM_LAYERS - 3) {
-          // Smoothly fade in the tiny emerging layers at the deepest center of the vortex
-          opacity = Math.max(0, (NUM_LAYERS - v) / 3);
+        // Boundaries bounce to keep inside preferred screen area
+        if (index === 0) {
+          // Top-right bounds
+          if (poly.x < 0.65 || poly.x > 0.95) poly.dx *= -1;
+          if (poly.y < 0.05 || poly.y > 0.35) poly.dy *= -1;
+        } else if (index === 1) {
+          // Bottom-left bounds
+          if (poly.x < 0.05 || poly.x > 0.35) poly.dx *= -1;
+          if (poly.y < 0.6 || poly.y > 0.9) poly.dy *= -1;
+        } else {
+          // Centered bounds
+          if (poly.x < 0.4 || poly.x > 0.6) poly.dx *= -1;
+          if (poly.y < 0.35 || poly.y > 0.55) poly.dy *= -1;
         }
 
-        if (opacity <= 0.01 || outerR < 1) continue;
+        // absolute screen center for this structure
+        const px = poly.x * width + (index === 0 ? currentParallaxX * 0.8 : index === 1 ? currentParallaxX * 0.65 : currentParallaxX * 0.4);
+        const py = poly.y * height + (index === 0 ? currentParallaxY * 0.8 : index === 1 ? currentParallaxY * 0.65 : currentParallaxY * 0.4);
 
-        ctx.save();
-        ctx.globalAlpha = opacity;
+        // Project rotated vertices
+        const rotated = vertices.map((v) => {
+          const rot = rotate3D(v, poly.rx, poly.ry, poly.rz);
+          // Standard perspective projections (scale local coords based on perspective depth)
+          const perspective = 4.0 / (4.0 - rot.z); // Perspective factor
+          return {
+            x: px + rot.x * poly.scale * perspective,
+            y: py + rot.y * poly.scale * perspective,
+            z: rot.z, // Z coordinate used for depth shading
+          };
+        });
 
-        // Enable responsive realistic drop shadows to render beautiful 3D step-by-step depth
-        ctx.shadowColor = `rgba(0, 0, 0, ${0.9 * opacity})`;
-        ctx.shadowBlur = Math.min(25, outerR * 0.08);
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = Math.min(12, outerR * 0.04);
+        // Draw geometric line segments between vertices
+        edges.forEach(([u, v]) => {
+          const p1 = rotated[u];
+          const p2 = rotated[v];
 
-        // Draw a hollow star ring by nesting an outer star path and a counter-oriented inner cutout path
-        ctx.beginPath();
-        
-        // 1. Draw outer 5-pointed star (clockwise points flow)
-        addStarPath(ctx, cx, cy, 5, outerR, innerR, layerRotation);
-        
-        // 2. Draw inner cutout 5-pointed star (which matches next inner layer with slight twist)
-        // Adding the same spiral twist ensures the tunnel is perfectly carved out without rendering gaps
-        const nextLayerRotation = baseSpin + (v + 1) * SPIRAL_TWIST;
-        addStarPath(ctx, cx, cy, 5, holeOuterR, holeInnerR, nextLayerRotation);
+          // Edge color depth cue: front edges are brighter than rear edges
+          const avgZ = (p1.z + p2.z) / 2; // range from -1 to 1
+          // normalize depth to 0..1 scale
+          const depthScale = (avgZ + 1) / 2;
+          const alphaOnDepth = 0.04 + depthScale * 0.28; // Subtle line intensity
 
-        // Set up static elegant 3D spotlight linear gradient (lighting from top-left direction)
-        const grad = ctx.createLinearGradient(
-          cx - outerR * 0.4,
-          cy - outerR * 0.4,
-          cx + outerR * 0.4,
-          cy + outerR * 0.4
-        );
-        
-        // Pristine dark slate color sequence simulating beautiful metallic/matte lighting
-        grad.addColorStop(0, "#1e1e21"); // Raised light highlight edge
-        grad.addColorStop(0.3, "#101011"); // Midtone
-        grad.addColorStop(1, "#060607"); // Deep shadow recess
+          ctx.strokeStyle = `rgba(255, 255, 255, ${alphaOnDepth})`;
+          ctx.lineWidth = 0.5 + depthScale * 0.6; // Thin and elegant (front lines are ~1px, back lines are ~0.5px)
+          
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.stroke();
+        });
 
-        ctx.fillStyle = grad;
-        ctx.fill("evenodd"); // This carving rule renders the region between paths cleanly hollow
+        // Make nodes look polished: outer soft glowing rings on positive-facing coordinates
+        rotated.forEach((node) => {
+          // Draw only visible/closer half nodes with clean white dots to match constellation look
+          if (node.z > -0.4) {
+            const nodeRadius = 2 + (node.z + 1) * 1.5; // size based on depth
+            const nodeOpacity = 0.2 + (node.z + 1) * 0.4;
 
-        ctx.restore();
-      }
+            // Draw center hard point
+            ctx.fillStyle = `rgba(255, 255, 255, ${nodeOpacity})`;
+            ctx.beginPath();
+            ctx.arc(node.x, node.y, nodeRadius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Draw subtle surrounding glow ring on main polyhedrons
+            if (index < 2 && node.z > 0.3) {
+              ctx.strokeStyle = `rgba(255, 255, 255, ${nodeOpacity * 0.25})`;
+              ctx.lineWidth = 0.6;
+              ctx.beginPath();
+              ctx.arc(node.x, node.y, nodeRadius * 2.8, 0, Math.PI * 2);
+              ctx.stroke();
+            }
+          }
+        });
+      });
 
       animationFrameId = requestAnimationFrame(render);
     };
@@ -171,6 +328,7 @@ export const VortexBackground: React.FC<VortexBackgroundProps> = ({ className = 
     return () => {
       cancelAnimationFrame(animationFrameId);
       resizeObserver.disconnect();
+      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
