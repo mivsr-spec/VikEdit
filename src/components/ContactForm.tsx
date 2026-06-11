@@ -25,22 +25,24 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
     setError("");
     
     try {
-      const response = await fetch("https://formsubmit.co/ajax/hellovikedit@gmail.com", {
+      // Web3Forms requires FormData, not JSON
+      const formData = new FormData();
+      formData.append("access_key", "b618c998-6e89-4aa7-acfb-5ab181286e41");
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("phone", `${countryCode} ${phone}`);
+      formData.append("message", message);
+      formData.append("subject", `New Lead from VikEdit Contact View: ${name}`);
+      formData.append("from_name", name);
+
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          phone: `${countryCode} ${phone}`,
-          message: message,
-          _subject: `New Lead from VikEdit Contact View: ${name}`
-        })
+        body: formData
       });
+      
       const data = await response.json();
-      if (response.ok && data.success === "true") {
+      
+      if (response.ok && data.success) {
         setIsSubmitted(true);
       } else {
         throw new Error(data.message || "Failed to submit form. Please try again.");
@@ -107,7 +109,7 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                   {/* Business Email */}
                   <div className="flex flex-col gap-1">
                     <input
-                      type="type"
+                      type="email"
                       placeholder="Business Email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
