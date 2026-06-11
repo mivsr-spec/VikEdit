@@ -51,7 +51,7 @@ function AnimCounter({ targetValue }: { targetValue: string }) {
   return (
     <span 
       ref={ref} 
-      className="font-sans text-5xl md:text-6xl font-extrabold tracking-tight text-[#1A1A1A]"
+      className="font-sans text-5xl md:text-6xl font-extrabold tracking-tight text-white"
       style={{ willChange: "transform", transform: "translateZ(0)" }}
     >
       {current || targetValue}
@@ -76,28 +76,28 @@ export default function CaseStudySection() {
                 isReversed ? "lg:order-2" : "lg:order-1"
               }`}
             >
-              <h3 className="text-3xl md:text-5xl font-sans font-bold text-[#1A1A1A] tracking-tight leading-tight mb-6">
-                {study.title}
-                <span className="italic font-serif font-medium font-normal text-slate-800">
+              <h3 className="text-3xl md:text-5xl font-sans font-bold tracking-tight leading-tight mb-6 bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">
+                {study.title}{" "}
+                <span className="italic font-serif font-normal bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">
                   {study.italicWord}
                 </span>
               </h3>
               
-              <p className="text-[#6B6B6B] text-sm md:text-base leading-relaxed mb-8 max-w-xl">
+              <p className="text-stone-300 text-sm md:text-base leading-relaxed mb-8 max-w-xl">
                 {study.description}
               </p>
 
               {/* Dynamic Metrics Row */}
-              <div id="metrics-grid-element" className="grid grid-cols-2 gap-6 sm:gap-10 border-t border-[#E8E6E1] pt-8">
+              <div id="metrics-grid-element" className="grid grid-cols-2 gap-6 sm:gap-10 border-t border-neutral-800 pt-8">
                 {study.metrics.map((metric, mIdx) => (
                   <div key={mIdx} className="space-y-1">
                     <div className="flex items-baseline mb-1">
                       <AnimCounter targetValue={metric.value} />
                     </div>
-                    <div className="text-xs uppercase font-bold tracking-widest text-[#1A1A1A]">
+                    <div className="text-xs uppercase font-bold tracking-widest text-[#4482FF]">
                       {metric.label}
                     </div>
-                    <div className="text-[11px] text-[#999999] leading-tight">
+                    <div className="text-[11px] text-stone-400 leading-tight">
                       {metric.sublabel}
                     </div>
                   </div>
@@ -111,7 +111,7 @@ export default function CaseStudySection() {
                 isReversed ? "lg:order-1" : "lg:order-2"
               }`}
             >
-              <div className="relative group overflow-hidden rounded-3xl border border-[#E8E6E1] shadow-xs cursor-pointer">
+              <div className="relative group overflow-hidden rounded-3xl border border-neutral-800 shadow-xs cursor-pointer">
                 <img
                   src={study.imageUrl}
                   alt={study.overlayText}

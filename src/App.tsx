@@ -25,6 +25,7 @@ import {
   Check
 } from "lucide-react";
 
+import { VortexBackground } from "./components/VortexBackground";
 import Cursor from "./components/Cursor";
 import Loader from "./components/Loader";
 import Navbar from "./components/Navbar";
@@ -1240,7 +1241,7 @@ export default function App() {
   }, [currentView]);
 
   return (
-    <div className="bg-[#F5F3EF] min-h-screen text-[#1A1A1A] relative selection:bg-neutral-900 selection:text-white overflow-x-hidden">
+    <div className="bg-black min-h-screen text-stone-200 relative selection:bg-neutral-800 selection:text-white overflow-x-hidden">
       {/* Dynamic interactive custom cursor pointer */}
       <Cursor />
 
@@ -1278,49 +1279,58 @@ export default function App() {
                   transition={{ duration: 0.5 }}
                   className="space-y-0"
                 >
-                  {/* SECTION 2: HERO */}
-                  <section id="hero-section" className="min-h-screen flex items-center justify-center px-6 sm:px-12 py-16 md:py-24 max-w-7xl mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center w-full">
-                      {/* Left Column (Text Content) */}
-                      <div className="lg:col-span-7 space-y-8 text-left">
+                  {/* SECTION 2: HERO WITH 3D LIVE MOVE VORTEX BG */}
+                  <div className="relative w-full overflow-hidden bg-black border-b border-neutral-900/60">
+                    {/* Hypnotic 3D rotating star-stair vortex background */}
+                    <VortexBackground className="opacity-75" />
+
+                    {/* Pure black vignettes to fade the canvas smoothly into surrounding page sections */}
+                    <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black via-black/40 to-transparent pointer-events-none z-10" />
+                    <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none z-10" />
+
+                    <section id="hero-section" className="relative z-20 min-h-screen flex items-center justify-center px-6 sm:px-12 py-16 md:py-24 max-w-7xl mx-auto">
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center w-full">
+                        {/* Left Column (Text Content) */}
+                        <div className="lg:col-span-7 space-y-8 text-left">
 
 
-                        {/* Headline */}
-                        <div className="space-y-4 max-w-2xl">
-                          <h1 className="text-6xl sm:text-8xl lg:text-[88px] font-sans font-black text-[#1A1A1A] tracking-tighter leading-[0.95] pb-2">
-                            Record Less <br />Post<span className="inline-block ml-2 sm:ml-4 font-serif font-normal italic text-slate-800">More.</span>
-                          </h1>
-                          <p className="text-xl sm:text-3xl font-times font-normal text-[#1A1A1A]/80 tracking-snug leading-snug italic">
-                            Stop worrying about post-production delays <br />& Start scaling your consistency.
-                          </p>
+                          {/* Headline */}
+                          <div className="space-y-4 max-w-2xl">
+                            <h1 className="text-6xl sm:text-8xl lg:text-[88px] font-sans font-black bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tighter leading-[0.95] pb-2">
+                              Record Less <br />Post<span className="inline-block ml-2 sm:ml-4 font-serif font-normal italic bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">More.</span>
+                            </h1>
+                            <p className="text-xl sm:text-3xl font-times font-normal text-white/90 tracking-snug leading-snug italic">
+                              Stop worrying about post-production delays <br />& Start scaling your consistency.
+                            </p>
+                          </div>
+
+                          {/* CTA Button */}
+                          <div className="pt-4">
+                            <button
+                              onClick={() => setView("contact")}
+                              className="bg-white text-black hover:bg-stone-200 hover:scale-105 active:scale-95 transition-all text-sm font-bold uppercase tracking-wider py-4.5 px-10 rounded-full shadow-md cursor-pointer"
+                            >
+                              BOOK A CALL
+                            </button>
+                          </div>
                         </div>
 
-                        {/* CTA Button */}
-                        <div className="pt-4">
-                          <button
-                            onClick={() => setView("contact")}
-                            className="bg-black text-white hover:bg-neutral-800 hover:scale-105 active:scale-95 transition-all text-sm font-bold uppercase tracking-wider py-4.5 px-10 rounded-full shadow-md cursor-pointer"
-                          >
-                            BOOK A CALL
-                          </button>
+                        {/* Right Column (Visual Phone Mockup) */}
+                        <div className="lg:col-span-5 flex justify-center lg:justify-end">
+                          <InteractivePhone />
                         </div>
                       </div>
-
-                      {/* Right Column (Visual Phone Mockup) */}
-                      <div className="lg:col-span-5 flex justify-center lg:justify-end">
-                        <InteractivePhone />
-                      </div>
-                    </div>
-                  </section>
+                    </section>
+                  </div>
 
                   {/* SECTION 3: TRUST BAR (Client Logos) */}
-                  <section id="trust-bar-section" className="bg-[#F5F3EF]">
+                  <section id="trust-bar-section" className="bg-black">
                     <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-6">
                       <div className="text-center md:text-left min-w-[200px]">
-                        <span className="text-xs font-mono uppercase tracking-widest text-[#999999] block">
+                        <span className="text-xs font-mono uppercase tracking-widest text-stone-400 block">
                           Trusted by Partners
                         </span>
-                        <p className="text-sm font-semibold text-[#6B6B6B] mt-1">
+                        <p className="text-sm font-semibold text-white mt-1">
                           We've Helped Grow and still Continue With
                         </p>
                       </div>
@@ -1331,11 +1341,11 @@ export default function App() {
                   </section>
 
                   {/* SECTION 7: CASE STUDIES */}
-                  <section id="work-case-studies" className="pt-24 pb-24 md:pt-36 md:pb-36 px-6 sm:px-12 bg-[#F5F3EF] border-y border-[#E8E6E1]">
+                  <section id="work-case-studies" className="pt-24 pb-24 md:pt-36 md:pb-36 px-6 sm:px-12 bg-black border-y border-neutral-900">
                     <div className="max-w-7xl mx-auto space-y-24 md:space-y-32">
                       <div className="text-center select-none mx-auto max-w-4xl">
-                        <h2 className="text-4xl md:text-6xl font-sans font-bold text-[#1A1A1A] tracking-tight leading-tight">
-                          Liberating creators from <br /> <span className="italic font-serif font-normal text-[#1A1A1A]">post-production.</span>
+                        <h2 className="text-4xl md:text-6xl font-sans font-bold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-tight">
+                          Liberating creators from <br /> <span className="italic font-serif font-normal bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">post-production.</span>
                         </h2>
                       </div>
 
@@ -1344,18 +1354,18 @@ export default function App() {
                   </section>
 
                   {/* COMPREHENSIVE SERVICES PORTFOLIO SECTION */}
-                  <section id="services-section" className="w-[100%] bg-[#F5F3EF] py-24 md:py-36 px-6 sm:px-12 border-t border-[#E8E6E1]/60">
+                  <section id="services-section" className="w-[100%] bg-black py-24 md:py-36 px-6 sm:px-12 border-t border-neutral-900">
                     <div className="max-w-7xl mx-auto">
                       
                       {/* Section Header */}
                       <div className="text-center md:max-w-3xl mx-auto mb-16 space-y-4">
-                        <span className="text-xs font-mono tracking-widest uppercase text-[#666666] font-bold block">
+                        <span className="text-xs font-mono tracking-widest uppercase text-stone-400 font-bold block">
                           OUR SERVICES
                         </span>
-                        <h2 className="text-4xl md:text-6xl font-serif font-extrabold text-[#111111] tracking-tight leading-none text-center">
-                          Things we do <span className="font-serif font-normal italic text-[#111111]/80">for you</span>
+                        <h2 className="text-4xl md:text-6xl font-serif font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-none text-center">
+                          Things we do <span className="font-serif font-normal italic bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">for you</span>
                         </h2>
-                        <p className="text-sm sm:text-base text-[#666666] leading-relaxed max-w-2xl mx-auto pt-2 text-center">
+                        <p className="text-sm sm:text-base text-stone-300 leading-relaxed max-w-2xl mx-auto pt-2 text-center">
                           No more post-production delays. We transform raw recordings into ready-to-post clips, perfectly formatted for every platform.
                         </p>
                       </div>
@@ -1376,8 +1386,8 @@ export default function App() {
                                 onClick={() => setPortfolioFilter(btn.key)}
                                 className={`px-6 py-2.5 font-sans text-sm font-medium rounded-full cursor-pointer transition-all duration-300 ${
                                   isActive
-                                    ? "bg-[#111111] text-[#FFFFFF] shadow-sm scale-102"
-                                    : "bg-transparent text-[#666666] hover:text-[#111111]"
+                                    ? "bg-white text-black shadow-sm scale-102"
+                                    : "bg-transparent text-stone-400 hover:text-white"
                                 }`}
                               >
                                 {btn.label}
@@ -1408,7 +1418,7 @@ export default function App() {
                                 onClick={() => {
                                   setExpandedCardId(isExpanded ? null : item.id);
                                 }}
-                                className="relative rounded-3xl overflow-hidden cursor-pointer group bg-stone-100 aspect-[9/16] w-full border border-[#E8E6E1]/50 shadow-sm hover:shadow-xl transition-all duration-300"
+                                className="relative rounded-3xl overflow-hidden cursor-pointer group bg-neutral-900 aspect-[9/16] w-full border border-neutral-800 shadow-sm hover:shadow-xl transition-all duration-300"
                               >
                                 <img
                                   src={item.image}
@@ -1446,19 +1456,19 @@ export default function App() {
                   {/* SECTION 6: PROCESS (How We Work) */}
                   <section 
                     id="process-section" 
-                    className="relative bg-[#F5F3EF] pt-12 pb-24 md:pt-16 md:pb-36 px-6 sm:px-12 overflow-hidden border-y border-[#E8E6E1]/60"
+                    className="relative bg-black pt-12 pb-24 md:pt-16 md:pb-36 px-6 sm:px-12 overflow-hidden border-y border-neutral-900"
                   >
                     {/* Decorative elegant background glow shapes for subtle branding */}
-                    <div className="absolute top-1/4 left-10 w-96 h-96 rounded-full bg-violet-400/5 blur-[120px] pointer-events-none" />
-                    <div className="absolute bottom-1/4 right-10 w-96 h-96 rounded-full bg-violet-400/5 blur-[120px] pointer-events-none" />
+                    <div className="absolute top-1/4 left-10 w-96 h-96 rounded-full bg-blue-500/5 blur-[120px] pointer-events-none" />
+                    <div className="absolute bottom-1/4 right-10 w-96 h-96 rounded-full bg-blue-500/5 blur-[120px] pointer-events-none" />
 
                     <div className="max-w-7xl mx-auto relative z-10">
                       <div className="text-center mb-16 max-w-3xl mx-auto">
-                        <span className="text-xs font-mono tracking-widest uppercase text-[#1A1A1A]/50 block font-bold mb-4">
+                        <span className="text-xs font-mono tracking-widest uppercase text-stone-400 block font-bold mb-4">
                           Work Process
                         </span>
-                        <h2 className="text-4xl md:text-6xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-tight animate-fade-in">
-                          The Process Behind <span className="italic font-serif font-normal text-stone-700">Every Project</span>
+                        <h2 className="text-4xl md:text-6xl font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-tight animate-fade-in">
+                          The Process Behind <span className="italic font-serif font-normal bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">Every Project</span>
                         </h2>
                       </div>
 
@@ -1490,14 +1500,14 @@ export default function App() {
 
 
                   {/* SECTION 9: COMPARISON TABLE */}
-                  <section id="comparison-section" className="py-24 md:py-36 px-6 sm:px-12 bg-[#F5F3EF]">
+                  <section id="comparison-section" className="py-24 md:py-36 px-6 sm:px-12 bg-black">
                     <div className="max-w-7xl mx-auto space-y-16">
                       <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16 space-y-4">
-                        <span className="text-xs font-mono tracking-widest uppercase text-[#999999] font-bold block mb-4">
+                        <span className="text-xs font-mono tracking-widest uppercase text-stone-400 font-bold block mb-4">
                           The difference
                         </span>
-                        <h2 className="text-4xl md:text-6xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-tight">
-                          Why clients choose <span className="font-serif font-normal italic text-slate-800">VikEdit</span>
+                        <h2 className="text-4xl md:text-6xl font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-tight">
+                          Why clients choose <span className="font-serif font-normal italic bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">VikEdit</span>
                         </h2>
                       </div>
 
@@ -1506,21 +1516,21 @@ export default function App() {
                   </section>
 
                   {/* SECTION 10: TEAM */}
-                  <section id="team-section" className="py-24 md:py-36 px-6 sm:px-12 bg-white border-y border-[#E8E6E1]">
+                  <section id="team-section" className="py-24 md:py-36 px-6 sm:px-12 bg-black border-y border-neutral-900">
                     <div className="max-w-7xl mx-auto space-y-16">
                       <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-                        <span className="text-xs font-mono tracking-widest uppercase text-[#999999] font-bold block mb-4">
+                        <span className="text-xs font-mono tracking-widest uppercase text-stone-400 font-bold block mb-4">
                           Our team
                         </span>
-                        <h2 className="text-4xl md:text-6xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-tight">
-                          Operational <span className="font-serif font-normal italic text-stone-700">leadership</span>
+                        <h2 className="text-4xl md:text-6xl font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-tight">
+                          Operational <span className="font-serif font-normal italic bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">leadership</span>
                         </h2>
                       </div>
 
                       <div id="team-cards-grid" className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
                         {TEAM_MEMBERS.map((member) => (
                           <div key={member.id} className="space-y-4 group cursor-pointer text-center flex flex-col items-center">
-                            <div className="relative overflow-hidden rounded-full w-52 h-52 sm:w-56 sm:h-56 bg-[#F5F3EF] border border-[#E8E6E1]/50 shadow-sm flex-shrink-0">
+                            <div className="relative overflow-hidden rounded-full w-52 h-52 sm:w-56 sm:h-56 bg-neutral-900 border border-neutral-800 shadow-sm flex-shrink-0">
                               <img
                                 src={member.photoUrl}
                                 alt={member.name}
@@ -1529,8 +1539,8 @@ export default function App() {
                               />
                             </div>
                             <div className="pt-2">
-                              <h3 className="text-xl font-bold text-[#1A1A1A]">{member.name}</h3>
-                              <p className="text-xs uppercase font-semibold text-[#6B6B6B] tracking-wider mt-1">{member.role}</p>
+                              <h3 className="text-xl font-bold text-white">{member.name}</h3>
+                              <p className="text-xs uppercase font-semibold text-stone-400 tracking-wider mt-1">{member.role}</p>
                             </div>
                           </div>
                         ))}
@@ -1540,17 +1550,17 @@ export default function App() {
 
                   {/* SECTION 11: CAREERS CTA */}
                   <section id="careers-cta" className="py-16 px-6 sm:px-12 max-w-7xl mx-auto text-center">
-                    <div className="bg-white border border-[#E8E6E1] max-w-3xl mx-auto rounded-[30px] p-8 md:p-14 space-y-6 shadow-[0_4px_20px_rgba(26,26,26,0.015)]">
-                      <h3 className="text-3xl md:text-5xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-tight">
-                        Join our <span className="font-serif font-normal italic text-stone-700">operations team</span>
+                    <div className="bg-neutral-900 border border-neutral-800/80 max-w-3xl mx-auto rounded-[30px] p-8 md:p-14 space-y-6 shadow-[0_4px_30px_rgba(0,0,0,0.4)]">
+                      <h3 className="text-3xl md:text-5xl font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-tight">
+                        Join our <span className="font-serif font-normal italic bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">operations team</span>
                       </h3>
-                      <p className="text-sm text-[#6B6B6B] leading-relaxed max-w-xl mx-auto">
+                      <p className="text-sm text-stone-300 leading-relaxed max-w-xl mx-auto">
                         We build precision-driven content infrastructure. If you value strategic editing, systematic workflows, and scalable output, apply below.
                       </p>
                       <div className="pt-4">
                         <button
                           onClick={() => setView("contact")}
-                          className="bg-black text-white hover:bg-neutral-800 transition-colors py-3.5 px-8 rounded-full text-xs font-bold uppercase tracking-wider cursor-pointer"
+                          className="bg-white text-black hover:bg-stone-200 hover:scale-105 active:scale-95 transition-all py-4 px-8 rounded-full text-xs font-bold uppercase tracking-wider cursor-pointer"
                         >
                           APPLY NOW
                         </button>
@@ -1559,14 +1569,14 @@ export default function App() {
                   </section>
 
                   {/* SECTION 12: FAQ */}
-                  <section id="faq-section" className="py-24 md:py-36 px-6 sm:px-12 bg-white border-y border-[#E8E6E1]">
+                  <section id="faq-section" className="py-24 md:py-36 px-6 sm:px-12 bg-black border-y border-neutral-900">
                     <div className="max-w-7xl mx-auto">
                       <div className="text-center space-y-4 mb-16">
-                        <span className="text-xs font-mono tracking-widest uppercase text-[#999999]">
+                        <span className="text-xs font-mono tracking-widest uppercase text-stone-400 font-bold block">
                           Questions
                         </span>
-                        <h2 className="text-3xl md:text-5xl font-sans font-bold text-[#1A1A1A]">
-                          Frequently <span className="italic font-serif font-medium font-normal text-stone-700">Asked Questions</span>
+                        <h2 className="text-3xl md:text-5xl font-sans font-bold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">
+                          Frequently <span className="italic font-serif font-normal bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">Asked Questions</span>
                         </h2>
                       </div>
 
@@ -1587,12 +1597,12 @@ export default function App() {
                               animate={{ opacity: 1, y: 0 }}
                               exit={{ opacity: 0, scale: 0.98 }}
                               transition={{ duration: 0.4 }}
-                              className="w-full bg-[#FFFFFF] rounded-[24px] border border-[#E8E6E1]/70 shadow-[0_20px_50px_rgba(26,26,26,0.04),0_1px_3px_rgba(26,26,26,0.02)] p-8 sm:p-12 text-left transform-gpu"
+                              className="w-full bg-neutral-900 rounded-[24px] border border-neutral-800 shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-8 sm:p-12 text-left transform-gpu"
                             >
-                              <h3 className="font-serif font-bold text-4xl sm:text-5xl text-[#111111] mb-5 tracking-tight leading-tight">
-                                Let's make this <span className="italic font-serif font-medium text-stone-700">easy for you.</span>
+                              <h3 className="font-serif font-bold text-4xl sm:text-5xl text-white mb-5 tracking-tight leading-tight">
+                                Let's make this <span className="italic font-serif font-normal bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">easy for you.</span>
                               </h3>
-                              <p className="font-sans text-xs sm:text-sm text-[#666666] leading-relaxed mb-8">
+                              <p className="font-sans text-xs sm:text-sm text-stone-300 leading-relaxed mb-8">
                                 Your content deserves a system that works. Share your goals below, and we'll show you how to publish consistently without the overhead. We respond within 24 hours.
                               </p>
 
@@ -1614,7 +1624,7 @@ export default function App() {
                                   value={ctaName}
                                   onChange={(e) => setCtaName(e.target.value)}
                                   required
-                                  className="w-full bg-[#FFFFFF] border border-[#E5E5E5] rounded-[8px] py-[14px] px-4 font-sans text-sm text-[#111111] placeholder:text-[#969592]/70 focus:outline-none focus:border-[#111111] focus:ring-1 focus:ring-[#111111]/10 transition-all duration-300"
+                                  className="w-full bg-neutral-950 border border-neutral-800 rounded-[8px] py-[14px] px-4 font-sans text-sm text-white placeholder:text-stone-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all duration-300"
                                 />
 
                                 {/* Email Input */}
@@ -1624,29 +1634,29 @@ export default function App() {
                                   value={ctaEmail}
                                   onChange={(e) => setCtaEmail(e.target.value)}
                                   required
-                                  className="w-full bg-[#FFFFFF] border border-[#E5E5E5] rounded-[8px] py-[14px] px-4 font-sans text-sm text-[#111111] placeholder:text-[#969592]/70 focus:outline-none focus:border-[#111111] focus:ring-1 focus:ring-[#111111]/10 transition-all duration-300"
+                                  className="w-full bg-neutral-950 border border-neutral-800 rounded-[8px] py-[14px] px-4 font-sans text-sm text-white placeholder:text-stone-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all duration-300"
                                 />
 
                                 {/* Phone Input */}
-                                <div className="flex items-center bg-[#FFFFFF] border border-[#E5E5E5] rounded-[8px] overflow-hidden focus-within:border-[#111111] focus-within:ring-1 focus-within:ring-[#111111]/10 transition-all duration-300">
-                                  <div className="relative flex items-center bg-[#F2F2F2] border-r border-[#E5E5E5]">
+                                <div className="flex items-center bg-neutral-950 border border-neutral-800 rounded-[8px] overflow-hidden focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500/20 transition-all duration-300">
+                                  <div className="relative flex items-center bg-neutral-900 border-r border-neutral-800">
                                     <select
                                       value={ctaCountryCode}
                                       onChange={(e) => setCtaCountryCode(e.target.value)}
-                                      className="py-[14px] pl-4 pr-10 bg-[#F2F2F2] text-sm font-medium text-[#666666] appearance-none focus:outline-none cursor-pointer font-sans"
+                                      className="py-[14px] pl-4 pr-10 bg-neutral-900 text-sm font-medium text-stone-300 appearance-none focus:outline-none cursor-pointer font-sans"
                                     >
-                                      <option value="+1">+1 (US)</option>
-                                      <option value="+44">+44 (UK)</option>
-                                      <option value="+91">+91 (IN)</option>
-                                      <option value="+61">+61 (AU)</option>
-                                      <option value="+49">+49 (DE)</option>
-                                      <option value="+33">+33 (FR)</option>
-                                      <option value="+81">+81 (JP)</option>
-                                      <option value="+65">+65 (SG)</option>
-                                      <option value="+971">+971 (AE)</option>
-                                      <option value="+55">+55 (BR)</option>
+                                      <option className="bg-neutral-950 text-white" value="+1">+1 (US)</option>
+                                      <option className="bg-neutral-950 text-white" value="+44">+44 (UK)</option>
+                                      <option className="bg-neutral-950 text-white" value="+91">+91 (IN)</option>
+                                      <option className="bg-neutral-950 text-white" value="+61">+61 (AU)</option>
+                                      <option className="bg-neutral-950 text-white" value="+49">+49 (DE)</option>
+                                      <option className="bg-neutral-950 text-white" value="+33">+33 (FR)</option>
+                                      <option className="bg-neutral-950 text-white" value="+81">+81 (JP)</option>
+                                      <option className="bg-neutral-950 text-white" value="+65">+65 (SG)</option>
+                                      <option className="bg-neutral-950 text-white" value="+971">+971 (AE)</option>
+                                      <option className="bg-neutral-950 text-white" value="+55">+55 (BR)</option>
                                     </select>
-                                    <div className="absolute right-3.5 pointer-events-none text-[#666666]">
+                                    <div className="absolute right-3.5 pointer-events-none text-stone-400">
                                       <svg className="w-3.5 h-3.5 fill-none stroke-current" strokeWidth="2.5" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
                                         <polyline points="6 9 12 15 18 9"></polyline>
                                       </svg>
@@ -1657,7 +1667,7 @@ export default function App() {
                                     placeholder="Phone Number with Country Code"
                                     value={ctaPhone}
                                     onChange={(e) => setCtaPhone(e.target.value)}
-                                    className="flex-1 border-none focus:outline-none focus:ring-0 py-[14px] px-4 font-sans text-sm text-[#111111] placeholder:text-[#969592]/70 bg-transparent"
+                                    className="flex-1 border-none focus:outline-none focus:ring-0 py-[14px] px-4 font-sans text-sm text-white placeholder:text-stone-500 bg-transparent"
                                   />
                                 </div>
 
@@ -1667,18 +1677,18 @@ export default function App() {
                                   required
                                   value={ctaMessage}
                                   onChange={(e) => setCtaMessage(e.target.value)}
-                                  className="w-full bg-[#FFFFFF] border border-[#E5E5E5] rounded-[8px] py-[14px] px-4 font-sans text-sm text-[#111111] placeholder:text-[#969592]/70 focus:outline-none focus:border-[#111111] focus:ring-1 focus:ring-[#111111]/10 transition-all duration-300 resize-y min-h-[120px]"
+                                  className="w-full bg-neutral-950 border border-neutral-800 rounded-[8px] py-[14px] px-4 font-sans text-sm text-white placeholder:text-stone-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all duration-300 resize-y min-h-[120px]"
                                 />
 
                                 {/* Submit button */}
                                 <button
                                   type="submit"
                                   disabled={ctaIsSubmitting}
-                                  className="w-full py-4 px-4 bg-[#111111] text-[#FFFFFF] hover:bg-neutral-800 disabled:opacity-50 rounded-[8px] font-sans font-medium text-sm transition-all duration-300 uppercase tracking-wider cursor-pointer flex items-center justify-center gap-2 mt-2"
+                                  className="w-full py-4 px-4 bg-white text-black hover:bg-stone-200 disabled:opacity-50 rounded-[8px] font-sans font-bold text-sm transition-all duration-300 uppercase tracking-wider cursor-pointer flex items-center justify-center gap-2 mt-2"
                                 >
                                   {ctaIsSubmitting ? (
                                     <>
-                                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                      <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
                                       <span>Submitting...</span>
                                     </>
                                   ) : (
@@ -1693,16 +1703,16 @@ export default function App() {
                               initial={{ opacity: 0, scale: 0.95 }}
                               animate={{ opacity: 1, scale: 1 }}
                               exit={{ opacity: 0 }}
-                              className="w-full bg-[#FFFFFF] rounded-[24px] border border-[#E8E6E1]/70 shadow-[0_20px_50px_rgba(26,26,26,0.04)] p-6 sm:p-10 text-center mt-6 flex flex-col items-center justify-center min-h-[400px] transform-gpu"
+                              className="w-full bg-neutral-900 rounded-[24px] border border-neutral-800 shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-6 sm:p-10 text-center mt-6 flex flex-col items-center justify-center min-h-[400px] transform-gpu"
                             >
-                              <div className="w-12 h-12 bg-[#111111] text-[#FFFFFF] rounded-full flex items-center justify-center mb-6">
+                              <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mb-6">
                                 <Check className="w-6 h-6 stroke-[3]" />
                               </div>
-                              <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#111111] mb-2">
+                              <h3 className="text-xl sm:text-2xl font-serif font-bold text-white mb-2">
                                 Inquiry Received
                               </h3>
-                              <p className="text-xs sm:text-sm text-[#666666] leading-relaxed max-w-sm mb-6">
-                                Thank you, <span className="text-[#111111] font-semibold">{ctaName}</span>! Our lead operations crew will review your goals and contact you within 24 hours.
+                              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed max-w-sm mb-6">
+                                Thank you, <span className="text-blue-400 font-semibold">{ctaName}</span>! Our lead operations crew will review your goals and contact you within 24 hours.
                               </p>
                               <button
                                 onClick={() => {
@@ -1712,7 +1722,7 @@ export default function App() {
                                   setCtaMessage("");
                                   setCtaIsSubmitted(false);
                                 }}
-                                className="bg-[#111111] text-[#FFFFFF] hover:bg-neutral-800 rounded-[8px] px-6 py-3 font-sans text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer"
+                                className="bg-white text-black hover:bg-stone-200 rounded-[8px] px-6 py-3 font-sans text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer"
                               >
                                 Send Another Inquiry
                               </button>
@@ -1730,7 +1740,7 @@ export default function App() {
                 </motion.div>
               )}
 
-                           {currentView === "about" && (
+              {currentView === "about" && (
                 <motion.div
                   key="about-view"
                   initial={{ opacity: 0, y: 20 }}
@@ -1740,13 +1750,13 @@ export default function App() {
                   className="max-w-7xl mx-auto px-6 py-16 md:py-24 space-y-24 animate-fade-in"
                 >
                   <div className="max-w-4xl mx-auto text-center space-y-6">
-                    <span className="text-xs font-mono tracking-widest uppercase text-[#999999] font-bold block mb-4">
+                    <span className="text-xs font-mono tracking-widest uppercase text-stone-400 font-bold block mb-4">
                       Our Positioning
                     </span>
-                    <h1 className="text-4xl md:text-6xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-none text-center">
-                      We're not just editors. <span className="font-serif font-normal italic text-stone-700 block md:inline">We're your content engine.</span>
+                    <h1 className="text-4xl md:text-6xl font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-none text-center">
+                      We're not just editors. <span className="font-serif font-normal italic bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent block md:inline">We're your content engine.</span>
                     </h1>
-                    <p className="text-base md:text-lg text-[#6B6B6B] leading-relaxed pt-2 text-center">
+                    <p className="text-base md:text-lg text-stone-300 leading-relaxed pt-2 text-center">
                       While others deliver files, we deliver consistency. VikEdit operates as your outsourced content department handling the entire post-production workflow so you can focus on what you do best! creating, coaching, and growing your business.
                     </p>
                   </div>
@@ -1754,18 +1764,18 @@ export default function App() {
                   {/* Team / Leadership section */}
                   <div className="space-y-16">
                     <div className="space-y-4 text-center">
-                      <span className="text-xs font-mono tracking-widest uppercase text-[#999999] font-bold block">
+                      <span className="text-xs font-mono tracking-widest uppercase text-stone-400 font-bold block">
                         Our leadership
                       </span>
-                      <h2 className="text-3xl md:text-5xl font-sans font-extrabold text-[#1A1A1A] tracking-tight leading-tight">
-                        Our leadership <span className="font-serif font-normal italic text-stone-700">crew</span>
+                      <h2 className="text-3xl md:text-5xl font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-tight">
+                        Our leadership <span className="font-serif font-normal italic bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">crew</span>
                       </h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
                       {TEAM_MEMBERS.map((member) => (
                         <div key={member.id} className="space-y-4 group cursor-pointer text-center flex flex-col items-center">
-                          <div className="relative overflow-hidden rounded-full w-52 h-52 sm:w-56 sm:h-56 bg-[#F5F3EF] border border-[#E8E6E1]/50 shadow-sm flex-shrink-0">
+                          <div className="relative overflow-hidden rounded-full w-52 h-52 sm:w-56 sm:h-56 bg-neutral-900 border border-neutral-800 shadow-sm flex-shrink-0">
                             <img
                               src={member.photoUrl}
                               alt={member.name}
@@ -1774,8 +1784,8 @@ export default function App() {
                             />
                           </div>
                           <div className="pt-2">
-                            <h3 className="text-xl font-bold text-[#1A1A1A]">{member.name}</h3>
-                            <p className="text-xs uppercase font-semibold text-[#6B6B6B] tracking-wider mt-1">{member.role}</p>
+                            <h3 className="text-xl font-bold text-white">{member.name}</h3>
+                            <p className="text-xs uppercase font-semibold text-stone-400 tracking-wider mt-1">{member.role}</p>
                           </div>
                         </div>
                       ))}
@@ -1783,55 +1793,55 @@ export default function App() {
                   </div>
 
                   {/* Growth phases */}
-                  <div className="bg-white border border-[#E8E6E1] p-8 md:p-16 rounded-[40px] space-y-12 shadow-[0_4px_20px_rgba(26,26,26,0.015)]">
-                    <div className="space-y-4">
-                      <span className="text-xs font-mono tracking-widest uppercase text-[#999999] font-bold block">
+                  <div className="bg-white border border-stone-200 p-8 md:p-16 rounded-[40px] space-y-12 shadow-[0_4px_20px_rgba(26,26,26,0.015)]">
+                    <div className="space-y-4 text-left">
+                      <span className="text-xs font-mono tracking-widest uppercase text-stone-500 font-bold block">
                         Growth Phases
                       </span>
                       <h2 className="text-3xl md:text-5xl font-sans font-extrabold text-[#1A1A1A] tracking-tight">
-                        Where we are. <span className="font-serif font-normal italic text-stone-700">Where we're going.</span>
+                        Where we are. <span className="font-serif font-normal italic text-stone-600">Where we're going.</span>
                       </h2>
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-4">
                       {/* Phase 1 */}
-                      <div className="border border-[#E8E6E1] p-8 rounded-3xl space-y-4 hover:border-[#1A1A1A]/30 transition-colors duration-300">
+                      <div className="border border-stone-200 p-8 rounded-3xl space-y-4 hover:border-black/30 transition-colors duration-300 bg-white">
                         <div className="flex items-center justify-between">
                           <span className="text-xs font-mono tracking-wider uppercase font-bold text-[#1A1A1A]/40">Phase 1</span>
                           <span className="bg-emerald-50 text-emerald-700 border border-emerald-100/60 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider">
                             Current
                           </span>
                         </div>
-                        <h3 className="text-xl font-sans font-bold text-[#1A1A1A]">Repurposing Studio</h3>
-                        <p className="text-sm text-[#6B6B6B] leading-relaxed">
+                        <h3 className="text-xl font-sans font-bold text-stone-900 text-left">Repurposing Studio</h3>
+                        <p className="text-sm text-stone-600 leading-relaxed text-left">
                           We transform one recording into weeks of content. Strategic clipping, platform specific formatting, and high retention edits delivered consistently so you never run dry on content.
                         </p>
                       </div>
 
                       {/* Phase 2 */}
-                      <div className="border border-[#E8E6E1] p-8 rounded-3xl space-y-4 hover:border-[#1A1A1A]/30 transition-colors duration-300">
+                      <div className="border border-stone-200 p-8 rounded-3xl space-y-4 hover:border-black/30 transition-colors duration-300 bg-white">
                         <div className="flex items-center justify-between">
                           <span className="text-xs font-mono tracking-wider uppercase font-bold text-[#1A1A1A]/40">Phase 2</span>
                           <span className="bg-violet-50 text-violet-700 border border-violet-100/60 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider">
                             Next
                           </span>
                         </div>
-                        <h3 className="text-xl font-sans font-bold text-[#1A1A1A]">Content Operations</h3>
-                        <p className="text-sm text-[#6B6B6B] leading-relaxed">
+                        <h3 className="text-xl font-sans font-bold text-stone-900 text-left">Content Operations</h3>
+                        <p className="text-sm text-stone-600 leading-relaxed text-left">
                           Full workflow ownership. We'll handle everything from content strategy and calendar planning to multi-platform scheduling and performance analytics – your complete content backbone.
                         </p>
                       </div>
 
                       {/* Phase 3 */}
-                      <div className="border border-[#E8E6E1] p-8 rounded-3xl space-y-4 hover:border-[#1A1A1A]/30 transition-colors duration-300">
+                      <div className="border border-stone-200 p-8 rounded-3xl space-y-4 hover:border-black/30 transition-colors duration-300 bg-white">
                         <div className="flex items-center justify-between">
                           <span className="text-xs font-mono tracking-wider uppercase font-bold text-[#1A1A1A]/40">Phase 3</span>
                           <span className="bg-stone-100 text-stone-700 border border-stone-200/60 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider">
                             Future
                           </span>
                         </div>
-                        <h3 className="text-xl font-sans font-bold text-[#1A1A1A]">Media Ecosystem</h3>
-                        <p className="text-sm text-[#6B6B6B] leading-relaxed">
+                        <h3 className="text-xl font-sans font-bold text-stone-900 text-left">Media Ecosystem</h3>
+                        <p className="text-sm text-stone-600 leading-relaxed text-left">
                           End to end production house. Original content development, distribution partnerships, and monetization infrastructure building media assets that generate revenue beyond your core services.
                         </p>
                       </div>
@@ -1857,7 +1867,7 @@ export default function App() {
           </main>
 
           {/* SECTION 14: FOOTER */}
-          <footer className={`bg-white border-t border-[#E8E6E1]/60 relative z-30 shadow-[0_-25px_60px_-15px_rgba(17,17,17,0.12),0_-10px_25px_-5px_rgba(17,17,17,0.06)] transform-gpu ${currentView === "home" ? "mt-0" : "mt-24"}`}>
+          <footer className={`bg-neutral-950 border-t border-neutral-900 relative z-30 transform-gpu ${currentView === "home" ? "mt-0" : "mt-24"}`}>
             <div id="footer-top-grid" className="max-w-7xl mx-auto px-6 sm:px-12 py-16 md:py-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
               {/* Brand Col */}
               <div className="lg:col-span-5 space-y-6">
@@ -1865,11 +1875,11 @@ export default function App() {
                   onClick={() => setView("home")}
                   className="flex items-center cursor-pointer hover:opacity-80 transition-all duration-300 group"
                 >
-                  <span className="font-sans text-5xl md:text-7xl font-extrabold tracking-tighter text-[#1A1A1A] leading-none select-none flex items-center">
+                  <span className="font-sans text-5xl md:text-7xl font-extrabold tracking-tighter text-white leading-none select-none flex items-center">
                     VikEdit
                     <svg
                       viewBox="0 0 24 24"
-                      className="h-[0.85em] w-[0.85em] ml-[0.05em] fill-current text-[#1A1A1A] flex-shrink-0"
+                      className="h-[0.85em] w-[0.85em] ml-[0.05em] fill-current text-blue-500 flex-shrink-0"
                       style={{ display: "inline-block", verticalAlign: "middle" }}
                     >
                       <path
@@ -1879,19 +1889,19 @@ export default function App() {
                     </svg>
                   </span>
                 </div>
-                <p className="text-sm text-[#999999] max-w-sm">
+                <p className="text-sm text-stone-400 max-w-sm">
                   Content operations for expert-led brands. We transform recordings into sustained publishing momentum without internal overhead.
                 </p>
 
                 {/* Social circles */}
                 <div className="flex items-center gap-3">
-                  <a href="#" className="w-10 h-10 rounded-full bg-[#1A1A1A] text-[#F5F3EF] flex items-center justify-center hover:bg-neutral-800 transition-colors" aria-label="X">
+                  <a href="#" className="w-10 h-10 rounded-full bg-neutral-900 border border-neutral-800 text-stone-300 flex items-center justify-center hover:bg-neutral-800 hover:text-white transition-all" aria-label="X">
                     <Twitter className="w-4 h-4" />
                   </a>
-                  <a href="#" className="w-10 h-10 rounded-full bg-[#1A1A1A] text-[#F5F3EF] flex items-center justify-center hover:bg-neutral-800 transition-colors" aria-label="Instagram">
+                  <a href="#" className="w-10 h-10 rounded-full bg-neutral-900 border border-neutral-800 text-stone-300 flex items-center justify-center hover:bg-neutral-800 hover:text-white transition-all" aria-label="Instagram">
                     <Instagram className="w-4 h-4" />
                   </a>
-                  <a href="#" className="w-10 h-10 rounded-full bg-[#1A1A1A] text-[#F5F3EF] flex items-center justify-center hover:bg-neutral-800 transition-colors" aria-label="LinkedIn">
+                  <a href="#" className="w-10 h-10 rounded-full bg-neutral-900 border border-neutral-800 text-stone-300 flex items-center justify-center hover:bg-neutral-800 hover:text-white transition-all" aria-label="LinkedIn">
                     <Linkedin className="w-4 h-4" />
                   </a>
                 </div>
@@ -1899,7 +1909,7 @@ export default function App() {
 
               {/* Navigate Col */}
               <div className="lg:col-span-2 space-y-4">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#1A1A1A]">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-200">
                   NAVIGATE
                 </h4>
                 <ul className="space-y-2.5 text-sm">
@@ -1909,7 +1919,7 @@ export default function App() {
                         setView("home");
                         window.scrollTo({ top: 0, behavior: "smooth" });
                       }} 
-                      className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer"
+                      className="text-stone-400 hover:text-white transition-colors duration-200 cursor-pointer"
                     >
                       Home
                     </button>
@@ -1925,7 +1935,7 @@ export default function App() {
                           setTimeout(() => window.history.replaceState(null, "", " "), 850);
                         }
                       }} 
-                      className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer"
+                      className="text-stone-400 hover:text-white transition-colors duration-200 cursor-pointer"
                     >
                       Services
                     </button>
@@ -1941,7 +1951,7 @@ export default function App() {
                           setTimeout(() => window.history.replaceState(null, "", " "), 850);
                         }
                       }} 
-                      className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer"
+                      className="text-stone-400 hover:text-white transition-colors duration-200 cursor-pointer"
                     >
                       Workflow
                     </button>
@@ -1957,7 +1967,7 @@ export default function App() {
                           setTimeout(() => window.history.replaceState(null, "", " "), 850);
                         }
                       }} 
-                      className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer"
+                      className="text-stone-400 hover:text-white transition-colors duration-200 cursor-pointer"
                     >
                       Case Studies
                     </button>
@@ -1973,7 +1983,7 @@ export default function App() {
                           setTimeout(() => window.history.replaceState(null, "", " "), 850);
                         }
                       }} 
-                      className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer"
+                      className="text-stone-400 hover:text-white transition-colors duration-200 cursor-pointer"
                     >
                       FAQ
                     </button>
@@ -1983,27 +1993,27 @@ export default function App() {
 
               {/* Connect Col */}
               <div className="lg:col-span-2 space-y-4">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#1A1A1A]">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-200">
                   CONNECT
                 </h4>
                 <ul className="space-y-2.5 text-sm font-sans">
                   <li>
-                    <button onClick={() => setView("contact")} className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer">
+                    <button onClick={() => setView("contact")} className="text-stone-400 hover:text-white transition-colors duration-200 cursor-pointer">
                       Book a Call
                     </button>
                   </li>
                   <li>
-                    <a href="#" className="text-[#6B6B6B] hover:text-[#1A1A1A]">
+                    <a href="#" className="text-stone-400 hover:text-white transition-colors duration-200">
                       LinkedIn
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="text-[#6B6B6B] hover:text-[#1A1A1A]">
+                    <a href="#" className="text-stone-400 hover:text-white transition-colors duration-200">
                       Instagram
                     </a>
                   </li>
                   <li>
-                    <button onClick={() => setView("contact")} className="text-[#6B6B6B] hover:text-[#1A1A1A] cursor-pointer">
+                    <button onClick={() => setView("contact")} className="text-stone-400 hover:text-white transition-colors duration-200 cursor-pointer">
                       Contact
                     </button>
                   </li>
@@ -2012,27 +2022,27 @@ export default function App() {
 
               {/* Legal Col */}
               <div className="lg:col-span-3 space-y-4">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#1A1A1A]">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-200">
                   LEGAL
                 </h4>
                 <ul className="space-y-2.5 text-sm font-sans">
                   <li>
-                    <a href="#" className="text-[#6B6B6B] hover:text-[#1A1A1A]">
+                    <a href="#" className="text-stone-400 hover:text-white transition-colors duration-200">
                       Privacy Policy
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="text-[#6B6B6B] hover:text-[#1A1A1A]">
+                    <a href="#" className="text-stone-400 hover:text-white transition-colors duration-200">
                       Terms
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="text-[#6B6B6B] hover:text-[#1A1A1A]">
+                    <a href="#" className="text-stone-400 hover:text-white transition-colors duration-200">
                       Refund Policy
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="text-[#6B6B6B] hover:text-[#1A1A1A]">
+                    <a href="#" className="text-stone-400 hover:text-white transition-colors duration-200">
                       Sitemap
                     </a>
                   </li>
@@ -2041,9 +2051,9 @@ export default function App() {
             </div>
 
             {/* Bottom copyright segment */}
-            <div className="border-t border-[#E8E6E1] py-8 px-6 sm:px-12">
+            <div className="border-t border-neutral-900 py-8 px-6 sm:px-12">
               <div className="max-w-7xl mx-auto flex items-center justify-center gap-4 text-center">
-                <p className="text-xs text-[#999999]">
+                <p className="text-xs text-stone-500">
                   © 2026 VikEdit. Created by Vikram Singh Rawat
                 </p>
               </div>
@@ -2055,7 +2065,7 @@ export default function App() {
             href="https://wa.me/918958123147?text=Hi%20Vikedit%2C%20I'm%20interested%20in%20your%20services"
             target="_blank"
             rel="noopener noreferrer"
-            className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 flex items-center justify-center w-14 h-14 bg-black hover:bg-neutral-950 rounded-full shadow-2xl border border-neutral-800 cursor-pointer text-white focus:outline-none"
+            className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 flex items-center justify-center w-14 h-14 bg-black hover:bg-neutral-950 rounded-full shadow-2xl border-[3px] border-emerald-500 hover:border-emerald-400 shadow-emerald-500/10 cursor-pointer text-white focus:outline-none"
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.95 }}
             initial={{ opacity: 0, scale: 0.8 }}

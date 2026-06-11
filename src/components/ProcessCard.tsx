@@ -28,10 +28,10 @@ export default function ProcessCard({ num, title, body }: ProcessCardProps) {
 
   return (
     <div
-      className={`relative w-full rounded-2xl bg-white border text-left overflow-hidden p-6 cursor-pointer transition-all duration-500 ease-in-out select-none transform hover:-translate-y-1 ${
+      className={`relative w-full rounded-2xl bg-neutral-900 border text-left overflow-hidden p-6 cursor-pointer transition-all duration-500 ease-in-out select-none transform hover:-translate-y-1 ${
         isHovered
-          ? "border-violet-500/50 shadow-[0_12px_32px_rgba(139,92,246,0.08)] max-h-[500px]"
-          : "border-[#E8E6E1] shadow-[0_4px_18px_rgba(26,26,26,0.015)] max-h-[94px]"
+          ? "border-blue-500/40 shadow-[0_12px_32px_rgba(59,130,246,0.1)] max-h-[500px]"
+          : "border-neutral-800 shadow-[0_4px_18px_rgba(0,0,0,0.2)] max-h-[94px]"
       }`}
       style={{
         transitionProperty: "max-height, border-color, box-shadow, transform",
@@ -39,11 +39,11 @@ export default function ProcessCard({ num, title, body }: ProcessCardProps) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Ambient soft purple/violet glow spot that intensifies on hover */}
+      {/* Ambient soft blue glow spot that intensifies on hover */}
       <div
-        className={`absolute right-[-10%] top-[-10%] w-48 h-48 rounded-full bg-violet-500/5 blur-[40px] pointer-events-none transition-opacity duration-700 ${
+        className={`absolute right-[-10%] top-[-10%] w-48 h-48 rounded-full bg-blue-500/5 blur-[40px] pointer-events-none transition-opacity duration-700 ${
           isHovered ? "opacity-100" : "opacity-0"
-        }`}
+         }`}
       />
 
       {/* Header containing number, title, and elegant icon container */}
@@ -51,13 +51,13 @@ export default function ProcessCard({ num, title, body }: ProcessCardProps) {
         <div
           className={`w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 ${
             isHovered
-              ? "bg-violet-50 text-violet-600 border border-violet-200 scale-105"
-              : "bg-[#F5F3EF] border border-[#E8E6E1]/70 text-[#1A1A1A]/70"
+              ? "bg-blue-950 text-blue-400 border border-blue-800/60 scale-105"
+              : "bg-neutral-800 border border-neutral-700/60 text-stone-300"
           }`}
         >
           {getIcon()}
         </div>
-        <h3 className="font-sans font-bold text-base md:text-lg text-[#1A1A1A] tracking-tight">
+        <h3 className={`font-sans font-bold text-base md:text-lg tracking-tight transition-colors duration-300 ${isHovered ? "text-blue-400" : "text-white"}`}>
           {title}
         </h3>
       </div>
@@ -71,7 +71,7 @@ export default function ProcessCard({ num, title, body }: ProcessCardProps) {
           transitionDelay: isHovered ? "150ms" : "0ms",
         }}
       >
-        <p className="text-[#6B6B6B] text-[14px] md:text-[14px] leading-relaxed font-sans font-normal">
+        <p className="text-stone-300 text-[14px] md:text-[14px] leading-relaxed font-sans font-normal">
           {body}
         </p>
       </div>

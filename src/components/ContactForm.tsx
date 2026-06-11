@@ -29,14 +29,18 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
     }, 1200);
   };
 
+  const inputClasses = isInline
+    ? "w-full p-3.5 bg-[#FFFFFF] border border-[#E5E5E5] rounded-[4px] font-sans text-[13px] sm:text-sm text-[#111111] placeholder:text-[#969592]/70 focus:outline-none focus:border-[#111111] focus:ring-1 focus:ring-[#111111]/10 transition-all duration-300"
+    : "w-full p-3.5 bg-neutral-900 border border-neutral-800 rounded-[4px] font-sans text-[13px] sm:text-sm text-white placeholder:text-stone-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all duration-300";
+
   return (
-    <div className={`w-full ${isInline ? "bg-[#FFFFFF] pt-12 pb-2 md:pt-16 md:pb-2 border-t border-[#E8E6E1]/60" : "bg-[#F8F7F4] min-h-screen py-16 md:py-24"} px-6 sm:px-12 flex flex-col items-center`}>
+    <div className={`w-full ${isInline ? "bg-[#FFFFFF] pt-12 pb-2 md:pt-16 md:pb-2 border-t border-[#E8E6E1]/60" : "bg-black min-h-screen py-16 md:py-24"} px-6 sm:px-12 flex flex-col items-center`}>
       <div className="w-full max-w-[1200px]">
         {/* Subtle Back Button */}
         {!isInline && onBack && (
           <button
             onClick={onBack}
-            className="group inline-flex items-center gap-2 mb-12 text-xs tracking-widest uppercase font-semibold text-[#666666] hover:text-[#111111] transition-colors cursor-pointer"
+            className="group inline-flex items-center gap-2 mb-12 text-xs tracking-widest uppercase font-semibold text-stone-400 hover:text-white transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" />
             <span>Go Back Home</span>
@@ -56,10 +60,10 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
               
               {/* LEFT: FORM WRAPPER */}
               <div className="lg:col-span-7">
-                <h2 className="font-serif font-extrabold text-5xl sm:text-6xl md:text-7xl tracking-tighter leading-tight text-[#111111] mb-5">
-                  Let's make this <span className="italic font-serif font-medium text-stone-700">easy for you.</span>
+                <h2 className={`font-serif font-extrabold text-5xl sm:text-6xl md:text-7xl tracking-tighter leading-tight mb-5 ${isInline ? "text-[#111111]" : "bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent"}`}>
+                  Let's make this <span className={`italic font-serif font-normal ${isInline ? "text-stone-700" : "bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent"}`}>easy for you.</span>
                 </h2>
-                <p className="font-sans text-xs sm:text-sm text-[#666666] leading-relaxed mb-10 max-w-[480px]">
+                <p className={`font-sans text-xs sm:text-sm leading-relaxed mb-10 max-w-[480px] ${isInline ? "text-[#666666]" : "text-stone-300"}`}>
                   Ready to scale your content output? Fill out the form below, and our operations team will respond within 24 hours.
                 </p>
 
@@ -72,32 +76,32 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       required
-                      className="w-full p-3.5 bg-[#FFFFFF] border border-[#E5E5E5] rounded-[4px] font-sans text-[13px] sm:text-sm text-[#111111] placeholder:text-[#969592]/70 focus:outline-none focus:border-[#111111] focus:ring-1 focus:ring-[#111111]/10 transition-all duration-300"
+                      className={inputClasses}
                     />
                   </div>
 
                   {/* Business Email */}
                   <div className="flex flex-col gap-1">
                     <input
-                      type="email"
+                      type="type"
                       placeholder="Business Email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="w-full p-3.5 bg-[#FFFFFF] border border-[#E5E5E5] rounded-[4px] font-sans text-[13px] sm:text-sm text-[#111111] placeholder:text-[#969592]/70 focus:outline-none focus:border-[#111111] focus:ring-1 focus:ring-[#111111]/10 transition-all duration-300"
+                      className={inputClasses}
                     />
                   </div>
 
                   {/* Phone input with custom country code decoration */}
                   <div className="flex flex-col gap-1">
-                    <div className="flex items-center bg-[#FFFFFF] border border-[#E5E5E5] rounded-[4px] overflow-hidden focus-within:border-[#111111] focus-within:ring-1 focus-within:ring-[#111111]/10 transition-all duration-300">
-                      <div className="relative flex items-center bg-[#F2F2F2] border-r border-[#E5E5E5]">
+                    <div className={`flex items-center rounded-[4px] overflow-hidden transition-all duration-300 ${isInline ? "bg-[#FFFFFF] border border-[#E5E5E5] focus-within:border-[#111111] focus-within:ring-1 focus-within:ring-[#111111]/10" : "bg-neutral-900 border border-neutral-800 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500/20"}`}>
+                      <div className={`relative flex items-center border-r ${isInline ? "bg-[#F2F2F2] border-[#E5E5E5]" : "bg-neutral-800 border-neutral-800"}`}>
                         <select
                           value={countryCode}
                           onChange={(e) => setCountryCode(e.target.value)}
-                          className="country-code py-3.5 pl-3.5 pr-8 bg-[#F2F2F2] text-xs font-semibold text-[#111111] border-none outline-none focus:outline-none focus:ring-0 cursor-pointer appearance-none rounded-l-[4px]"
+                          className={`country-code py-3.5 pl-3.5 pr-8 text-xs font-semibold border-none outline-none focus:outline-none focus:ring-0 cursor-pointer appearance-none rounded-l-[4px] ${isInline ? "bg-[#F2F2F2] text-[#111111]" : "bg-neutral-800 text-stone-200"}`}
                           style={{
-                            backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='none' stroke='%23666666' stroke-width='2.5' viewBox='0 0 24 24'><path d='M6 9l6 6 6-6'/></svg>")`,
+                            backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='none' stroke='${isInline ? "%23666666" : "%23cccccc"}' stroke-width='2.5' viewBox='0 0 24 24'><path d='M6 9l6 6 6-6'/></svg>")`,
                             backgroundPosition: 'calc(100% - 10px) center',
                             backgroundRepeat: 'no-repeat',
                           }}
@@ -120,7 +124,7 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                         placeholder="Phone Number"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
-                        className="flex-1 border-none focus:outline-none focus:ring-0 p-3.5 font-sans text-[13px] sm:text-sm text-[#111111] placeholder:text-[#969592]/70 bg-transparent"
+                        className={`flex-1 border-none focus:outline-none focus:ring-0 p-3.5 font-sans text-[13px] sm:text-sm bg-transparent ${isInline ? "text-[#111111]" : "text-white"}`}
                       />
                     </div>
                   </div>
@@ -132,7 +136,7 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                       required
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      className="w-full p-3.5 bg-[#FFFFFF] border border-[#E5E5E5] rounded-[4px] font-sans text-[13px] sm:text-sm text-[#111111] placeholder:text-[#969592]/70 focus:outline-none focus:border-[#111111] focus:ring-1 focus:ring-[#111111]/10 transition-all duration-300 resize-y min-h-[120px]"
+                      className={inputClasses}
                     />
                   </div>
 
@@ -140,7 +144,7 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="py-3 px-7 bg-[#111111] text-[#FFFFFF] hover:bg-[#111111]/90 rounded-[4px] font-sans text-xs sm:text-sm font-medium cursor-pointer transition-all duration-300 mt-2 hover:-translate-y-[1px] active:translate-y-[1px] disabled:opacity-50 flex items-center justify-center gap-3 w-fit"
+                    className={`py-3 px-7 rounded-[4px] font-sans text-xs sm:text-sm font-medium cursor-pointer transition-all duration-300 mt-2 hover:-translate-y-[1px] active:translate-y-[1px] disabled:opacity-50 flex items-center justify-center gap-3 w-fit ${isInline ? "bg-[#111111] text-[#FFFFFF] hover:bg-[#111111]/90" : "bg-blue-600 text-white hover:bg-blue-500 shadow-md shadow-blue-900/20"}`}
                   >
                     {isSubmitting ? (
                       <>
@@ -159,36 +163,34 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                 
                 {/* Operations HQ block */}
                 <div className="mb-8">
-                  <h3 className="text-xs text-left uppercase tracking-widest text-[#666666] font-bold font-mono mb-2">
+                  <h3 className={`text-xs text-left uppercase tracking-widest font-bold font-mono mb-2 ${isInline ? "text-[#666666]" : "text-blue-400"}`}>
                     Operations HQ
                   </h3>
-                  <p className="text-[13px] sm:text-sm text-[#111111] leading-relaxed text-left">
+                  <p className={`text-[13px] sm:text-sm leading-relaxed text-left ${isInline ? "text-[#111111]" : "text-stone-300"}`}>
                     East Delhi, India 110092
                   </p>
                 </div>
 
                 {/* Contact block */}
                 <div className="mb-8">
-                  <h3 className="text-xs text-left uppercase tracking-widest text-[#666666] font-bold font-mono mb-2">
+                  <h3 className={`text-xs text-left uppercase tracking-widest font-bold font-mono mb-2 ${isInline ? "text-[#666666]" : "text-blue-400"}`}>
                     Contact
                   </h3>
                   <div className="flex flex-col gap-1 text-left">
                     <a
                       href="mailto:Hellovikedit@gmail.com"
-                      className="text-[13px] sm:text-sm text-[#111111] font-sans hover:opacity-70 transition-opacity"
+                      className={`text-[13px] sm:text-sm font-sans hover:opacity-70 transition-opacity ${isInline ? "text-[#111111]" : "text-stone-300"}`}
                     >
                       Hellovikedit@gmail.com
                     </a>
                     <a
                       href="tel:+918958123147"
-                      className="text-[13px] sm:text-sm text-[#111111] font-sans hover:opacity-70 transition-opacity"
+                      className={`text-[13px] sm:text-sm font-sans hover:opacity-70 transition-opacity ${isInline ? "text-[#111111]" : "text-stone-300"}`}
                     >
                       +91 895-812-3147
                     </a>
                   </div>
                 </div>
-
-
 
               </div>
 
@@ -202,16 +204,16 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
               exit={{ opacity: 0, scale: 0.98 }}
               className="flex flex-col items-center justify-center py-16 md:py-24 text-center max-w-lg mx-auto"
             >
-              <div className="w-16 h-16 bg-[#111111] text-[#FFFFFF] rounded-full flex items-center justify-center mb-6 shadow-sm">
+              <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-6 shadow-sm ${isInline ? "bg-[#111111] text-[#FFFFFF]" : "bg-blue-600 text-white"}`}>
                 <Check className="w-8 h-8 stroke-[3.5]" />
               </div>
 
-              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#111111] mb-4">
+              <h2 className={`text-2xl sm:text-3xl font-serif font-bold mb-4 ${isInline ? "text-[#111111]" : "text-white"}`}>
                 Thank you, {name}!
               </h2>
 
-              <p className="text-sm text-[#666666] leading-relaxed mb-8 max-w-md">
-                Your inquiry has been logged successfully under business email <span className="text-[#111111] font-semibold">{email}</span>. A member of our lead operations crew will review your notes and contact you within the next 24 hours.
+              <p className={`text-sm leading-relaxed mb-8 max-w-md ${isInline ? "text-[#666666]" : "text-stone-300"}`}>
+                Your inquiry has been logged successfully under business email <span className={isInline ? "text-[#111111] font-semibold" : "text-blue-400 font-semibold"}>{email}</span>. A member of our lead operations crew will review your notes and contact you within the next 24 hours.
               </p>
 
               <button
@@ -224,7 +226,7 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                   setIsSubmitted(false);
                   if (!isInline && onBack) onBack();
                 }}
-                className="bg-[#111111] text-[#FFFFFF] hover:bg-[#111111]/90 rounded-[4px] px-8 py-3.5 text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer"
+                className={`rounded-[4px] px-8 py-3.5 text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer ${isInline ? "bg-[#111111] text-[#FFFFFF] hover:bg-[#111111]/90" : "bg-blue-600 text-white hover:bg-blue-500"}`}
               >
                 {isInline ? "Send Another Message" : "Back To Home"}
               </button>
