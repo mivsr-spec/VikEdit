@@ -111,7 +111,7 @@ export default function CaseStudySection() {
                 isReversed ? "lg:order-1" : "lg:order-2"
               }`}
             >
-              <div className="relative group overflow-hidden rounded-3xl border border-neutral-800 shadow-xs cursor-pointer">
+              <div className="relative group overflow-hidden rounded-3xl border-4 border-[#3b82f6] shadow-[0_0_20px_rgba(59,130,246,0.6)] hover:shadow-[0_0_30px_rgba(59,130,246,0.85)] transition-all duration-300 cursor-pointer">
                 <img
                   src={study.imageUrl}
                   alt={study.overlayText}

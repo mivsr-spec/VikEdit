@@ -34,6 +34,7 @@ import ContactForm from "./components/ContactForm";
 import InteractivePhone from "./components/InteractivePhone";
 import CaseStudySection from "./components/CaseStudySection";
 import ComparisonTable from "./components/ComparisonTable";
+import { TestimonialsSection } from "./components/TestimonialsSection";
 import FaqSection from "./components/FaqSection";
 import ProcessCard from "./components/ProcessCard";
 
@@ -1401,7 +1402,7 @@ export default function App() {
                       {/* Dynamic Portfolio Grid with Layout Animations */}
                       <motion.div 
                         layout 
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 md:gap-x-12 lg:gap-x-16 gap-y-16 lg:gap-y-24 max-w-7xl mx-auto"
                       >
                         <AnimatePresence mode="popLayout">
                           {PORTFOLIO_ITEMS.filter(
@@ -1419,7 +1420,7 @@ export default function App() {
                                 onClick={() => {
                                   setExpandedCardId(isExpanded ? null : item.id);
                                 }}
-                                className="relative rounded-3xl overflow-hidden cursor-pointer group bg-neutral-900 aspect-[9/16] w-full border border-neutral-800 shadow-sm hover:shadow-xl transition-all duration-300"
+                                className="relative rounded-3xl overflow-hidden cursor-pointer group bg-neutral-900 aspect-[9/16] w-full border border-[#3b82f6] shadow-md hover:shadow-2xl transition-all duration-300"
                               >
                                 <img
                                   src={item.image}
@@ -1427,9 +1428,16 @@ export default function App() {
                                   className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                                   referrerPolicy="no-referrer"
                                 />
+
+                                {/* Beautiful translucent blue overlay without blur, perfectly interactive */}
+                                <div 
+                                  className={`absolute inset-0 bg-blue-600/25 transition-opacity duration-300 pointer-events-none z-10 md:group-hover:opacity-0 ${
+                                    isExpanded ? "opacity-0" : "opacity-100"
+                                  }`}
+                                />
                                 
                                 {/* Content layer */}
-                                <div className={`absolute bottom-0 left-0 w-full p-6 text-white z-10 transition-transform duration-300 select-none pointer-events-none md:group-hover:-translate-y-1 ${isExpanded ? "-translate-y-1" : ""}`}>
+                                <div className={`absolute bottom-0 left-0 w-full p-6 text-white z-20 transition-transform duration-300 select-none pointer-events-none md:group-hover:-translate-y-1 ${isExpanded ? "-translate-y-1" : ""}`}>
                                   <span className="text-[9px] uppercase tracking-wider text-white/70 font-mono font-bold mb-1.5 block">
                                     {item.tag}
                                   </span>
@@ -1516,42 +1524,12 @@ export default function App() {
                     </div>
                   </section>
 
-                  {/* SECTION 10: TEAM */}
-                  <section id="team-section" className="py-24 md:py-36 px-6 sm:px-12 bg-black border-y border-neutral-900">
-                    <div className="max-w-7xl mx-auto space-y-16">
-                      <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-                        <span className="text-xs font-mono tracking-widest uppercase text-stone-400 font-bold block mb-4">
-                          Our team
-                        </span>
-                        <h2 className="text-4xl md:text-6xl font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-tight">
-                          Operational <span className="font-serif font-normal italic bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">leadership</span>
-                        </h2>
-                      </div>
-
-                      <div id="team-cards-grid" className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
-                        {TEAM_MEMBERS.map((member) => (
-                          <div key={member.id} className="space-y-4 group cursor-pointer text-center flex flex-col items-center">
-                            <div className="relative overflow-hidden rounded-full w-52 h-52 sm:w-56 sm:h-56 bg-neutral-900 border border-neutral-800 shadow-sm flex-shrink-0">
-                              <img
-                                src={member.photoUrl}
-                                alt={member.name}
-                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                referrerPolicy="no-referrer"
-                              />
-                            </div>
-                            <div className="pt-2">
-                              <h3 className="text-xl font-bold text-white">{member.name}</h3>
-                              <p className="text-xs uppercase font-semibold text-stone-400 tracking-wider mt-1">{member.role}</p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </section>
+                  {/* SECTION 9.5: TESTIMONIALS */}
+                  <TestimonialsSection />
 
                   {/* SECTION 11: CAREERS CTA */}
                   <section id="careers-cta" className="py-16 px-6 sm:px-12 max-w-7xl mx-auto text-center">
-                    <div className="bg-neutral-900 border border-neutral-800/80 max-w-3xl mx-auto rounded-[30px] p-8 md:p-14 space-y-6 shadow-[0_4px_30px_rgba(0,0,0,0.4)]">
+                    <div className="bg-neutral-900 border border-[#3b82f6] max-w-3xl mx-auto rounded-[30px] p-8 md:p-14 space-y-6 shadow-[0_0_15px_rgba(59,130,246,0.28)] hover:shadow-[0_0_25px_rgba(59,130,246,0.5)] transition-shadow duration-300">
                       <h3 className="text-3xl md:text-5xl font-sans font-extrabold bg-gradient-to-b from-white via-stone-200 to-stone-400 bg-clip-text text-transparent drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] select-none tracking-tight leading-tight">
                         Join our <span className="font-serif font-normal italic bg-gradient-to-b from-white via-stone-200 to-stone-400 bg-clip-text text-transparent">operations team</span>
                       </h3>
@@ -1823,55 +1801,55 @@ export default function App() {
                   </div>
 
                   {/* Growth phases */}
-                  <div className="bg-white border border-stone-200 p-8 md:p-16 rounded-[40px] space-y-12 shadow-[0_4px_20px_rgba(26,26,26,0.015)]">
+                  <div className="bg-neutral-900 border border-neutral-800/80 p-8 md:p-16 rounded-[40px] space-y-12 shadow-[0_4px_30px_rgba(0,0,0,0.4)]">
                     <div className="space-y-4 text-left">
-                      <span className="text-xs font-mono tracking-widest uppercase text-stone-500 font-bold block">
+                      <span className="text-xs font-mono tracking-widest uppercase text-stone-400 font-bold block">
                         Growth Phases
                       </span>
-                      <h2 className="text-3xl md:text-5xl font-sans font-extrabold text-[#1A1A1A] tracking-tight">
-                        Where we are. <span className="font-serif font-normal italic text-stone-600">Where we're going.</span>
+                      <h2 className="text-3xl md:text-5xl font-sans font-extrabold text-white tracking-tight">
+                        Where we are. <span className="font-serif font-normal italic bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">Where we're going.</span>
                       </h2>
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-4">
                       {/* Phase 1 */}
-                      <div className="border border-stone-200 p-8 rounded-3xl space-y-4 hover:border-black/30 transition-colors duration-300 bg-white">
+                      <div className="border border-neutral-800 p-8 rounded-3xl space-y-4 hover:border-[#3b82f6]/30 transition-all duration-300 bg-neutral-950/40">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-mono tracking-wider uppercase font-bold text-[#1A1A1A]/40">Phase 1</span>
-                          <span className="bg-emerald-50 text-emerald-700 border border-emerald-100/60 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider">
+                          <span className="text-xs font-mono tracking-wider uppercase font-bold text-stone-500">Phase 1</span>
+                          <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider">
                             Current
                           </span>
                         </div>
-                        <h3 className="text-xl font-sans font-bold text-stone-900 text-left">Repurposing Studio</h3>
-                        <p className="text-sm text-stone-600 leading-relaxed text-left">
+                        <h3 className="text-xl font-sans font-bold text-white text-left">Repurposing Studio</h3>
+                        <p className="text-sm text-stone-300 leading-relaxed text-left">
                           We transform one recording into weeks of content. Strategic clipping, platform specific formatting, and high retention edits delivered consistently so you never run dry on content.
                         </p>
                       </div>
 
                       {/* Phase 2 */}
-                      <div className="border border-stone-200 p-8 rounded-3xl space-y-4 hover:border-black/30 transition-colors duration-300 bg-white">
+                      <div className="border border-neutral-800 p-8 rounded-3xl space-y-4 hover:border-[#3b82f6]/30 transition-all duration-300 bg-neutral-950/40">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-mono tracking-wider uppercase font-bold text-[#1A1A1A]/40">Phase 2</span>
-                          <span className="bg-violet-50 text-violet-700 border border-violet-100/60 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider">
+                          <span className="text-xs font-mono tracking-wider uppercase font-bold text-stone-500">Phase 2</span>
+                          <span className="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider">
                             Next
                           </span>
                         </div>
-                        <h3 className="text-xl font-sans font-bold text-stone-900 text-left">Content Operations</h3>
-                        <p className="text-sm text-stone-600 leading-relaxed text-left">
+                        <h3 className="text-xl font-sans font-bold text-white text-left">Content Operations</h3>
+                        <p className="text-sm text-stone-300 leading-relaxed text-left">
                           Full workflow ownership. We'll handle everything from content strategy and calendar planning to multi-platform scheduling and performance analytics – your complete content backbone.
                         </p>
                       </div>
 
                       {/* Phase 3 */}
-                      <div className="border border-stone-200 p-8 rounded-3xl space-y-4 hover:border-black/30 transition-colors duration-300 bg-white">
+                      <div className="border border-neutral-800 p-8 rounded-3xl space-y-4 hover:border-[#3b82f6]/30 transition-all duration-300 bg-neutral-950/40">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-mono tracking-wider uppercase font-bold text-[#1A1A1A]/40">Phase 3</span>
-                          <span className="bg-stone-100 text-stone-700 border border-stone-200/60 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider">
+                          <span className="text-xs font-mono tracking-wider uppercase font-bold text-stone-500">Phase 3</span>
+                          <span className="bg-stone-800 text-stone-400 border border-stone-700/60 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider block">
                             Future
                           </span>
                         </div>
-                        <h3 className="text-xl font-sans font-bold text-stone-900 text-left">Media Ecosystem</h3>
-                        <p className="text-sm text-stone-600 leading-relaxed text-left">
+                        <h3 className="text-xl font-sans font-bold text-white text-left">Media Ecosystem</h3>
+                        <p className="text-sm text-stone-300 leading-relaxed text-left">
                           End to end production house. Original content development, distribution partnerships, and monetization infrastructure building media assets that generate revenue beyond your core services.
                         </p>
                       </div>

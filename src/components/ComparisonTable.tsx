@@ -16,7 +16,7 @@ export default function ComparisonTable() {
   return (
     <div id="comparison-box" className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch max-w-5xl mx-auto">
       {/* Left side: Other Agencies */}
-      <div className="bg-neutral-900 border border-neutral-800 p-8 md:p-12 rounded-3xl flex flex-col justify-between transition-all duration-300 hover:shadow-sm">
+      <div className="hidden md:flex bg-neutral-900 border border-neutral-800 p-8 md:p-12 rounded-3xl flex-col justify-between transition-all duration-300 hover:shadow-sm">
         <div>
           <span className="text-xs uppercase font-mono font-bold tracking-widest text-stone-500 block mb-2">
             The standard way
