@@ -13,7 +13,7 @@ interface Testimonial {
 const TESTIMONIALS: Testimonial[] = [
   {
     id: 1,
-    quote: "Bhai, I used to waste 6 hours editing one episode and still felt stuck. VikEdit literally turned my 45-min podcast into 2 weeks of Reels that actually trend. The pacing, captions, and hooks are just chef’s kiss. Finally, I can just record and chill while the algorithm does its thing. Legit game-changer.",
+    quote: "I used to waste 6 hours editing one episode and still felt stuck. VikEdit literally turned my 45-min podcast into 2 weeks of Reels that actually trend. The pacing, captions, and hooks are just chef’s kiss. Finally, I can just record and chill while the algorithm does its thing. Legit game-changer.",
     name: "Aryan Kapoor",
     title: "Host, The Unfiltered Desk",
     photoUrl: "https://images2.imgbox.com/d2/7f/JM5rSrqB_o.png",
@@ -115,7 +115,7 @@ export function TestimonialsSection() {
 
                 {/* Testimonial Quote body */}
                 <p className="text-[#b8b8b8] font-sans text-sm md:text-base leading-relaxed">
-                  "{t.quote}"
+                  {t.quote}
                 </p>
               </div>
 
