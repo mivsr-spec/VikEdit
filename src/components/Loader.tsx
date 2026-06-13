@@ -74,7 +74,7 @@ export default function Loader({ onComplete }: LoaderProps) {
               stroke="currentColor"
               strokeWidth="1.5"
               strokeLinecap="round"
-              className="w-full h-full text-white"
+              className="w-full h-full text-white filter drop-shadow-[0_0_20px_rgba(59,130,246,0.95)] drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
             >
               <path
                 d="M8.7 7.5v9c0 .4.4.6.8.4l7.5-4.5c.3-.2.3-.6 0-.8L9.5 7.1c-.4-.2-.8 0-.8.4z"
@@ -82,25 +82,6 @@ export default function Loader({ onComplete }: LoaderProps) {
               />
             </svg>
           </div>
-        </div>
-
-        {/* Brand name and progress meter */}
-        <div className="absolute top-36 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="font-sans text-xl font-bold tracking-wider uppercase mb-2"
-          >
-            VikEdit
-          </motion.div>
-          <motion.div
-            className="font-mono text-xs text-neutral-400"
-            animate={{ opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            Loading {Math.min(progress, 100)}%
-          </motion.div>
         </div>
       </div>
     </div>

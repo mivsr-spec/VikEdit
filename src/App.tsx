@@ -145,7 +145,7 @@ const SERVICES_DATA: ServiceDataItem[] = [
   },
   {
     title: "Multi-Platform Formatting",
-    description: "Every platform has different rules. We resize, reformat, and optimize your content for Instagram, YouTube, LinkedIn, and beyond—so it looks native and performs better everywhere."
+    description: "Every platform has different rules. We resize, reformat, and optimize your content for Instagram, YouTube, LinkedIn, and beyond so it looks native and performs better everywhere."
   },
   {
     title: "Corporate & Course Videos",
@@ -153,7 +153,7 @@ const SERVICES_DATA: ServiceDataItem[] = [
   },
   {
     title: "Content Workflow",
-    description: "Upload your raw footage. We handle the rest—editing, revisions, formatting, and delivery. No back-and-forth chaos. Just consistent, ready-to-post content on your schedule."
+    description: "Upload your raw footage. We handle the rest editing, revisions, formatting, and delivery. No back-and-forth chaos. Just consistent, ready-to-post content on your schedule."
   }
 ];
 
@@ -168,7 +168,7 @@ const FACELESS_SERVICES_DATA: ServiceDataItem[] = [
   },
   {
     title: "Podcast-to-Visual Content",
-    description: "Your audio (or AI voiceover) paired with B-roll, captions, and dynamic visuals—no camera required."
+    description: "Your audio (or AI voiceover) paired with B-roll, captions, and dynamic visuals no camera required."
   },
   {
     title: "Screen Recording Edits",
@@ -235,7 +235,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     category: "workflow",
     tag: "Systematic",
     title: "Content Workflow",
-    description: "Upload your raw footage. We handle the rest—editing, revisions, formatting, and delivery. No back-and-forth chaos.",
+    description: "Upload your raw footage. We handle the rest editing, revisions, formatting, and delivery. No back-and-forth chaos.",
     image: "https://images2.imgbox.com/a0/b7/8mYD7omb_o.png"
   }
 ];
@@ -1486,7 +1486,7 @@ export default function App() {
                         <ProcessCard
                           num={1}
                           title="Strategy & Onboarding"
-                          body="We align on your goals, audience, and brand voice through a focused strategy call. You share your guidelines and top-performing content. We define success metrics and lock in your service tier—then you're officially onboarded."
+                          body="We align on your goals, audience, and brand voice through a focused strategy call. You share your guidelines and top-performing content. We define success metrics and lock in your service tier then you're officially onboarded."
                         />
                         <ProcessCard
                           num={2}
@@ -1496,7 +1496,7 @@ export default function App() {
                         <ProcessCard
                           num={3}
                           title="Production & Refinement"
-                          body="We edit, format, and optimize each asset—vertical cuts for Reels/Shorts, polished long-form for YouTube, clean audio for podcasts. You receive drafts via a simple feedback link, comment on timestamps, and we implement revisions within 24 hours. Two rounds included."
+                          body="We edit, format, and optimize each asset vertical cuts for Reels/Shorts, polished long-form for YouTube, clean audio for podcasts. You receive drafts via a simple feedback link, comment on timestamps, and we implement revisions within 24 hours. Two rounds included."
                         />
                         <ProcessCard
                           num={4}
@@ -1844,7 +1844,7 @@ export default function App() {
                       <div className="border border-neutral-800 p-8 rounded-3xl space-y-4 hover:border-[#3b82f6]/30 transition-all duration-300 bg-neutral-950/40">
                         <div className="flex items-center justify-between">
                           <span className="text-xs font-mono tracking-wider uppercase font-bold text-stone-500">Phase 3</span>
-                          <span className="bg-stone-800 text-stone-400 border border-stone-700/60 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider block">
+                          <span className="bg-rose-500/10 text-rose-400 border border-rose-500/20 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider block">
                             Future
                           </span>
                         </div>

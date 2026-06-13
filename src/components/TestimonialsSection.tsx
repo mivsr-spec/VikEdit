@@ -13,34 +13,34 @@ interface Testimonial {
 const TESTIMONIALS: Testimonial[] = [
   {
     id: 1,
-    quote: "VikEdit transformed my podcast into a content machine. One recording session gave me 3 weeks of Reels and Shorts. My engagement doubled and I finally have time to focus on creating instead of editing.",
-    name: "Sarah Mitchell",
-    title: "Host, The Growth Podcast",
-    photoUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150",
+    quote: "Bhai, I used to waste 6 hours editing one episode and still felt stuck. VikEdit literally turned my 45-min podcast into 2 weeks of Reels that actually trend. The pacing, captions, and hooks are just chef’s kiss. Finally, I can just record and chill while the algorithm does its thing. Legit game-changer.",
+    name: "Aryan Kapoor",
+    title: "Host, The Unfiltered Desk",
+    photoUrl: "https://images2.imgbox.com/d2/7f/JM5rSrqB_o.png",
     rating: 5
   },
   {
     id: 2,
-    quote: "I was skeptical about outsourcing editing, but VikEdit's team understood my brand instantly. The quality is consistent, the turnaround is fast, and my content finally looks professional across all platforms.",
-    name: "Marcus Chen",
-    title: "Founder, Elevate Coaching",
-    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150",
+    quote: "Honestly, I was super hesitant to outsource my edits, but the team instantly caught my vibe. Zero micromanaging just clean, aesthetic edits that actually look premium. Turnaround is mad fast, and my feed finally looks cohesive across Insta and YouTube. No more editing stress, just post and grow. Absolutely worth it.",
+    name: "Zara Ahmed",
+    title: "Lifestyle Creator & Brand Strategist",
+    photoUrl: "https://images2.imgbox.com/f9/c8/Xa1wd19Z_o.png",
     rating: 5
   },
   {
     id: 3,
-    quote: "From one webinar, they created 12 high-performing clips that generated over 500K views. The ROI is insane. VikEdit isn't just an editing service—they're a growth partner.",
-    name: "Priya Sharma",
-    title: "CEO, Digital Marketing Institute",
-    photoUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=150&h=150",
+    quote: "From one live webinar, they pulled 15 clips that crossed 600K views in a month. The ROI is actually insane. VikEdit isn’t just an editing vendor they get the whole content strategy. My channel grew 3x because I could finally post consistently without burning out. If you’re serious about scaling, just hop on.",
+    name: "Rohan Mehta",
+    title: "Founder, CodeWithRohan",
+    photoUrl: "https://images2.imgbox.com/d5/5c/LlR6sGQ4_o.png",
     rating: 5
   },
   {
     id: 4,
-    quote: "As a busy consultant, I don't have time to edit videos. VikEdit handles everything—from captions to platform formatting. My LinkedIn and Instagram have never been more consistent. Best investment I've made for my personal brand.",
-    name: "James Rodriguez",
-    title: "Business Consultant & Speaker",
-    photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150&h=150",
+    quote: "As a coach juggling clients, I had literally zero time to edit. VikEdit handles everything dynamic captions, platform formatting, even the trending audio sync. My LinkedIn and Insta are finally posting daily without me lifting a finger. Best investment for my personal brand, no cap. Just let them cook.",
+    name: "Meera Iyer",
+    title: "Career Coach & Personal Brand Consultant",
+    photoUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=150&h=150",
     rating: 5
   }
 ];
@@ -108,7 +108,7 @@ export function TestimonialsSection() {
                   {[...Array(t.rating)].map((_, i) => (
                     <Star 
                       key={i} 
-                      className="w-5 h-5 fill-[#4a90e2] text-[#4a90e2]" 
+                      className="w-5 h-5 fill-amber-400 text-amber-400" 
                     />
                   ))}
                 </div>

@@ -89,7 +89,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     category: "Professional Editing Improves Performance",
     title: "High-retention edits that build ",
     italicWord: "trust",
-    description: "Professional post-production utilizes strong hooks, captions, and dynamic pacing to increase watch time and shares—the key signals algorithms use to promote content to new audiences.",
+    description: "Professional post-production utilizes strong hooks, captions, and dynamic pacing to increase watch time and shares the key signals algorithms use to promote content to new audiences.",
     metrics: [
       { value: "PRO", label: "CONSISTENT BRAND QUALITY", sublabel: "" },
       { value: "MAX", label: "AUDIENCE TRUST & RETENTION", sublabel: "" }
