@@ -118,7 +118,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     id: "tm-2",
     name: "Vikram S. Rawat",
     role: "FOUNDER & STRATEGIC DIRECTOR",
-    photoUrl: "https://images2.imgbox.com/72/03/fGxyDfHy_o.jpg"
+    photoUrl: "https://images2.imgbox.com/b3/1b/R1YxvNcu_o.jpg"
   },
   {
     id: "tm-3",
