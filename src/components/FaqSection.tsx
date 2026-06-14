@@ -19,16 +19,16 @@ export default function FaqSection() {
             onClick={() => toggleFaq(item.id)}
             className={`cursor-pointer transition-all duration-300 rounded-2xl border ${
               isOpen 
-                ? "bg-neutral-900 border-neutral-800 shadow-[0_4px_24px_rgba(0,0,0,0.4)]" 
-                : "bg-[#0A0A0A] border-neutral-900 hover:border-neutral-800"
+                ? "bg-[#FCFBF9] border-stone-200 shadow-xs" 
+                : "bg-white border-stone-100 hover:border-stone-200"
             }`}
           >
             {/* Header / Question bar */}
             <div className="flex items-center justify-between p-6 md:p-8 select-none">
-              <span className={`text-sm md:text-base font-semibold pr-4 transition-colors duration-300 ${isOpen ? "text-white" : "text-stone-300 hover:text-white"}`}>
+              <span className={`text-sm md:text-base font-semibold pr-4 transition-colors duration-300 ${isOpen ? "text-stone-900" : "text-stone-700 hover:text-black"}`}>
                 {item.question}
               </span>
-              <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white">
+              <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-stone-100 text-stone-800 border border-stone-200/50">
                 <motion.span
                   animate={{ rotate: isOpen ? 135 : 0 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
@@ -50,7 +50,7 @@ export default function FaqSection() {
                   transition={{ duration: 0.36, ease: [0.25, 1, 0.5, 1] }}
                   className="overflow-hidden"
                 >
-                  <div className="px-6 pb-6 md:px-8 md:pb-8 border-t border-neutral-800/60 pt-4 text-xs md:text-sm text-stone-300 leading-relaxed">
+                  <div className="px-6 pb-6 md:px-8 md:pb-8 border-t border-stone-100 pt-4 text-xs md:text-sm text-stone-600 leading-relaxed">
                     {item.answer}
                   </div>
                 </motion.div>

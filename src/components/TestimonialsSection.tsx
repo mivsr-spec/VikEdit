@@ -49,11 +49,11 @@ export function TestimonialsSection() {
   return (
     <section 
       id="testimonials-section" 
-      className="py-24 md:py-36 px-6 sm:px-12 bg-black border-y border-neutral-900 relative overflow-hidden"
+      className="py-24 md:py-36 px-6 sm:px-12 bg-white border-y border-stone-100 relative overflow-hidden"
     >
       {/* Absolute decorative ambient elements for premium depth */}
-      <div className="absolute top-1/3 left-1/4 w-96 h-96 rounded-full bg-blue-500/5 blur-[130px] pointer-events-none" />
-      <div className="absolute bottom-1/3 right-1/4 w-96 h-96 rounded-full bg-blue-600/5 blur-[130px] pointer-events-none" />
+      <div className="absolute top-1/3 left-1/4 w-96 h-96 rounded-full bg-blue-500/3 blur-[130px] pointer-events-none" />
+      <div className="absolute bottom-1/3 right-1/4 w-96 h-96 rounded-full bg-blue-600/3 blur-[130px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto space-y-16 relative z-10">
         
@@ -64,7 +64,7 @@ export function TestimonialsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            className="text-xs font-mono tracking-widest uppercase text-stone-400 font-bold block mb-2"
+            className="text-xs font-mono tracking-widest uppercase text-stone-500 font-bold block mb-2"
           >
             TESTIMONIALS
           </motion.span>
@@ -74,9 +74,9 @@ export function TestimonialsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-6xl font-sans font-extrabold text-white tracking-tight leading-tight"
+            className="text-4xl md:text-6xl font-sans font-extrabold text-stone-900 tracking-tight leading-tight"
           >
-            Why Creators & Brands <span className="font-serif font-normal italic bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">Trust VikEdit</span>
+            Why Creators & Brands <span className="font-serif font-normal bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">Trust VikEdit</span>
           </motion.h2>
 
           <motion.p 
@@ -84,7 +84,7 @@ export function TestimonialsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-stone-300 text-sm md:text-base max-w-2xl mx-auto font-sans leading-relaxed"
+            className="text-stone-600 text-sm md:text-base max-w-2xl mx-auto font-sans leading-relaxed"
           >
             Real results from real partnerships. No fluff, just consistent content that performs.
           </motion.p>
@@ -100,7 +100,7 @@ export function TestimonialsSection() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.7, delay: idx * 0.1 }}
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
-              className="bg-neutral-900 border border-neutral-800 hover:border-[#3b82f6]/30 rounded-[20px] p-8 md:p-10 flex flex-col justify-between space-y-6 shadow-[0_4px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_0_30px_rgba(59,130,246,0.1)] transition-all duration-300 relative group"
+              className="bg-[#FCFBF9] border border-stone-200/80 hover:border-blue-500/20 rounded-[20px] p-8 md:p-10 flex flex-col justify-between space-y-6 shadow-[0_12px_45px_rgba(0,0,0,0.02)] hover:shadow-[0_16px_45px_rgba(59,130,246,0.06)] transition-all duration-300 relative group"
             >
               <div className="space-y-4 relative z-10">
                 {/* Visual prominent star rating inline */}
@@ -114,14 +114,14 @@ export function TestimonialsSection() {
                 </div>
 
                 {/* Testimonial Quote body */}
-                <p className="text-[#b8b8b8] font-sans text-sm md:text-base leading-relaxed">
-                  {t.quote}
+                <p className="text-stone-700 font-sans text-sm md:text-base leading-relaxed">
+                  "{t.quote}"
                 </p>
               </div>
 
               {/* Author profiles layout */}
-              <div className="flex items-center gap-4 pt-4 border-t border-white/5 relative z-10">
-                <div className="relative w-12 h-12 rounded-full overflow-hidden border border-white/10 bg-neutral-900 flex-shrink-0">
+              <div className="flex items-center gap-4 pt-4 border-t border-stone-100 relative z-10">
+                <div className="relative w-12 h-12 rounded-full overflow-hidden border border-stone-200 bg-stone-100 flex-shrink-0">
                   <img 
                     src={t.photoUrl} 
                     alt={t.name}
@@ -130,10 +130,10 @@ export function TestimonialsSection() {
                   />
                 </div>
                 <div className="text-left">
-                  <h4 className="text-sm md:text-base font-bold text-white leading-snug">
+                  <h4 className="text-sm md:text-base font-extrabold text-stone-900 leading-snug">
                     {t.name}
                   </h4>
-                  <p className="text-xs text-stone-400 font-semibold tracking-wide">
+                  <p className="text-xs text-stone-500 font-semibold tracking-wide">
                     {t.title}
                   </p>
                 </div>

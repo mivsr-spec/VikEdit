@@ -210,7 +210,7 @@ export const VortexBackground: React.FC<VortexBackgroundProps> = ({ className = 
       frameCount++;
 
       // Create pure space back drop
-      ctx.fillStyle = "#000000";
+      ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, width, height);
 
       // Smooth interpolation for parallax float
@@ -227,7 +227,7 @@ export const VortexBackground: React.FC<VortexBackgroundProps> = ({ className = 
         const sX = (star.x * width + currentParallaxX * 0.25) % width;
         const sY = (star.y * height + currentParallaxY * 0.25) % height;
         
-        ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0.02, Math.min(star.alpha, 1))})`;
+        ctx.fillStyle = `rgba(59, 130, 246, ${Math.max(0.02, Math.min(star.alpha, 1)) * 0.4})`;
         ctx.beginPath();
         ctx.arc(sX < 0 ? width + sX : sX, sY < 0 ? height + sY : sY, star.size, 0, Math.PI * 2);
         ctx.fill();
@@ -286,7 +286,7 @@ export const VortexBackground: React.FC<VortexBackgroundProps> = ({ className = 
           const depthScale = (avgZ + 1) / 2;
           const alphaOnDepth = 0.02 + depthScale * 0.10; // Extra subtle line intensity
 
-          ctx.strokeStyle = `rgba(255, 255, 255, ${alphaOnDepth})`;
+          ctx.strokeStyle = `rgba(59, 130, 246, ${alphaOnDepth * 1.5})`;
           ctx.lineWidth = 0.35 + depthScale * 0.45; // Subtly thinner and more elegant
           
           ctx.beginPath();
@@ -303,14 +303,14 @@ export const VortexBackground: React.FC<VortexBackgroundProps> = ({ className = 
             const nodeOpacity = 0.06 + (node.z + 1) * 0.12; // lower opacity
 
             // Draw center hard point
-            ctx.fillStyle = `rgba(255, 255, 255, ${nodeOpacity})`;
+            ctx.fillStyle = `rgba(1, 58, 224, ${nodeOpacity * 1.25})`;
             ctx.beginPath();
             ctx.arc(node.x, node.y, nodeRadius, 0, Math.PI * 2);
             ctx.fill();
 
             // Draw subtle surrounding glow ring on main polyhedrons
             if (index < 2 && node.z > 0.3) {
-              ctx.strokeStyle = `rgba(255, 255, 255, ${nodeOpacity * 0.15})`;
+               ctx.strokeStyle = `rgba(1, 58, 224, ${nodeOpacity * 0.3})`;
               ctx.lineWidth = 0.5;
               ctx.beginPath();
               ctx.arc(node.x, node.y, nodeRadius * 2.5, 0, Math.PI * 2);
@@ -335,7 +335,7 @@ export const VortexBackground: React.FC<VortexBackgroundProps> = ({ className = 
   return (
     <div
       ref={containerRef}
-      className={`absolute inset-0 w-full h-full overflow-hidden bg-black select-none pointer-events-none ${className}`}
+      className={`absolute inset-0 w-full h-full overflow-hidden bg-white select-none pointer-events-none ${className}`}
       style={{ transform: "translateZ(0)" }}
     >
       <canvas

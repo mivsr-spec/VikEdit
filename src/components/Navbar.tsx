@@ -28,8 +28,7 @@ export default function Navbar({ currentView, setView, onBookCallClicked }: Navb
     { label: "Home", id: "home" },
     { label: "About", id: "about" },
     { label: "Work", id: "work" },
-    { label: "Services", id: "services" },
-    { label: "Blog", id: "blog" }
+    { label: "Services", id: "services" }
   ];
 
   const handleNavClick = (viewId: string) => {
@@ -67,23 +66,6 @@ export default function Navbar({ currentView, setView, onBookCallClicked }: Navb
       return;
     }
 
-    if (viewId === "blog") {
-      setMobileMenuOpen(false);
-      window.location.hash = "work-case-studies";
-      if (currentView !== "home") {
-        setView("home");
-      } else {
-        const el = document.getElementById("work-case-studies");
-        if (el) {
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-        setTimeout(() => {
-          window.history.replaceState(null, "", " ");
-        }, 850);
-      }
-      return;
-    }
-
     setView(viewId);
     setMobileMenuOpen(false);
     
@@ -97,8 +79,8 @@ export default function Navbar({ currentView, setView, onBookCallClicked }: Navb
         id="navbar-header"
         className={`fixed top-0 inset-x-0 h-20 flex items-center justify-between px-6 sm:px-10 z-[1000] transition-all duration-300 ${
           isScrolled
-            ? "bg-black/90 text-white backdrop-blur-md shadow-xs border-b border-neutral-900"
-            : "bg-transparent text-white"
+            ? "bg-white/80 text-stone-900 backdrop-blur-md shadow-xs border-b border-stone-100"
+            : "bg-transparent text-stone-900"
         }`}
       >
         {/* Left: Logo */}
@@ -106,7 +88,7 @@ export default function Navbar({ currentView, setView, onBookCallClicked }: Navb
           onClick={() => handleNavClick("home")}
           className="flex items-center cursor-pointer group"
         >
-          <span className="font-sans text-2xl font-bold tracking-tight text-white flex items-center">
+          <span className="font-sans text-2xl font-bold tracking-tight text-stone-900 flex items-center">
             VikEdit
             <svg
               viewBox="0 0 24 24"
@@ -131,8 +113,8 @@ export default function Navbar({ currentView, setView, onBookCallClicked }: Navb
                 onClick={() => handleNavClick(link.id)}
                 className={`text-sm font-semibold transition-all duration-300 cursor-pointer ${
                   isActive
-                    ? "text-blue-500 underline underline-offset-4 font-bold"
-                    : "text-white/75 hover:text-white"
+                    ? "text-[#013AE0] underline underline-offset-4 font-extrabold"
+                    : "text-stone-600 hover:text-black"
                 }`}
               >
                 {link.label}
@@ -145,7 +127,7 @@ export default function Navbar({ currentView, setView, onBookCallClicked }: Navb
         <div className="hidden md:block">
           <button
             onClick={onBookCallClicked}
-            className="bg-white text-black hover:bg-neutral-200 hover:scale-105 active:scale-95 transition-all text-xs font-bold uppercase tracking-wider py-3.5 px-7 rounded-full shadow-xs cursor-pointer"
+            className="bg-[#013AE0] text-white hover:bg-blue-700 hover:scale-105 active:scale-95 transition-all text-xs font-bold uppercase tracking-wider py-3.5 px-7 rounded-full shadow-md cursor-pointer border border-[#013AE0]"
           >
             Book a Call
           </button>
@@ -154,7 +136,7 @@ export default function Navbar({ currentView, setView, onBookCallClicked }: Navb
         {/* Mobile: Hamburger toggle */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden flex items-center justify-center w-10 h-10 rounded-full border border-neutral-800 bg-neutral-900 text-white cursor-pointer"
+          className="md:hidden flex items-center justify-center w-10 h-10 rounded-full border border-stone-200 bg-stone-50 text-stone-800 cursor-pointer hover:bg-stone-100"
           aria-label="Toggle menu"
         >
           {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -163,10 +145,10 @@ export default function Navbar({ currentView, setView, onBookCallClicked }: Navb
 
       {/* Full-screen mobile overlay menu */}
       {mobileMenuOpen && (
-        <div id="mobile-menu-overlay" className="fixed inset-0 bg-black z-[999] flex flex-col items-center justify-center p-6 text-center animate-fade-in text-white">
+        <div id="mobile-menu-overlay" className="fixed inset-0 bg-white z-[999] flex flex-col items-center justify-center p-6 text-center animate-fade-in text-stone-950">
           {/* Logo in top left of overlay */}
           <div className="absolute top-6 left-6 flex items-center">
-            <span className="font-sans text-xl font-bold text-white flex items-center">
+            <span className="font-sans text-xl font-bold text-stone-900 flex items-center">
               VikEdit
               <svg
                 viewBox="0 0 24 24"
@@ -183,41 +165,41 @@ export default function Navbar({ currentView, setView, onBookCallClicked }: Navb
 
           <button
             onClick={() => setMobileMenuOpen(false)}
-            className="absolute top-6 right-6 w-10 h-10 rounded-full border border-neutral-800 bg-neutral-900 flex items-center justify-center text-white"
+            className="absolute top-6 right-6 w-10 h-10 rounded-full border border-stone-200 bg-stone-50 flex items-center justify-center text-stone-850 hover:bg-stone-100"
           >
             <X className="w-5 h-5" />
           </button>
 
           {/* Links stack list */}
-          <div className="space-y-8 my-auto">
+          <div className="space-y-8 my-auto w-full">
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => handleNavClick(link.id)}
-                className={`block text-3xl font-bold tracking-tight text-center w-full ${
+                className={`block text-3xl font-extrabold tracking-tight text-center w-full ${
                   currentView === link.id
-                    ? "text-blue-500 underline underline-offset-8"
-                    : "text-white/70 hover:text-white"
+                    ? "text-blue-600 underline underline-offset-8"
+                    : "text-stone-600 hover:text-black"
                 }`}
               >
                 {link.label}
               </button>
             ))}
 
-            <div className="pt-8">
+            <div className="pt-8 flex justify-center">
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onBookCallClicked();
                 }}
-                className="bg-white text-black w-full max-w-xs py-4 rounded-full text-sm font-bold uppercase tracking-wider shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                className="bg-[#013AE0] text-white w-full max-w-xs py-4 rounded-full text-sm font-bold uppercase tracking-wider shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer"
               >
                 Book a Call
               </button>
             </div>
           </div>
 
-          <div className="pb-4 text-xs text-[#999999] font-mono">
+          <div className="pb-4 text-xs text-stone-500 font-mono">
             © 2026 VikEdit • Crafted for Retention
           </div>
         </div>

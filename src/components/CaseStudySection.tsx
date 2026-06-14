@@ -51,7 +51,7 @@ function AnimCounter({ targetValue }: { targetValue: string }) {
   return (
     <span 
       ref={ref} 
-      className="font-sans text-5xl md:text-6xl font-extrabold tracking-tight text-white"
+      className="font-sans text-5xl md:text-6xl font-extrabold tracking-tight text-stone-900"
       style={{ willChange: "transform", transform: "translateZ(0)" }}
     >
       {current || targetValue}
@@ -76,28 +76,28 @@ export default function CaseStudySection() {
                 isReversed ? "lg:order-2" : "lg:order-1"
               }`}
             >
-              <h3 className="text-3xl md:text-5xl font-sans font-bold tracking-tight leading-tight mb-6 bg-gradient-to-b from-white via-stone-200 to-stone-400 bg-clip-text text-transparent drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] select-none">
+              <h3 className="text-3xl md:text-5xl font-sans font-extrabold tracking-tight leading-tight mb-6 text-stone-900 select-none">
                 {study.title}{" "}
-                <span className="italic font-serif font-normal bg-gradient-to-b from-white via-stone-200 to-stone-400 bg-clip-text text-transparent">
+                <span className="font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">
                   {study.italicWord}
                 </span>
               </h3>
               
-              <p className="text-stone-300 text-sm md:text-base leading-relaxed mb-8 max-w-xl">
+              <p className="text-stone-600 text-sm md:text-base leading-relaxed mb-8 max-w-xl">
                 {study.description}
               </p>
 
               {/* Dynamic Metrics Row */}
-              <div id="metrics-grid-element" className="grid grid-cols-2 gap-6 sm:gap-10 border-t border-neutral-800 pt-8">
+              <div id="metrics-grid-element" className="grid grid-cols-2 gap-6 sm:gap-10 border-t border-stone-200 pt-8">
                 {study.metrics.map((metric, mIdx) => (
                   <div key={mIdx} className="space-y-1">
                     <div className="flex items-baseline mb-1">
                       <AnimCounter targetValue={metric.value} />
                     </div>
-                    <div className="text-xs uppercase font-bold tracking-widest text-[#4482FF]">
+                    <div className="text-xs uppercase font-extrabold tracking-widest text-[#013AE0]">
                       {metric.label}
                     </div>
-                    <div className="text-[11px] text-stone-400 leading-tight">
+                    <div className="text-[11px] text-stone-500 leading-tight">
                       {metric.sublabel}
                     </div>
                   </div>
@@ -111,7 +111,7 @@ export default function CaseStudySection() {
                 isReversed ? "lg:order-1" : "lg:order-2"
               }`}
             >
-              <div className="relative group overflow-hidden rounded-3xl border-4 border-[#3b82f6] shadow-[0_0_20px_rgba(59,130,246,0.6)] hover:shadow-[0_0_30px_rgba(59,130,246,0.85)] transition-all duration-300 cursor-pointer">
+              <div className="relative group overflow-hidden rounded-3xl border-2 border-stone-200 bg-stone-50 shadow-[0_12px_45px_rgba(0,0,0,0.06)] hover:border-blue-500/50 hover:shadow-[0_16px_50px_rgba(59,130,246,0.1)] transition-all duration-300 cursor-pointer">
                 <img
                   src={study.imageUrl}
                   alt={study.overlayText}

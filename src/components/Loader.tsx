@@ -29,7 +29,7 @@ export default function Loader({ onComplete }: LoaderProps) {
   return (
     <div
       id="root-loader"
-      className="fixed inset-0 bg-[#000000] z-[10000] flex flex-col items-center justify-center p-6 text-white"
+      className="fixed inset-0 bg-[#ffffff] z-[10000] flex flex-col items-center justify-center p-6 text-stone-900"
     >
       <div className="relative flex flex-col items-center justify-center">
         {/* Modern play loader rotating spinner */}
@@ -51,7 +51,7 @@ export default function Loader({ onComplete }: LoaderProps) {
               stroke="currentColor"
               strokeWidth="1.5"
               strokeLinecap="round"
-              className="w-full h-full text-white"
+              className="w-full h-full text-blue-600"
             >
               <circle
                 cx="12"
@@ -74,7 +74,7 @@ export default function Loader({ onComplete }: LoaderProps) {
               stroke="currentColor"
               strokeWidth="1.5"
               strokeLinecap="round"
-              className="w-full h-full text-white filter drop-shadow-[0_0_20px_rgba(59,130,246,0.95)] drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
+              className="w-full h-full text-blue-600 filter drop-shadow-[0_0_20px_rgba(59,130,246,0.5)] drop-shadow-[0_0_8px_rgba(59,130,246,0.3)]"
             >
               <path
                 d="M8.7 7.5v9c0 .4.4.6.8.4l7.5-4.5c.3-.2.3-.6 0-.8L9.5 7.1c-.4-.2-.8 0-.8.4z"

@@ -32,11 +32,11 @@ import Navbar from "./components/Navbar";
 import Marquee from "./components/Marquee";
 import ContactForm from "./components/ContactForm";
 import InteractivePhone from "./components/InteractivePhone";
-import CaseStudySection from "./components/CaseStudySection";
 import ComparisonTable from "./components/ComparisonTable";
 import { TestimonialsSection } from "./components/TestimonialsSection";
 import FaqSection from "./components/FaqSection";
 import ProcessCard from "./components/ProcessCard";
+import ProblemsAndSolutions from "./components/ProblemsAndSolutions";
 
 import { 
   SERVICE_ITEMS, 
@@ -196,7 +196,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "High Retention",
     title: "Short-Form Content",
     description: "High-retention Reels & Shorts with fast-paced cuts, eye-catching captions, and motion graphics that stop the scroll.",
-    image: "https://images2.imgbox.com/21/20/bZ2VNuja_o.png"
+    image: "https://images2.imgbox.com/f0/73/wtvEUA5A_o.png"
   },
   {
     id: "long-form-repurposing",
@@ -204,7 +204,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "Repurposing",
     title: "Long-Form Repurposing",
     description: "Turn your hour-long podcast into 10+ bite-sized clips. We extract the best moments so one recording fuels weeks of content.",
-    image: "https://images2.imgbox.com/96/d0/yx2ys49b_o.png"
+    image: "https://images2.imgbox.com/c3/e6/FamnGI4T_o.png"
   },
   {
     id: "multi-platform-formatting",
@@ -212,7 +212,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "Optimization",
     title: "Multi-Platform Formatting",
     description: "We resize and reformat content for Instagram, YouTube, and LinkedIn so it looks native and performs better everywhere.",
-    image: "https://images2.imgbox.com/eb/cc/6UEUkWxn_o.png"
+    image: "https://images2.imgbox.com/97/db/CHlBSBFQ_o.png"
   },
   {
     id: "corporate-courses",
@@ -220,7 +220,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "Professional",
     title: "Corporate & Courses",
     description: "Polished webinars, training videos, and marketing content. We make your business content look professional and engaging.",
-    image: "https://images2.imgbox.com/44/f9/oj2ZFV3S_o.png"
+    image: "https://images2.imgbox.com/b3/33/BHj9V9NL_o.png"
   },
   {
     id: "faceless-content",
@@ -228,7 +228,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "New Service",
     title: "Faceless Content",
     description: "AI voiceovers, stock footage, and kinetic typography. Build authority and grow audiences without ever showing your face.",
-    image: "https://images2.imgbox.com/a5/48/aCQQEenH_o.png"
+    image: "https://images2.imgbox.com/f3/d9/u3x3jzgV_o.png"
   },
   {
     id: "content-workflow",
@@ -236,7 +236,7 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
     tag: "Systematic",
     title: "Content Workflow",
     description: "Upload your raw footage. We handle the rest editing, revisions, formatting, and delivery. No back-and-forth chaos.",
-    image: "https://images2.imgbox.com/a0/b7/8mYD7omb_o.png"
+    image: "https://images2.imgbox.com/1b/bd/myKNQicA_o.png"
   }
 ];
 
@@ -386,7 +386,7 @@ const renderFacelessPreviewMockup = (index: number) => {
                   color: ["#FFFFFF", "#FACC15", "#FFFFFF", "#FFFFFF"]
                 }} 
                 transition={{ repeat: Infinity, duration: 1.8, delay: 0.3, ease: "easeInOut" }}
-                className="text-2xl font-serif italic text-yellow-400 leading-none block"
+                className="text-2xl font-serif text-yellow-400 leading-none block"
               >
                 RULE
               </motion.span>
@@ -980,7 +980,7 @@ const renderPreviewMockup = (index: number) => {
                 <div className="w-full h-8 bg-stone-100 rounded flex items-center justify-center">
                   <span className="text-[9px] text-[#6B6B6B]">Visual Crop Zone</span>
                 </div>
-                <p className="text-[8px] font-serif leading-none italic text-center">Optimized safe spacing block</p>
+                <p className="text-[8px] font-serif leading-none text-center">Optimized safe spacing block</p>
               </div>
               <div className="bg-[#F5F3EF] p-0.5 rounded text-[8px] text-[#6B6B6B] block font-mono text-center">1080 x 1080px</div>
             </motion.div>
@@ -1243,7 +1243,7 @@ export default function App() {
   }, [currentView]);
 
   return (
-    <div className="bg-black min-h-screen text-stone-200 relative selection:bg-neutral-800 selection:text-white overflow-x-hidden">
+    <div className="bg-white min-h-screen text-stone-800 relative selection:bg-blue-100 selection:text-blue-900 overflow-x-hidden">
       {/* Dynamic interactive custom cursor pointer */}
       <Cursor />
 
@@ -1282,13 +1282,13 @@ export default function App() {
                   className="space-y-0"
                 >
                   {/* SECTION 2: HERO WITH 3D LIVE MOVE VORTEX BG */}
-                  <div className="relative w-full overflow-hidden bg-black border-b border-neutral-900/60">
+                  <div className="relative w-full overflow-hidden bg-white border-b border-stone-100">
                     {/* Hypnotic 3D rotating star-stair vortex background */}
                     <VortexBackground className="opacity-75" />
 
-                    {/* Pure black vignettes to fade the canvas smoothly into surrounding page sections */}
-                    <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black via-black/40 to-transparent pointer-events-none z-10" />
-                    <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none z-10" />
+                    {/* Pure white vignettes to fade the canvas smoothly into surrounding page sections */}
+                    <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white via-white/40 to-transparent pointer-events-none z-10 opacity-80" />
+                    <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white via-white/40 to-transparent pointer-events-none z-10 opacity-80" />
 
                     <section id="hero-section" className="relative z-20 min-h-screen flex items-center justify-center px-6 sm:px-12 py-16 md:py-24 max-w-7xl mx-auto">
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center w-full">
@@ -1299,9 +1299,9 @@ export default function App() {
                           {/* Headline */}
                           <div className="space-y-4 max-w-2xl">
                             <h1 className="text-6xl sm:text-8xl lg:text-[88px] font-sans font-black bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tighter leading-[0.95] pb-2">
-                              Record Less <br />Post<span className="inline-block ml-2 sm:ml-4 font-serif font-normal italic bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">More.</span>
+                              Record Less <br />Post<span className="inline-block ml-2 sm:ml-4 font-serif font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">More.</span>
                             </h1>
-                            <p className="text-xl sm:text-3xl font-times font-normal text-white/90 tracking-snug leading-snug italic">
+                            <p className="text-xl sm:text-3xl font-times font-normal text-stone-850 tracking-snug leading-snug">
                               Stop worrying about post-production delays <br />& Start scaling your consistency.
                             </p>
                           </div>
@@ -1310,7 +1310,7 @@ export default function App() {
                           <div className="pt-4">
                             <button
                               onClick={() => setView("contact")}
-                              className="bg-white text-black hover:bg-stone-200 hover:scale-105 active:scale-95 transition-all text-sm font-bold uppercase tracking-wider py-4.5 px-10 rounded-full shadow-md cursor-pointer"
+                              className="bg-[#013AE0] text-white hover:bg-blue-700 hover:scale-105 active:scale-95 transition-all text-sm font-bold uppercase tracking-wider py-4.5 px-10 rounded-full shadow-md cursor-pointer border border-[#013AE0]"
                             >
                               BOOK A CALL
                             </button>
@@ -1326,13 +1326,13 @@ export default function App() {
                   </div>
 
                   {/* SECTION 3: TRUST BAR (Client Logos) */}
-                  <section id="trust-bar-section" className="bg-black">
-                    <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-6">
+                  <section id="trust-bar-section" className="bg-[#FCFBF9] border-b border-stone-100">
+                    <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
                       <div className="text-center md:text-left min-w-[200px]">
-                        <span className="text-xs font-mono uppercase tracking-widest text-stone-400 block">
+                        <span className="text-xs font-mono uppercase tracking-widest text-stone-500 block">
                           Trusted by Partners
                         </span>
-                        <p className="text-sm font-semibold text-white mt-1">
+                        <p className="text-sm font-semibold text-stone-800 mt-1">
                           We've Helped Grow and still Continue With
                         </p>
                       </div>
@@ -1342,38 +1342,28 @@ export default function App() {
                     </div>
                   </section>
 
-                  {/* SECTION 7: CASE STUDIES */}
-                  <section id="work-case-studies" className="pt-24 pb-24 md:pt-36 md:pb-36 px-6 sm:px-12 bg-black border-y border-neutral-900">
-                    <div className="max-w-7xl mx-auto space-y-24 md:space-y-32">
-                      <div className="text-center select-none mx-auto max-w-4xl">
-                        <h2 className="text-4xl md:text-6xl font-sans font-bold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-tight">
-                          Liberating creators from <br /> <span className="italic font-serif font-normal bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">post-production.</span>
-                        </h2>
-                      </div>
-
-                      <CaseStudySection />
-                    </div>
-                  </section>
+                  {/* PROBLEMS & SOLUTIONS ZIG-ZAG SECTIONS */}
+                  <ProblemsAndSolutions />
 
                   {/* COMPREHENSIVE SERVICES PORTFOLIO SECTION */}
-                  <section id="services-section" className="w-[100%] bg-black py-24 md:py-36 px-6 sm:px-12 border-t border-neutral-900">
-                    <div className="max-w-7xl mx-auto">
+                  <section id="services-section" className="w-[100%] bg-white py-16 md:py-20 px-6 sm:px-12 border-b border-stone-100">
+                    <div className="max-w-6xl mx-auto">
                       
                       {/* Section Header */}
-                      <div className="text-center md:max-w-3xl mx-auto mb-16 space-y-4">
-                        <span className="text-xs font-mono tracking-widest uppercase text-stone-400 font-bold block">
+                      <div className="text-center max-w-4xl mx-auto mb-8 space-y-2.5">
+                        <span className="text-xs font-mono tracking-widest uppercase text-stone-500 font-bold block">
                           OUR SERVICES
                         </span>
-                        <h2 className="text-4xl md:text-6xl font-serif font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-none text-center">
-                          Things we do <span className="font-serif font-normal italic bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">for you</span>
+                        <h2 className="text-4xl sm:text-5xl md:text-6xl font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-tight text-center">
+                          Things we do <span className="font-serif font-bold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">for you</span>
                         </h2>
-                        <p className="text-sm sm:text-base text-stone-300 leading-relaxed max-w-2xl mx-auto pt-2 text-center">
+                        <p className="text-sm md:text-base text-stone-600 leading-relaxed max-w-2xl mx-auto text-center">
                           No more post-production delays. We transform raw recordings into ready-to-post clips, perfectly formatted for every platform.
                         </p>
                       </div>
 
                       {/* Interactive Filter Navigation */}
-                      <ul className="flex justify-center flex-wrap gap-2 mb-12 list-none p-0 max-w-4xl mx-auto">
+                      <ul className="flex justify-center flex-wrap gap-2 mb-10 list-none p-0 max-w-3xl mx-auto">
                         {[
                           { key: "all", label: "All" },
                           { key: "short-form", label: "Short-Form" },
@@ -1386,10 +1376,10 @@ export default function App() {
                             <li key={btn.key}>
                               <button
                                 onClick={() => setPortfolioFilter(btn.key)}
-                                className={`px-6 py-2.5 font-sans text-sm font-medium rounded-full cursor-pointer transition-all duration-300 ${
+                                className={`px-5 py-2 font-sans text-xs font-medium rounded-full cursor-pointer transition-all duration-300 ${
                                   isActive
-                                    ? "bg-white text-black shadow-sm scale-102"
-                                    : "bg-transparent text-stone-400 hover:text-white"
+                                    ? "bg-[#111111] text-white shadow-xs scale-102"
+                                    : "bg-stone-50 text-stone-650 hover:bg-stone-100/80 hover:text-black"
                                 }`}
                               >
                                 {btn.label}
@@ -1402,7 +1392,7 @@ export default function App() {
                       {/* Dynamic Portfolio Grid with Layout Animations */}
                       <motion.div 
                         layout 
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 md:gap-x-12 lg:gap-x-16 gap-y-16 lg:gap-y-24 max-w-7xl mx-auto"
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto"
                       >
                         <AnimatePresence mode="popLayout">
                           {PORTFOLIO_ITEMS.filter(
@@ -1420,37 +1410,35 @@ export default function App() {
                                 onClick={() => {
                                   setExpandedCardId(isExpanded ? null : item.id);
                                 }}
-                                className="relative rounded-3xl overflow-hidden cursor-pointer group bg-neutral-900 aspect-[9/16] w-full border border-[#3b82f6] shadow-md hover:shadow-2xl transition-all duration-300"
+                                className="p-[1px] md:p-[1.5px] rounded-2xl bg-gradient-to-tr from-[#FBBF24] via-[#F43F5E] via-[#A855F7] to-[#3B82F6] shadow-[0_0_12px_rgba(244,63,94,0.18)] hover:shadow-[0_0_24px_rgba(244,63,94,0.4)] cursor-pointer group aspect-[4/5] w-full transition-all duration-300"
                               >
-                                <img
-                                  src={item.image}
-                                  alt={item.title}
-                                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                                  referrerPolicy="no-referrer"
-                                />
-
-                                {/* Beautiful translucent blue overlay without blur, perfectly interactive */}
-                                <div 
-                                  className={`absolute inset-0 bg-blue-600/25 transition-opacity duration-300 pointer-events-none z-10 md:group-hover:opacity-0 ${
-                                    isExpanded ? "opacity-0" : "opacity-100"
-                                  }`}
-                                />
-                                
-                                {/* Content layer */}
-                                <div className={`absolute bottom-0 left-0 w-full p-6 text-white z-20 transition-transform duration-300 select-none pointer-events-none md:group-hover:-translate-y-1 ${isExpanded ? "-translate-y-1" : ""}`}>
-                                  <span className="text-[9px] uppercase tracking-wider text-white/70 font-mono font-bold mb-1.5 block">
-                                    {item.tag}
-                                  </span>
-                                  <h3 className="font-serif font-semibold text-2xl mb-1.5 leading-tight tracking-tight">
-                                    {item.title}
-                                  </h3>
-                                  <p className={`text-xs sm:text-[13px] text-stone-200/90 leading-relaxed font-sans overflow-hidden transition-all duration-500 ease-in-out ${
-                                    isExpanded 
-                                      ? "max-h-24 opacity-100" 
-                                      : "max-h-0 opacity-0 md:group-hover:max-h-24 md:group-hover:opacity-100"
-                                  }`}>
-                                    {item.description}
-                                  </p>
+                                <div className="relative w-full h-full rounded-[15px] overflow-hidden bg-stone-50">
+                                  <img
+                                    src={item.image}
+                                    alt={item.title}
+                                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                    referrerPolicy="no-referrer"
+                                 />
+                                  
+                                  {/* Text contrast gradient overlay */}
+                                  <div className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none z-10" />
+                                  
+                                  {/* Content layer */}
+                                  <div className={`absolute bottom-0 left-0 w-full p-6 text-white z-20 transition-transform duration-300 select-none pointer-events-none md:group-hover:-translate-y-1 ${isExpanded ? "-translate-y-1" : ""}`}>
+                                    <span className="text-[9px] uppercase tracking-wider text-white/90 font-mono font-bold mb-1.5 block">
+                                      {item.tag}
+                                    </span>
+                                    <h3 className="font-serif font-semibold text-2xl mb-1.5 leading-tight tracking-tight">
+                                      {item.title}
+                                    </h3>
+                                    <p className={`text-xs sm:text-[13px] text-stone-100 leading-relaxed font-sans overflow-hidden transition-all duration-500 ease-in-out ${
+                                      isExpanded 
+                                        ? "max-h-24 opacity-100" 
+                                        : "max-h-0 opacity-0 md:group-hover:max-h-24 md:group-hover:opacity-100"
+                                    }`}>
+                                      {item.description}
+                                    </p>
+                                  </div>
                                 </div>
                               </motion.div>
                             );
@@ -1465,19 +1453,19 @@ export default function App() {
                   {/* SECTION 6: PROCESS (How We Work) */}
                   <section 
                     id="process-section" 
-                    className="relative bg-black pt-12 pb-24 md:pt-16 md:pb-36 px-6 sm:px-12 overflow-hidden border-y border-neutral-900"
+                    className="relative bg-white pt-12 pb-24 md:pt-16 md:pb-36 px-6 sm:px-12 overflow-hidden border-b border-stone-100"
                   >
                     {/* Decorative elegant background glow shapes for subtle branding */}
-                    <div className="absolute top-1/4 left-10 w-96 h-96 rounded-full bg-blue-500/5 blur-[120px] pointer-events-none" />
-                    <div className="absolute bottom-1/4 right-10 w-96 h-96 rounded-full bg-blue-500/5 blur-[120px] pointer-events-none" />
+                    <div className="absolute top-1/4 left-10 w-96 h-96 rounded-full bg-blue-500/3 blur-[120px] pointer-events-none" />
+                    <div className="absolute bottom-1/4 right-10 w-96 h-96 rounded-full bg-blue-500/3 blur-[120px] pointer-events-none" />
 
                     <div className="max-w-7xl mx-auto relative z-10">
                       <div className="text-center mb-16 max-w-3xl mx-auto">
-                        <span className="text-xs font-mono tracking-widest uppercase text-stone-400 block font-bold mb-4">
+                        <span className="text-xs font-mono tracking-widest uppercase text-stone-500 block font-bold mb-4">
                           Work Process
                         </span>
                         <h2 className="text-4xl md:text-6xl font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-tight animate-fade-in">
-                          The Process Behind <span className="italic font-serif font-normal bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">Every Project</span>
+                          The Process Behind <span className="font-serif font-bold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">Every Project</span>
                         </h2>
                       </div>
 
@@ -1509,14 +1497,14 @@ export default function App() {
 
 
                   {/* SECTION 9: COMPARISON TABLE */}
-                  <section id="comparison-section" className="py-24 md:py-36 px-6 sm:px-12 bg-black">
+                  <section id="comparison-section" className="py-24 md:py-36 px-6 sm:px-12 bg-white border-b border-stone-100">
                     <div className="max-w-7xl mx-auto space-y-16">
                       <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16 space-y-4">
-                        <span className="text-xs font-mono tracking-widest uppercase text-stone-400 font-bold block mb-4">
+                        <span className="text-xs font-mono tracking-widest uppercase text-stone-500 font-bold block mb-4">
                           The difference
                         </span>
                         <h2 className="text-4xl md:text-6xl font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-tight">
-                          Why clients choose <span className="font-serif font-normal italic bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">VikEdit</span>
+                          Why clients choose <span className="font-serif font-bold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">VikEdit</span>
                         </h2>
                       </div>
 
@@ -1529,17 +1517,17 @@ export default function App() {
 
                   {/* SECTION 11: CAREERS CTA */}
                   <section id="careers-cta" className="py-16 px-6 sm:px-12 max-w-7xl mx-auto text-center">
-                    <div className="bg-neutral-900 border border-[#3b82f6] max-w-3xl mx-auto rounded-[30px] p-8 md:p-14 space-y-6 shadow-[0_0_15px_rgba(59,130,246,0.28)] hover:shadow-[0_0_25px_rgba(59,130,246,0.5)] transition-shadow duration-300">
-                      <h3 className="text-3xl md:text-5xl font-sans font-extrabold bg-gradient-to-b from-white via-stone-200 to-stone-400 bg-clip-text text-transparent drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] select-none tracking-tight leading-tight">
-                        Join our <span className="font-serif font-normal italic bg-gradient-to-b from-white via-stone-200 to-stone-400 bg-clip-text text-transparent">operations team</span>
+                    <div className="bg-[#FCFBF9] border-2 border-blue-600 max-w-3xl mx-auto rounded-[30px] p-8 md:p-14 space-y-6 shadow-[0_12px_45px_rgba(59,130,246,0.06)] hover:shadow-[0_16px_50px_rgba(59,130,246,0.12)] transition-shadow duration-300">
+                      <h3 className="text-3xl md:text-5xl font-sans font-extrabold text-stone-900 select-none tracking-tight leading-tight">
+                        Join our <span className="font-serif font-bold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">operations team</span>
                       </h3>
-                      <p className="text-sm text-stone-300 leading-relaxed max-w-xl mx-auto">
+                      <p className="text-sm text-stone-600 leading-relaxed max-w-xl mx-auto">
                         We build precision-driven content infrastructure. If you value strategic editing, systematic workflows, and scalable output, apply below.
                       </p>
                       <div className="pt-4">
                         <button
                           onClick={() => setView("contact")}
-                          className="bg-white text-black hover:bg-stone-200 hover:scale-105 active:scale-95 transition-all py-4 px-8 rounded-full text-xs font-bold uppercase tracking-wider cursor-pointer"
+                          className="bg-[#013AE0] text-white hover:bg-blue-700 hover:scale-105 active:scale-95 transition-all py-4 px-8 rounded-full text-xs font-bold uppercase tracking-wider cursor-pointer"
                         >
                           APPLY NOW
                         </button>
@@ -1548,14 +1536,14 @@ export default function App() {
                   </section>
 
                   {/* SECTION 12: FAQ */}
-                  <section id="faq-section" className="py-24 md:py-36 px-6 sm:px-12 bg-black border-y border-neutral-900">
+                  <section id="faq-section" className="py-24 md:py-36 px-6 sm:px-12 bg-white border-y border-stone-100">
                     <div className="max-w-7xl mx-auto">
                       <div className="text-center space-y-4 mb-16">
-                        <span className="text-xs font-mono tracking-widest uppercase text-stone-400 font-bold block">
+                        <span className="text-xs font-mono tracking-widest uppercase text-stone-500 font-bold block">
                           Questions
                         </span>
                         <h2 className="text-3xl md:text-5xl font-sans font-bold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">
-                          Frequently <span className="italic font-serif font-normal bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">Asked Questions</span>
+                          Frequently <span className="font-serif font-bold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">Asked Questions</span>
                         </h2>
                       </div>
 
@@ -1576,12 +1564,12 @@ export default function App() {
                               animate={{ opacity: 1, y: 0 }}
                               exit={{ opacity: 0, scale: 0.98 }}
                               transition={{ duration: 0.4 }}
-                              className="w-full bg-neutral-900 rounded-[24px] border border-neutral-800 shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-8 sm:p-12 text-left transform-gpu"
+                              className="w-full bg-[#FCFBF9] rounded-[24px] border border-stone-200 shadow-[0_20px_50px_rgba(0,0,0,0.03)] p-8 sm:p-12 text-left transform-gpu"
                             >
-                              <h3 className="font-serif font-bold text-4xl sm:text-5xl text-white mb-5 tracking-tight leading-tight">
-                                Let's make this <span className="italic font-serif font-normal bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">easy for you.</span>
+                              <h3 className="font-sans font-extrabold text-4xl sm:text-5xl text-stone-900 mb-5 tracking-tight leading-tight">
+                                Let's make this <span className="font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">easy for you.</span>
                               </h3>
-                              <p className="font-sans text-xs sm:text-sm text-stone-300 leading-relaxed mb-8">
+                              <p className="font-sans text-xs sm:text-sm text-stone-600 leading-relaxed mb-8">
                                 Your content deserves a system that works. Share your goals below, and we'll show you how to publish consistently without the overhead. We respond within 24 hours.
                               </p>
 
@@ -1627,7 +1615,7 @@ export default function App() {
                                   value={ctaName}
                                   onChange={(e) => setCtaName(e.target.value)}
                                   required
-                                  className="w-full bg-neutral-950 border border-neutral-800 rounded-[8px] py-[14px] px-4 font-sans text-sm text-white placeholder:text-stone-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all duration-300"
+                                  className="w-full bg-white border border-stone-200 rounded-[8px] py-[14px] px-4 font-sans text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/10 transition-all duration-300"
                                 />
 
                                 {/* Email Input */}
@@ -1637,27 +1625,27 @@ export default function App() {
                                   value={ctaEmail}
                                   onChange={(e) => setCtaEmail(e.target.value)}
                                   required
-                                  className="w-full bg-neutral-950 border border-neutral-800 rounded-[8px] py-[14px] px-4 font-sans text-sm text-white placeholder:text-stone-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all duration-300"
+                                  className="w-full bg-white border border-stone-200 rounded-[8px] py-[14px] px-4 font-sans text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/10 transition-all duration-300"
                                 />
 
                                 {/* Phone Input */}
-                                <div className="flex items-center bg-neutral-950 border border-neutral-800 rounded-[8px] overflow-hidden focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500/20 transition-all duration-300">
-                                  <div className="relative flex items-center bg-neutral-900 border-r border-neutral-800">
+                                <div className="flex items-center bg-white border border-stone-200 rounded-[8px] overflow-hidden focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500/10 transition-all duration-300">
+                                  <div className="relative flex items-center bg-stone-50 border-r border-stone-200">
                                     <select
                                       value={ctaCountryCode}
                                       onChange={(e) => setCtaCountryCode(e.target.value)}
-                                      className="py-[14px] pl-4 pr-10 bg-neutral-900 text-sm font-medium text-stone-300 appearance-none focus:outline-none cursor-pointer font-sans"
+                                      className="py-[14px] pl-4 pr-10 bg-stone-50 text-sm font-medium text-stone-700 appearance-none focus:outline-none cursor-pointer font-sans border-none"
                                     >
-                                      <option className="bg-neutral-950 text-white" value="+91">+91 (IN)</option>
-                                      <option className="bg-neutral-950 text-white" value="+1">+1 (US)</option>
-                                      <option className="bg-neutral-950 text-white" value="+44">+44 (UK)</option>
-                                      <option className="bg-neutral-950 text-white" value="+61">+61 (AU)</option>
-                                      <option className="bg-neutral-950 text-white" value="+49">+49 (DE)</option>
-                                      <option className="bg-neutral-950 text-white" value="+33">+33 (FR)</option>
-                                      <option className="bg-neutral-950 text-white" value="+81">+81 (JP)</option>
-                                      <option className="bg-neutral-950 text-white" value="+65">+65 (SG)</option>
-                                      <option className="bg-neutral-950 text-white" value="+971">+971 (AE)</option>
-                                      <option className="bg-neutral-950 text-white" value="+55">+55 (BR)</option>
+                                      <option className="bg-white text-stone-950" value="+91">+91 (IN)</option>
+                                      <option className="bg-white text-stone-950" value="+1">+1 (US)</option>
+                                      <option className="bg-white text-stone-950" value="+44">+44 (UK)</option>
+                                      <option className="bg-white text-stone-950" value="+61">+61 (AU)</option>
+                                      <option className="bg-white text-stone-950" value="+49">+49 (DE)</option>
+                                      <option className="bg-white text-stone-950" value="+33">+33 (FR)</option>
+                                      <option className="bg-white text-stone-950" value="+81">+81 (JP)</option>
+                                      <option className="bg-white text-stone-950" value="+65">+65 (SG)</option>
+                                      <option className="bg-white text-stone-950" value="+971">+971 (AE)</option>
+                                      <option className="bg-white text-stone-950" value="+55">+55 (BR)</option>
                                     </select>
                                     <div className="absolute right-3.5 pointer-events-none text-stone-400">
                                       <svg className="w-3.5 h-3.5 fill-none stroke-current" strokeWidth="2.5" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
@@ -1670,7 +1658,7 @@ export default function App() {
                                     placeholder="Phone Number with Country Code"
                                     value={ctaPhone}
                                     onChange={(e) => setCtaPhone(e.target.value)}
-                                    className="flex-1 border-none focus:outline-none focus:ring-0 py-[14px] px-4 font-sans text-sm text-white placeholder:text-stone-500 bg-transparent"
+                                    className="flex-1 border-none focus:outline-none focus:ring-0 py-[14px] px-4 font-sans text-sm text-stone-900 placeholder:text-stone-400 bg-transparent"
                                   />
                                 </div>
 
@@ -1680,7 +1668,7 @@ export default function App() {
                                   required
                                   value={ctaMessage}
                                   onChange={(e) => setCtaMessage(e.target.value)}
-                                  className="w-full bg-neutral-950 border border-neutral-800 rounded-[8px] py-[14px] px-4 font-sans text-sm text-white placeholder:text-stone-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all duration-300 resize-y min-h-[120px]"
+                                  className="w-full bg-white border border-stone-200 rounded-[8px] py-[14px] px-4 font-sans text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/10 transition-all duration-300 resize-y min-h-[120px]"
                                 />
 
                                 {/* Submit button */}
@@ -1692,11 +1680,11 @@ export default function App() {
                                 <button
                                   type="submit"
                                   disabled={ctaIsSubmitting}
-                                  className="w-full py-4 px-4 bg-white text-black hover:bg-stone-200 disabled:opacity-50 rounded-[8px] font-sans font-bold text-sm transition-all duration-300 uppercase tracking-wider cursor-pointer flex items-center justify-center gap-2 mt-2"
+                                  className="w-full py-4 px-4 bg-[#013AE0] text-white hover:bg-blue-700 disabled:opacity-50 rounded-[8px] font-sans font-bold text-sm transition-all duration-300 uppercase tracking-wider cursor-pointer flex items-center justify-center gap-2 mt-2"
                                 >
                                   {ctaIsSubmitting ? (
                                     <>
-                                      <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                                       <span>Submitting...</span>
                                     </>
                                   ) : (
@@ -1711,16 +1699,16 @@ export default function App() {
                               initial={{ opacity: 0, scale: 0.95 }}
                               animate={{ opacity: 1, scale: 1 }}
                               exit={{ opacity: 0 }}
-                              className="w-full bg-neutral-900 rounded-[24px] border border-neutral-800 shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-6 sm:p-10 text-center mt-6 flex flex-col items-center justify-center min-h-[400px] transform-gpu"
+                              className="w-full bg-[#FCFBF9] rounded-[24px] border border-stone-200 shadow-[0_20px_50px_rgba(0,0,0,0.03)] p-6 sm:p-10 text-center mt-6 flex flex-col items-center justify-center min-h-[400px] transform-gpu"
                             >
                               <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mb-6">
                                 <Check className="w-6 h-6 stroke-[3]" />
                               </div>
-                              <h3 className="text-xl sm:text-2xl font-serif font-bold text-white mb-2">
+                              <h3 className="text-xl sm:text-2xl font-serif font-bold text-stone-900 mb-2">
                                 Inquiry Received
                               </h3>
-                              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed max-w-sm mb-6">
-                                Thank you, <span className="text-blue-400 font-semibold">{ctaName}</span>! Our lead operations crew will review your goals and contact you within 24 hours.
+                              <p className="text-xs sm:text-sm text-stone-600 leading-relaxed max-w-sm mb-6">
+                                Thank you, <span className="text-[#013AE0] font-semibold">{ctaName}</span>! Our lead operations crew will review your goals and contact you within 24 hours.
                               </p>
                               <button
                                 onClick={() => {
@@ -1730,7 +1718,7 @@ export default function App() {
                                   setCtaMessage("");
                                   setCtaIsSubmitted(false);
                                 }}
-                                className="bg-white text-black hover:bg-stone-200 rounded-[8px] px-6 py-3 font-sans text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer"
+                                className="bg-[#013AE0] text-white hover:bg-blue-700 rounded-[8px] px-6 py-3 font-sans text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer"
                               >
                                 Send Another Inquiry
                               </button>
@@ -1758,13 +1746,13 @@ export default function App() {
                   className="max-w-7xl mx-auto px-6 py-16 md:py-24 space-y-24 animate-fade-in"
                 >
                   <div className="max-w-4xl mx-auto text-center space-y-6">
-                    <span className="text-xs font-mono tracking-widest uppercase text-stone-400 font-bold block mb-4">
+                    <span className="text-xs font-mono tracking-widest uppercase text-stone-500 font-bold block mb-4">
                       Our Positioning
                     </span>
-                    <h1 className="text-4xl md:text-6xl font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-none text-center">
-                      We're not just editors. <span className="font-serif font-normal italic bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent block md:inline">We're your content engine.</span>
+                    <h1 className="text-4xl md:text-6xl font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-tight py-2 text-center">
+                      We're not just editors. <span className="font-serif font-bold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent block md:inline">We're your content engine.</span>
                     </h1>
-                    <p className="text-base md:text-lg text-stone-300 leading-relaxed pt-2 text-center">
+                    <p className="text-base md:text-lg text-stone-600 leading-relaxed pt-2 text-center">
                       While others deliver files, we deliver consistency. VikEdit operates as your outsourced content department handling the entire post-production workflow so you can focus on what you do best! creating, coaching, and growing your business.
                     </p>
                   </div>
@@ -1772,18 +1760,18 @@ export default function App() {
                   {/* Team / Leadership section */}
                   <div className="space-y-16">
                     <div className="space-y-4 text-center">
-                      <span className="text-xs font-mono tracking-widest uppercase text-stone-400 font-bold block">
+                      <span className="text-xs font-mono tracking-widest uppercase text-stone-500 font-bold block">
                         Our leadership
                       </span>
                       <h2 className="text-3xl md:text-5xl font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-tight">
-                        Our leadership <span className="font-serif font-normal italic bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">crew</span>
+                        Our leadership <span className="font-serif font-bold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">crew</span>
                       </h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
                       {TEAM_MEMBERS.map((member) => (
                         <div key={member.id} className="space-y-4 group cursor-pointer text-center flex flex-col items-center">
-                          <div className="relative overflow-hidden rounded-full w-52 h-52 sm:w-56 sm:h-56 bg-neutral-900 border border-neutral-800 shadow-sm flex-shrink-0">
+                          <div className="relative overflow-hidden rounded-full w-52 h-52 sm:w-56 sm:h-56 bg-stone-100 border border-stone-200 shadow-sm flex-shrink-0">
                             <img
                               src={member.photoUrl}
                               alt={member.name}
@@ -1792,8 +1780,8 @@ export default function App() {
                             />
                           </div>
                           <div className="pt-2">
-                            <h3 className="text-xl font-bold text-white">{member.name}</h3>
-                            <p className="text-xs uppercase font-semibold text-stone-400 tracking-wider mt-1">{member.role}</p>
+                            <h3 className="text-xl font-bold text-stone-900">{member.name}</h3>
+                            <p className="text-xs uppercase font-semibold text-stone-500 tracking-wider mt-1">{member.role}</p>
                           </div>
                         </div>
                       ))}
@@ -1801,55 +1789,55 @@ export default function App() {
                   </div>
 
                   {/* Growth phases */}
-                  <div className="bg-neutral-900 border border-neutral-800/80 p-8 md:p-16 rounded-[40px] space-y-12 shadow-[0_4px_30px_rgba(0,0,0,0.4)]">
+                  <div className="bg-[#FCFBF9] border border-stone-200/85 p-8 md:p-16 rounded-[40px] space-y-12 shadow-[0_4px_30px_rgba(0,0,0,0.02)]">
                     <div className="space-y-4 text-left">
-                      <span className="text-xs font-mono tracking-widest uppercase text-stone-400 font-bold block">
+                      <span className="text-xs font-mono tracking-widest uppercase text-stone-500 font-bold block">
                         Growth Phases
                       </span>
-                      <h2 className="text-3xl md:text-5xl font-sans font-extrabold text-white tracking-tight">
-                        Where we are. <span className="font-serif font-normal italic bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">Where we're going.</span>
+                      <h2 className="text-3xl md:text-5xl font-sans font-extrabold text-stone-900 tracking-tight">
+                        Where we are. <span className="font-serif font-bold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">Where we're going.</span>
                       </h2>
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-4">
                       {/* Phase 1 */}
-                      <div className="border border-neutral-800 p-8 rounded-3xl space-y-4 hover:border-[#3b82f6]/30 transition-all duration-300 bg-neutral-950/40">
+                      <div className="border border-stone-200 p-8 rounded-3xl space-y-4 hover:border-[#3b82f6]/30 transition-all duration-300 bg-white shadow-xs">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-mono tracking-wider uppercase font-bold text-stone-500">Phase 1</span>
-                          <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider">
+                          <span className="text-xs font-mono tracking-wider uppercase font-bold text-stone-400">Phase 1</span>
+                          <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider">
                             Current
                           </span>
                         </div>
-                        <h3 className="text-xl font-sans font-bold text-white text-left">Repurposing Studio</h3>
-                        <p className="text-sm text-stone-300 leading-relaxed text-left">
+                        <h3 className="text-xl font-sans font-bold text-stone-950 text-left">Repurposing Studio</h3>
+                        <p className="text-sm text-stone-600 leading-relaxed text-left">
                           We transform one recording into weeks of content. Strategic clipping, platform specific formatting, and high retention edits delivered consistently so you never run dry on content.
                         </p>
                       </div>
 
                       {/* Phase 2 */}
-                      <div className="border border-neutral-800 p-8 rounded-3xl space-y-4 hover:border-[#3b82f6]/30 transition-all duration-300 bg-neutral-950/40">
+                      <div className="border border-stone-200 p-8 rounded-3xl space-y-4 hover:border-[#3b82f6]/30 transition-all duration-300 bg-white shadow-xs">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-mono tracking-wider uppercase font-bold text-stone-500">Phase 2</span>
-                          <span className="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider">
+                          <span className="text-xs font-mono tracking-wider uppercase font-bold text-stone-400">Phase 2</span>
+                          <span className="bg-blue-50 text-blue-700 border border-blue-200 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider">
                             Next
                           </span>
                         </div>
-                        <h3 className="text-xl font-sans font-bold text-white text-left">Content Operations</h3>
-                        <p className="text-sm text-stone-300 leading-relaxed text-left">
+                        <h3 className="text-xl font-sans font-bold text-stone-950 text-left">Content Operations</h3>
+                        <p className="text-sm text-stone-600 leading-relaxed text-left">
                           Full workflow ownership. We'll handle everything from content strategy and calendar planning to multi-platform scheduling and performance analytics – your complete content backbone.
                         </p>
                       </div>
 
                       {/* Phase 3 */}
-                      <div className="border border-neutral-800 p-8 rounded-3xl space-y-4 hover:border-[#3b82f6]/30 transition-all duration-300 bg-neutral-950/40">
+                      <div className="border border-stone-200 p-8 rounded-3xl space-y-4 hover:border-[#3b82f6]/30 transition-all duration-300 bg-white shadow-xs">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-mono tracking-wider uppercase font-bold text-stone-500">Phase 3</span>
-                          <span className="bg-rose-500/10 text-rose-400 border border-rose-500/20 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider block">
+                          <span className="text-xs font-mono tracking-wider uppercase font-bold text-stone-400">Phase 3</span>
+                          <span className="bg-rose-50 text-rose-700 border border-rose-200 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider block">
                             Future
                           </span>
                         </div>
-                        <h3 className="text-xl font-sans font-bold text-white text-left">Media Ecosystem</h3>
-                        <p className="text-sm text-stone-300 leading-relaxed text-left">
+                        <h3 className="text-xl font-sans font-bold text-stone-950 text-left">Media Ecosystem</h3>
+                        <p className="text-sm text-stone-600 leading-relaxed text-left">
                           End to end production house. Original content development, distribution partnerships, and monetization infrastructure building media assets that generate revenue beyond your core services.
                         </p>
                       </div>
@@ -1875,7 +1863,7 @@ export default function App() {
           </main>
 
           {/* SECTION 14: FOOTER */}
-          <footer className={`bg-neutral-950 border-t border-neutral-900 relative z-30 transform-gpu ${currentView === "home" ? "mt-0" : "mt-24"}`}>
+          <footer className={`bg-stone-50 border-t border-stone-100 relative z-30 transform-gpu ${currentView === "home" ? "mt-0" : "mt-24"}`}>
             <div id="footer-top-grid" className="max-w-7xl mx-auto px-6 sm:px-12 py-16 md:py-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
               {/* Brand Col */}
               <div className="lg:col-span-5 space-y-6">
@@ -1883,7 +1871,7 @@ export default function App() {
                   onClick={() => setView("home")}
                   className="flex items-center cursor-pointer hover:opacity-80 transition-all duration-300 group"
                 >
-                  <span className="font-sans text-5xl md:text-7xl font-extrabold tracking-tighter text-white leading-none select-none flex items-center">
+                  <span className="font-sans text-5xl md:text-7xl font-extrabold tracking-tighter text-stone-900 leading-none select-none flex items-center">
                     VikEdit
                     <svg
                       viewBox="0 0 24 24"
@@ -1897,19 +1885,19 @@ export default function App() {
                     </svg>
                   </span>
                 </div>
-                <p className="text-sm text-stone-400 max-w-sm">
+                <p className="text-sm text-stone-500 max-w-sm">
                   Content operations for expert-led brands. We transform recordings into sustained publishing momentum without internal overhead.
                 </p>
 
                 {/* Social circles */}
                 <div className="flex items-center gap-3">
-                  <a href="#" className="w-10 h-10 rounded-full bg-neutral-900 border border-neutral-800 text-stone-300 flex items-center justify-center hover:bg-neutral-800 hover:text-white transition-all" aria-label="X">
+                  <a href="#" className="w-10 h-10 rounded-full bg-white border border-stone-200 text-stone-600 flex items-center justify-center hover:bg-stone-100 hover:text-stone-900 transition-all" aria-label="X">
                     <Twitter className="w-4 h-4" />
                   </a>
-                  <a href="#" className="w-10 h-10 rounded-full bg-neutral-900 border border-neutral-800 text-stone-300 flex items-center justify-center hover:bg-neutral-800 hover:text-white transition-all" aria-label="Instagram">
+                  <a href="#" className="w-10 h-10 rounded-full bg-white border border-stone-200 text-stone-600 flex items-center justify-center hover:bg-stone-100 hover:text-stone-900 transition-all" aria-label="Instagram">
                     <Instagram className="w-4 h-4" />
                   </a>
-                  <a href="#" className="w-10 h-10 rounded-full bg-neutral-900 border border-neutral-800 text-stone-300 flex items-center justify-center hover:bg-neutral-800 hover:text-white transition-all" aria-label="LinkedIn">
+                  <a href="#" className="w-10 h-10 rounded-full bg-white border border-stone-200 text-stone-600 flex items-center justify-center hover:bg-stone-100 hover:text-stone-900 transition-all" aria-label="LinkedIn">
                     <Linkedin className="w-4 h-4" />
                   </a>
                 </div>
@@ -1917,17 +1905,17 @@ export default function App() {
 
               {/* Navigate Col */}
               <div className="lg:col-span-2 space-y-4">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-200">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-900">
                   NAVIGATE
                 </h4>
-                <ul className="space-y-2.5 text-sm">
+                <ul className="space-y-2.5 text-sm list-none p-0">
                   <li>
                     <button 
                       onClick={() => {
                         setView("home");
                         window.scrollTo({ top: 0, behavior: "smooth" });
                       }} 
-                      className="text-stone-400 hover:text-white transition-colors duration-200 cursor-pointer"
+                      className="text-stone-500 hover:text-stone-950 transition-colors duration-200 cursor-pointer text-left bg-transparent border-none p-0 font-sans"
                     >
                       Home
                     </button>
@@ -1943,7 +1931,7 @@ export default function App() {
                           setTimeout(() => window.history.replaceState(null, "", " "), 850);
                         }
                       }} 
-                      className="text-stone-400 hover:text-white transition-colors duration-200 cursor-pointer"
+                      className="text-stone-500 hover:text-stone-950 transition-colors duration-200 cursor-pointer text-left bg-transparent border-none p-0 font-sans"
                     >
                       Services
                     </button>
@@ -1959,27 +1947,12 @@ export default function App() {
                           setTimeout(() => window.history.replaceState(null, "", " "), 850);
                         }
                       }} 
-                      className="text-stone-400 hover:text-white transition-colors duration-200 cursor-pointer"
+                      className="text-stone-500 hover:text-stone-950 transition-colors duration-200 cursor-pointer text-left bg-transparent border-none p-0 font-sans"
                     >
                       Workflow
                     </button>
                   </li>
-                  <li>
-                    <button 
-                      onClick={() => {
-                        window.location.hash = "work-case-studies";
-                        if (currentView !== "home") {
-                          setView("home");
-                        } else {
-                          document.getElementById("work-case-studies")?.scrollIntoView({ behavior: "smooth", block: "start" });
-                          setTimeout(() => window.history.replaceState(null, "", " "), 850);
-                        }
-                      }} 
-                      className="text-stone-400 hover:text-white transition-colors duration-200 cursor-pointer"
-                    >
-                      Case Studies
-                    </button>
-                  </li>
+
                   <li>
                     <button 
                       onClick={() => {
@@ -1991,7 +1964,7 @@ export default function App() {
                           setTimeout(() => window.history.replaceState(null, "", " "), 850);
                         }
                       }} 
-                      className="text-stone-400 hover:text-white transition-colors duration-200 cursor-pointer"
+                      className="text-stone-500 hover:text-stone-950 transition-colors duration-200 cursor-pointer text-left bg-transparent border-none p-0 font-sans"
                     >
                       FAQ
                     </button>
@@ -2001,27 +1974,27 @@ export default function App() {
 
               {/* Connect Col */}
               <div className="lg:col-span-2 space-y-4">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-200">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-900">
                   CONNECT
                 </h4>
-                <ul className="space-y-2.5 text-sm font-sans">
+                <ul className="space-y-2.5 text-sm list-none p-0 font-sans">
                   <li>
-                    <button onClick={() => setView("contact")} className="text-stone-400 hover:text-white transition-colors duration-200 cursor-pointer">
+                    <button onClick={() => setView("contact")} className="text-stone-500 hover:text-stone-950 transition-colors duration-200 cursor-pointer text-left bg-transparent border-none p-0">
                       Book a Call
                     </button>
                   </li>
                   <li>
-                    <a href="#" className="text-stone-400 hover:text-white transition-colors duration-200">
+                    <a href="#" className="text-stone-500 hover:text-stone-950 transition-colors duration-200">
                       LinkedIn
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="text-stone-400 hover:text-white transition-colors duration-200">
+                    <a href="#" className="text-stone-500 hover:text-stone-950 transition-colors duration-200">
                       Instagram
                     </a>
                   </li>
                   <li>
-                    <button onClick={() => setView("contact")} className="text-stone-400 hover:text-white transition-colors duration-200 cursor-pointer">
+                    <button onClick={() => setView("contact")} className="text-stone-500 hover:text-stone-950 transition-colors duration-200 cursor-pointer text-left bg-transparent border-none p-0">
                       Contact
                     </button>
                   </li>
@@ -2030,27 +2003,27 @@ export default function App() {
 
               {/* Legal Col */}
               <div className="lg:col-span-3 space-y-4">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-200">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-900">
                   LEGAL
                 </h4>
-                <ul className="space-y-2.5 text-sm font-sans">
+                <ul className="space-y-2.5 text-sm font-sans list-none p-0">
                   <li>
-                    <a href="#" className="text-stone-400 hover:text-white transition-colors duration-200">
+                    <a href="#" className="text-stone-500 hover:text-stone-950 transition-colors duration-200">
                       Privacy Policy
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="text-stone-400 hover:text-white transition-colors duration-200">
+                    <a href="#" className="text-stone-500 hover:text-stone-950 transition-colors duration-200">
                       Terms
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="text-stone-400 hover:text-white transition-colors duration-200">
+                    <a href="#" className="text-stone-500 hover:text-stone-950 transition-colors duration-200">
                       Refund Policy
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="text-stone-400 hover:text-white transition-colors duration-200">
+                    <a href="#" className="text-stone-500 hover:text-stone-950 transition-colors duration-200">
                       Sitemap
                     </a>
                   </li>
@@ -2059,9 +2032,9 @@ export default function App() {
             </div>
 
             {/* Bottom copyright segment */}
-            <div className="border-t border-neutral-900 py-8 px-6 sm:px-12">
+            <div className="border-t border-stone-205 py-8 px-6 sm:px-12">
               <div className="max-w-7xl mx-auto flex items-center justify-center gap-4 text-center">
-                <p className="text-xs text-stone-500">
+                <p className="text-xs text-stone-400">
                   © 2026 VikEdit. Created by Vikram Singh Rawat
                 </p>
               </div>
@@ -2073,7 +2046,7 @@ export default function App() {
             href="https://wa.me/918958123147?text=Hi%20Vikedit%2C%20I'm%20interested%20in%20your%20services"
             target="_blank"
             rel="noopener noreferrer"
-            className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 flex items-center justify-center w-14 h-14 bg-black hover:bg-neutral-950 rounded-full shadow-2xl border-[3px] border-emerald-500 hover:border-emerald-400 shadow-emerald-500/10 cursor-pointer text-white focus:outline-none"
+            className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 flex items-center justify-center w-14 h-14 bg-emerald-500 hover:bg-emerald-600 rounded-full shadow-2xl border-[3px] border-white cursor-pointer text-white focus:outline-none shadow-emerald-500/20"
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.95 }}
             initial={{ opacity: 0, scale: 0.8 }}
