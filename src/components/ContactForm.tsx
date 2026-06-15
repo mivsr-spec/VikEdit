@@ -192,7 +192,7 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
                 
                 {/* Operations HQ block */}
                 <div className="mb-8">
-                  <h3 className={`text-xs text-left uppercase tracking-widest font-bold font-mono mb-2 ${isInline ? "text-[#666666]" : "text-blue-400"}`}>
+                  <h3 className={`text-xs text-left uppercase tracking-widest font-bold font-sans mb-2 ${isInline ? "text-[#666666]" : "text-blue-400"}`}>
                     Operations HQ
                   </h3>
                   <p className={`text-[13px] sm:text-sm leading-relaxed text-left ${isInline ? "text-[#111111]" : "text-stone-300"}`}>
@@ -202,7 +202,7 @@ export default function ContactForm({ onBack, isInline = false }: ContactFormPro
 
                 {/* Contact block */}
                 <div className="mb-8">
-                  <h3 className={`text-xs text-left uppercase tracking-widest font-bold font-mono mb-2 ${isInline ? "text-[#666666]" : "text-blue-400"}`}>
+                  <h3 className={`text-xs text-left uppercase tracking-widest font-bold font-sans mb-2 ${isInline ? "text-[#666666]" : "text-blue-400"}`}>
                     Contact
                   </h3>
                   <div className="flex flex-col gap-1 text-left">

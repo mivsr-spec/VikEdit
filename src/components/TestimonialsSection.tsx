@@ -64,7 +64,7 @@ export function TestimonialsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            className="text-xs font-mono tracking-widest uppercase text-stone-500 font-bold block mb-2"
+            className="text-xs font-sans tracking-widest uppercase text-stone-500 font-bold block mb-2"
           >
             TESTIMONIALS
           </motion.span>

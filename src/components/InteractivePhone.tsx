@@ -21,11 +21,11 @@ import {
 // You can freely swap out these image URLs as needed!
 // ========================================================
 const REELS_IMAGES = [
-  "https://images2.imgbox.com/21/d8/OMFR9mNs_o.png",
-  "https://images2.imgbox.com/2c/ed/pAcYEGF9_o.png",
-  "https://images2.imgbox.com/2c/39/CW97SCi6_o.png",
-  "https://images2.imgbox.com/87/f5/CgA0jE1V_o.png",
-  "https://images2.imgbox.com/18/e2/SNI8knAT_o.png"
+  "https://images2.imgbox.com/ea/af/bJ35x45g_o.png",
+  "https://images2.imgbox.com/ea/af/bJ35x45g_o.png",
+  "https://images2.imgbox.com/bb/c2/JACv15RA_o.png",
+  "https://images2.imgbox.com/b4/09/nxStDP57_o.png",
+  "https://images2.imgbox.com/7e/06/OE6zRXNP_o.png"
 ];
 
 export default function InteractivePhone() {

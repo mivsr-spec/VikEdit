@@ -6,7 +6,7 @@ export default function ProblemsAndSolutions() {
       num: "01",
       title: "Stuck in the \"Editing Loop\" instead of scaling",
       description: "You spend endless hours cutting clips, sync-ing audio, adding captions, and fixing formats. By the time the video is ready, you're too exhausted to focus on your actual business growth and planning.",
-      image: "/src/assets/images/exhausted_creator_1781430174385.jpg",
+      image: "https://images2.imgbox.com/ff/f9/CyAtkkSD_o.png",
       alt: "Exhausted content creator slumped over desk under a desk lamp",
       badge: "The Time Sink"
     },
@@ -14,7 +14,7 @@ export default function ProblemsAndSolutions() {
       num: "02",
       title: "Great content that never sees the light of day",
       description: "Your phone storage and hard drives are packed with amazing raw footage, but it just sits there. Days turn into weeks, consistency drops to zero, and your target audience slowly loses attention.",
-      image: "/src/assets/images/overwhelmed_footage_1781430189151.jpg",
+      image: "https://images2.imgbox.com/47/5c/zUagdyOT_o.png",
       alt: "Overwhelmed content creator looking at multiple floating active files",
       badge: "The Backlog Trap"
     },
@@ -22,7 +22,7 @@ export default function ProblemsAndSolutions() {
       num: "03",
       title: "The constant trade-off: speed vs. quality",
       description: "Rushing files leads to sloppy, cheap-looking results. Taking your time means missing trending windows entirely. Either way, your content loses organic reach and the attention it deserves.",
-      image: "/src/assets/images/rushing_creator_1781430204364.jpg",
+      image: "https://images2.imgbox.com/07/20/W6BHjl0h_o.png",
       alt: "Creator frantically matching ticking clock and timeline",
       badge: "The Quality Dilemma"
     }
@@ -33,7 +33,7 @@ export default function ProblemsAndSolutions() {
       num: "01",
       title: "A complete hands-off production system",
       description: "No more shifting through messy timelines or fixing audio levels. Simply upload your raw footage once, and we handle the layout, script editing, corrections, and delivery. Fully refined assets back on schedule.",
-      image: "/src/assets/images/relaxed_creator_1781430218142.jpg",
+      image: "https://images2.imgbox.com/90/40/jA2YwvaJ_o.png",
       alt: "Relaxed content creator enjoying coffee with successful completed video checkmark",
       badge: "Seamless Workflow"
     },
@@ -41,7 +41,7 @@ export default function ProblemsAndSolutions() {
       num: "02",
       title: "Shoot once, post for weeks",
       description: "Multiply your output efficiency. A single recording session is strategically sliced and formatted into 10–15 high-performing short-form clips, keeping you active and highly consistent across multiple channels.",
-      image: "/src/assets/images/content_calendar_1781430233701.jpg",
+      image: "https://images2.imgbox.com/ce/63/bWrlCC58_o.png",
       alt: "Happy creator managing organized content schedule calendar",
       badge: "Consistent Output"
     },
@@ -49,7 +49,7 @@ export default function ProblemsAndSolutions() {
       num: "03",
       title: "High-retention edits built for growth",
       description: "We don't just deliver edits; we engineer videos to perform. Utilizing custom captions, dynamic pacing, and platform-tested hooks that grab viewer attention within 3 seconds and drive engagement metrics upward.",
-      image: "/src/assets/images/creator_growth_1781430247640.jpg",
+      image: "https://images2.imgbox.com/68/d6/CyNkQ1Ks_o.png",
       alt: "Happy creator watching high conversion metrics and engagement go up",
       badge: "Retention First"
     }
@@ -65,7 +65,7 @@ export default function ProblemsAndSolutions() {
         <div className="max-w-7xl mx-auto">
           {/* Section Title */}
           <div className="text-center max-w-4xl mx-auto space-y-4 mb-20 md:mb-28">
-            <span className="text-xs font-mono tracking-widest text-blue-600 uppercase font-bold block">
+            <span className="text-xs font-sans tracking-widest text-blue-600 uppercase font-bold block">
               THE OBSTACLES
             </span>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-sans font-extrabold text-stone-900 tracking-tight leading-tight select-none">
@@ -98,10 +98,10 @@ export default function ProblemsAndSolutions() {
                   {/* Text Container */}
                   <div className="w-full md:w-1/2 space-y-4 md:space-y-6">
                     <div className="flex items-center gap-3">
-                      <span className="text-xs font-mono text-rose-600 font-bold tracking-wider px-2.5 py-1 rounded-full bg-rose-50 border border-rose-100">
+                      <span className="text-xs font-sans text-rose-600 font-bold tracking-wider px-2.5 py-1 rounded-full bg-rose-50 border border-rose-100">
                         {item.badge}
                       </span>
-                      <span className="text-rose-200 text-xs font-mono font-bold">
+                      <span className="text-rose-200 text-xs font-sans font-bold">
                         {item.num}
                       </span>
                     </div>
@@ -138,7 +138,7 @@ export default function ProblemsAndSolutions() {
         <div className="max-w-7xl mx-auto">
           {/* Section Title */}
           <div className="text-center max-w-4xl mx-auto space-y-4 mb-20 md:mb-28">
-            <span className="text-xs font-mono tracking-widest text-blue-600 uppercase font-bold block">
+            <span className="text-xs font-sans tracking-widest text-blue-600 uppercase font-bold block">
               THE RESOLUTION
             </span>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-sans font-extrabold text-stone-900 tracking-tight leading-tight select-none">
@@ -171,10 +171,10 @@ export default function ProblemsAndSolutions() {
                   {/* Text Container */}
                   <div className="w-full md:w-1/2 space-y-4 md:space-y-6">
                     <div className="flex items-center gap-3">
-                      <span className="text-xs font-mono text-blue-600 font-bold tracking-wider px-2.5 py-1 rounded-full bg-blue-50 border border-blue-100">
+                      <span className="text-xs font-sans text-blue-600 font-bold tracking-wider px-2.5 py-1 rounded-full bg-blue-50 border border-blue-100">
                         {item.badge}
                       </span>
-                      <span className="text-blue-200 text-xs font-mono font-bold">
+                      <span className="text-blue-200 text-xs font-sans font-bold">
                         {item.num}
                       </span>
                     </div>

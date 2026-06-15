@@ -18,7 +18,7 @@ export default function ComparisonTable() {
       {/* Left side: Other Agencies */}
       <div className="hidden md:flex bg-stone-50 border border-stone-200 p-8 md:p-12 rounded-3xl flex-col justify-between transition-all duration-300 hover:shadow-xs">
         <div>
-          <span className="text-xs uppercase font-mono font-bold tracking-widest text-stone-500 block mb-2">
+          <span className="text-xs uppercase font-sans font-bold tracking-widest text-stone-500 block mb-2">
             The standard way
           </span>
           <h4 className="text-2xl font-sans font-bold text-stone-700 mb-8 tracking-tight">
@@ -37,7 +37,7 @@ export default function ComparisonTable() {
           </ul>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-stone-200 text-[11px] text-stone-400 font-mono tracking-wider">
+        <div className="mt-12 pt-6 border-t border-stone-200 text-[11px] text-stone-400 font-sans font-medium tracking-wider">
           🚫 Legacy workflows
         </div>
       </div>
@@ -51,7 +51,7 @@ export default function ComparisonTable() {
 
         <div>
           <div className="flex items-center gap-2.5 mb-2">
-            <span className="text-xs uppercase font-mono font-bold tracking-widest text-[#013AE0]">
+            <span className="text-xs uppercase font-sans font-bold tracking-widest text-[#013AE0]">
               The premium route
             </span>
           </div>
@@ -74,7 +74,7 @@ export default function ComparisonTable() {
           </ul>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-stone-200 text-[11px] text-[#013AE0] font-mono font-extrabold tracking-wider uppercase">
+        <div className="mt-12 pt-6 border-t border-stone-200 text-[11px] text-[#013AE0] font-sans font-extrabold tracking-wider uppercase">
           Embedded content infrastructure.
         </div>
       </div>

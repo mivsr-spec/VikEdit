@@ -1329,7 +1329,7 @@ export default function App() {
                   <section id="trust-bar-section" className="bg-[#FCFBF9] border-b border-stone-100">
                     <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
                       <div className="text-center md:text-left min-w-[200px]">
-                        <span className="text-xs font-mono uppercase tracking-widest text-stone-500 block">
+                        <span className="text-xs font-sans uppercase tracking-widest text-stone-500 block">
                           Trusted by Partners
                         </span>
                         <p className="text-sm font-semibold text-stone-800 mt-1">
@@ -1351,7 +1351,7 @@ export default function App() {
                       
                       {/* Section Header */}
                       <div className="text-center max-w-4xl mx-auto mb-8 space-y-2.5">
-                        <span className="text-xs font-mono tracking-widest uppercase text-stone-500 font-bold block">
+                        <span className="text-xs font-sans tracking-widest uppercase text-stone-500 font-bold block">
                           OUR SERVICES
                         </span>
                         <h2 className="text-4xl sm:text-5xl md:text-6xl font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-tight text-center">
@@ -1392,7 +1392,7 @@ export default function App() {
                       {/* Dynamic Portfolio Grid with Layout Animations */}
                       <motion.div 
                         layout 
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto"
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12 max-w-5xl mx-auto"
                       >
                         <AnimatePresence mode="popLayout">
                           {PORTFOLIO_ITEMS.filter(
@@ -1425,7 +1425,7 @@ export default function App() {
                                   
                                   {/* Content layer */}
                                   <div className={`absolute bottom-0 left-0 w-full p-6 text-white z-20 transition-transform duration-300 select-none pointer-events-none md:group-hover:-translate-y-1 ${isExpanded ? "-translate-y-1" : ""}`}>
-                                    <span className="text-[9px] uppercase tracking-wider text-white/90 font-mono font-bold mb-1.5 block">
+                                    <span className="text-[9px] uppercase tracking-wider text-white/90 font-sans font-bold mb-1.5 block">
                                       {item.tag}
                                     </span>
                                     <h3 className="font-serif font-semibold text-2xl mb-1.5 leading-tight tracking-tight">
@@ -1461,7 +1461,7 @@ export default function App() {
 
                     <div className="max-w-7xl mx-auto relative z-10">
                       <div className="text-center mb-16 max-w-3xl mx-auto">
-                        <span className="text-xs font-mono tracking-widest uppercase text-stone-500 block font-bold mb-4">
+                        <span className="text-xs font-sans tracking-widest uppercase text-stone-500 block font-bold mb-4">
                           Work Process
                         </span>
                         <h2 className="text-4xl md:text-6xl font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-tight animate-fade-in">
@@ -1500,7 +1500,7 @@ export default function App() {
                   <section id="comparison-section" className="py-24 md:py-36 px-6 sm:px-12 bg-white border-b border-stone-100">
                     <div className="max-w-7xl mx-auto space-y-16">
                       <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16 space-y-4">
-                        <span className="text-xs font-mono tracking-widest uppercase text-stone-500 font-bold block mb-4">
+                        <span className="text-xs font-sans tracking-widest uppercase text-stone-500 font-bold block mb-4">
                           The difference
                         </span>
                         <h2 className="text-4xl md:text-6xl font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-tight">
@@ -1539,7 +1539,7 @@ export default function App() {
                   <section id="faq-section" className="py-24 md:py-36 px-6 sm:px-12 bg-white border-y border-stone-100">
                     <div className="max-w-7xl mx-auto">
                       <div className="text-center space-y-4 mb-16">
-                        <span className="text-xs font-mono tracking-widest uppercase text-stone-500 font-bold block">
+                        <span className="text-xs font-sans tracking-widest uppercase text-stone-500 font-bold block">
                           Questions
                         </span>
                         <h2 className="text-3xl md:text-5xl font-sans font-bold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent">
@@ -1746,7 +1746,7 @@ export default function App() {
                   className="max-w-7xl mx-auto px-6 py-16 md:py-24 space-y-24 animate-fade-in"
                 >
                   <div className="max-w-4xl mx-auto text-center space-y-6">
-                    <span className="text-xs font-mono tracking-widest uppercase text-stone-500 font-bold block mb-4">
+                    <span className="text-xs font-sans tracking-widest uppercase text-stone-500 font-bold block mb-4">
                       Our Positioning
                     </span>
                     <h1 className="text-4xl md:text-6xl font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-tight py-2 text-center">
@@ -1760,7 +1760,7 @@ export default function App() {
                   {/* Team / Leadership section */}
                   <div className="space-y-16">
                     <div className="space-y-4 text-center">
-                      <span className="text-xs font-mono tracking-widest uppercase text-stone-500 font-bold block">
+                      <span className="text-xs font-sans tracking-widest uppercase text-stone-500 font-bold block">
                         Our leadership
                       </span>
                       <h2 className="text-3xl md:text-5xl font-sans font-extrabold bg-gradient-to-b from-[#3B82F6] to-[#013AE0] bg-clip-text text-transparent tracking-tight leading-tight">
@@ -1791,7 +1791,7 @@ export default function App() {
                   {/* Growth phases */}
                   <div className="bg-[#FCFBF9] border border-stone-200/85 p-8 md:p-16 rounded-[40px] space-y-12 shadow-[0_4px_30px_rgba(0,0,0,0.02)]">
                     <div className="space-y-4 text-left">
-                      <span className="text-xs font-mono tracking-widest uppercase text-stone-500 font-bold block">
+                      <span className="text-xs font-sans tracking-widest uppercase text-stone-500 font-bold block">
                         Growth Phases
                       </span>
                       <h2 className="text-3xl md:text-5xl font-sans font-extrabold text-stone-900 tracking-tight">
@@ -1803,7 +1803,7 @@ export default function App() {
                       {/* Phase 1 */}
                       <div className="border border-stone-200 p-8 rounded-3xl space-y-4 hover:border-[#3b82f6]/30 transition-all duration-300 bg-white shadow-xs">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-mono tracking-wider uppercase font-bold text-stone-400">Phase 1</span>
+                          <span className="text-xs font-sans tracking-wider uppercase font-bold text-stone-400">Phase 1</span>
                           <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider">
                             Current
                           </span>
@@ -1817,7 +1817,7 @@ export default function App() {
                       {/* Phase 2 */}
                       <div className="border border-stone-200 p-8 rounded-3xl space-y-4 hover:border-[#3b82f6]/30 transition-all duration-300 bg-white shadow-xs">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-mono tracking-wider uppercase font-bold text-stone-400">Phase 2</span>
+                          <span className="text-xs font-sans tracking-wider uppercase font-bold text-stone-400">Phase 2</span>
                           <span className="bg-blue-50 text-blue-700 border border-blue-200 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider">
                             Next
                           </span>
@@ -1831,7 +1831,7 @@ export default function App() {
                       {/* Phase 3 */}
                       <div className="border border-stone-200 p-8 rounded-3xl space-y-4 hover:border-[#3b82f6]/30 transition-all duration-300 bg-white shadow-xs">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-mono tracking-wider uppercase font-bold text-stone-400">Phase 3</span>
+                          <span className="text-xs font-sans tracking-wider uppercase font-bold text-stone-400">Phase 3</span>
                           <span className="bg-rose-50 text-rose-700 border border-rose-200 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider block">
                             Future
                           </span>
@@ -1863,7 +1863,7 @@ export default function App() {
           </main>
 
           {/* SECTION 14: FOOTER */}
-          <footer className={`bg-stone-50 border-t border-stone-100 relative z-30 transform-gpu ${currentView === "home" ? "mt-0" : "mt-24"}`}>
+          <footer className={`bg-black border-t border-stone-900 relative z-30 transform-gpu ${currentView === "home" ? "mt-0" : "mt-24"}`}>
             <div id="footer-top-grid" className="max-w-7xl mx-auto px-6 sm:px-12 py-16 md:py-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
               {/* Brand Col */}
               <div className="lg:col-span-5 space-y-6">
@@ -1871,7 +1871,7 @@ export default function App() {
                   onClick={() => setView("home")}
                   className="flex items-center cursor-pointer hover:opacity-80 transition-all duration-300 group"
                 >
-                  <span className="font-sans text-5xl md:text-7xl font-extrabold tracking-tighter text-stone-900 leading-none select-none flex items-center">
+                  <span className="font-sans text-5xl md:text-7xl font-extrabold tracking-tighter text-white leading-none select-none flex items-center">
                     VikEdit
                     <svg
                       viewBox="0 0 24 24"
@@ -1885,19 +1885,19 @@ export default function App() {
                     </svg>
                   </span>
                 </div>
-                <p className="text-sm text-stone-500 max-w-sm">
+                <p className="text-sm text-stone-400 max-w-sm">
                   Content operations for expert-led brands. We transform recordings into sustained publishing momentum without internal overhead.
                 </p>
 
                 {/* Social circles */}
                 <div className="flex items-center gap-3">
-                  <a href="#" className="w-10 h-10 rounded-full bg-white border border-stone-200 text-stone-600 flex items-center justify-center hover:bg-stone-100 hover:text-stone-900 transition-all" aria-label="X">
+                  <a href="#" className="w-10 h-10 rounded-full bg-stone-905 border border-stone-800 text-stone-400 flex items-center justify-center hover:bg-stone-800 hover:text-white transition-all" aria-label="X">
                     <Twitter className="w-4 h-4" />
                   </a>
-                  <a href="#" className="w-10 h-10 rounded-full bg-white border border-stone-200 text-stone-600 flex items-center justify-center hover:bg-stone-100 hover:text-stone-900 transition-all" aria-label="Instagram">
+                  <a href="#" className="w-10 h-10 rounded-full bg-stone-905 border border-stone-800 text-stone-400 flex items-center justify-center hover:bg-stone-800 hover:text-white transition-all" aria-label="Instagram">
                     <Instagram className="w-4 h-4" />
                   </a>
-                  <a href="#" className="w-10 h-10 rounded-full bg-white border border-stone-200 text-stone-600 flex items-center justify-center hover:bg-stone-100 hover:text-stone-900 transition-all" aria-label="LinkedIn">
+                  <a href="#" className="w-10 h-10 rounded-full bg-stone-905 border border-stone-800 text-stone-400 flex items-center justify-center hover:bg-stone-800 hover:text-white transition-all" aria-label="LinkedIn">
                     <Linkedin className="w-4 h-4" />
                   </a>
                 </div>
@@ -1905,7 +1905,7 @@ export default function App() {
 
               {/* Navigate Col */}
               <div className="lg:col-span-2 space-y-4">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-900">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-200">
                   NAVIGATE
                 </h4>
                 <ul className="space-y-2.5 text-sm list-none p-0">
@@ -1915,7 +1915,7 @@ export default function App() {
                         setView("home");
                         window.scrollTo({ top: 0, behavior: "smooth" });
                       }} 
-                      className="text-stone-500 hover:text-stone-950 transition-colors duration-200 cursor-pointer text-left bg-transparent border-none p-0 font-sans"
+                      className="text-stone-400 hover:text-white transition-colors duration-200 cursor-pointer text-left bg-transparent border-none p-0 font-sans"
                     >
                       Home
                     </button>
@@ -1931,7 +1931,7 @@ export default function App() {
                           setTimeout(() => window.history.replaceState(null, "", " "), 850);
                         }
                       }} 
-                      className="text-stone-500 hover:text-stone-950 transition-colors duration-200 cursor-pointer text-left bg-transparent border-none p-0 font-sans"
+                      className="text-stone-400 hover:text-white transition-colors duration-200 cursor-pointer text-left bg-transparent border-none p-0 font-sans"
                     >
                       Services
                     </button>
@@ -1947,7 +1947,7 @@ export default function App() {
                           setTimeout(() => window.history.replaceState(null, "", " "), 850);
                         }
                       }} 
-                      className="text-stone-500 hover:text-stone-950 transition-colors duration-200 cursor-pointer text-left bg-transparent border-none p-0 font-sans"
+                      className="text-stone-400 hover:text-white transition-colors duration-200 cursor-pointer text-left bg-transparent border-none p-0 font-sans"
                     >
                       Workflow
                     </button>
@@ -1964,7 +1964,7 @@ export default function App() {
                           setTimeout(() => window.history.replaceState(null, "", " "), 850);
                         }
                       }} 
-                      className="text-stone-500 hover:text-stone-950 transition-colors duration-200 cursor-pointer text-left bg-transparent border-none p-0 font-sans"
+                      className="text-stone-400 hover:text-white transition-colors duration-200 cursor-pointer text-left bg-transparent border-none p-0 font-sans"
                     >
                       FAQ
                     </button>
@@ -1974,27 +1974,27 @@ export default function App() {
 
               {/* Connect Col */}
               <div className="lg:col-span-2 space-y-4">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-900">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-200">
                   CONNECT
                 </h4>
                 <ul className="space-y-2.5 text-sm list-none p-0 font-sans">
                   <li>
-                    <button onClick={() => setView("contact")} className="text-stone-500 hover:text-stone-950 transition-colors duration-200 cursor-pointer text-left bg-transparent border-none p-0">
+                    <button onClick={() => setView("contact")} className="text-stone-400 hover:text-white transition-colors duration-200 cursor-pointer text-left bg-transparent border-none p-0">
                       Book a Call
                     </button>
                   </li>
                   <li>
-                    <a href="#" className="text-stone-500 hover:text-stone-950 transition-colors duration-200">
+                    <a href="#" className="text-stone-400 hover:text-white transition-colors duration-200">
                       LinkedIn
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="text-stone-500 hover:text-stone-950 transition-colors duration-200">
+                    <a href="#" className="text-stone-400 hover:text-white transition-colors duration-200">
                       Instagram
                     </a>
                   </li>
                   <li>
-                    <button onClick={() => setView("contact")} className="text-stone-500 hover:text-stone-950 transition-colors duration-200 cursor-pointer text-left bg-transparent border-none p-0">
+                    <button onClick={() => setView("contact")} className="text-stone-400 hover:text-white transition-colors duration-200 cursor-pointer text-left bg-transparent border-none p-0">
                       Contact
                     </button>
                   </li>
@@ -2003,27 +2003,27 @@ export default function App() {
 
               {/* Legal Col */}
               <div className="lg:col-span-3 space-y-4">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-900">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-200">
                   LEGAL
                 </h4>
                 <ul className="space-y-2.5 text-sm font-sans list-none p-0">
                   <li>
-                    <a href="#" className="text-stone-500 hover:text-stone-950 transition-colors duration-200">
+                    <a href="#" className="text-stone-400 hover:text-white transition-colors duration-200">
                       Privacy Policy
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="text-stone-500 hover:text-stone-950 transition-colors duration-200">
+                    <a href="#" className="text-stone-400 hover:text-white transition-colors duration-200">
                       Terms
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="text-stone-500 hover:text-stone-950 transition-colors duration-200">
+                    <a href="#" className="text-stone-400 hover:text-white transition-colors duration-200">
                       Refund Policy
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="text-stone-500 hover:text-stone-950 transition-colors duration-200">
+                    <a href="#" className="text-stone-400 hover:text-white transition-colors duration-200">
                       Sitemap
                     </a>
                   </li>
@@ -2032,9 +2032,9 @@ export default function App() {
             </div>
 
             {/* Bottom copyright segment */}
-            <div className="border-t border-stone-205 py-8 px-6 sm:px-12">
+            <div className="border-t border-stone-900 py-8 px-6 sm:px-12">
               <div className="max-w-7xl mx-auto flex items-center justify-center gap-4 text-center">
-                <p className="text-xs text-stone-400">
+                <p className="text-xs text-stone-500">
                   © 2026 VikEdit. Created by Vikram Singh Rawat
                 </p>
               </div>
